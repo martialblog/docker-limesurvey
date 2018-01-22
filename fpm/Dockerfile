@@ -1,16 +1,15 @@
 FROM php:7.2-fpm
+ARG version='3.0.4+180116'
 
 # Install OS dependencies
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install --no-install-recommends -y \
     libldap2-dev \
-    libmagickwand-dev \
-    imagemagick-common \
-    libmagickcore-dev \
-    imagemagick \
+    zlib1g-dev \
     libc-client-dev \
     libkrb5-dev \
+    libpng-dev \
     libpq-dev \
     && apt-get autoclean; apt-get autoremove && \
     rm -rf /var/lib/apt/lists/*
@@ -22,19 +21,19 @@ RUN docker-php-ext-configure imap --with-kerberos --with-imap-ssl
 
 # Install PHP Plugins
 RUN docker-php-ext-install -j5 \
-    ldap \
-    imap \
-    mbstring \
-    zip \
     gd \
+    imap \
+    ldap \
+    mbstring \
     pdo \
     pdo_mysql \
+    pdo_pgsql \
     pgsql \
-    pdo_pgsql
+    zip
 
 # Download, unzip and chmod of LimeSurvey
-RUN curl -L https://github.com/LimeSurvey/LimeSurvey/archive/3.0.2+180110.tar.gz -o lime.tar.gz && \
-    tar xzf lime.tar.gz && \
-    mv -t /var/www/html LimeSurvey*/* && \
-    rm -rf LimeSurvey-* lime.tar.gz && \
-    chown www-data:www-data -R /var/www/html
+ADD "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" /tmp
+
+RUN tar xzvf "/tmp/${version}.tar.gz" --strip-components=1 -C /var/www/html/ && \
+    rm "/tmp/${version}.tar.gz" && \
+    chown -R www-data:www-data /var/www/html

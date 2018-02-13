@@ -2,5 +2,9 @@ sudo: required
 language: bash
 services:
   - docker
-script:
- - docker build -t martialblog/limesurvey .
+matrix:
+  include:
+    - env: TEST=limesurvey-apache
+      script: docker build -t martialblog/limesurvey-apache -f apache/Dockerfile .
+    - env: TEST=limesurvey-fpm
+      script: docker build -t martialblog/limesurvey-fpm -f fpm/Dockerfile .

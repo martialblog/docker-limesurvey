@@ -1,4 +1,5 @@
 FROM php:7.2-apache
+LABEL maintainer="markus@martialblog.de"
 ARG version='3.0.4+180116'
 
 # Install OS dependencies

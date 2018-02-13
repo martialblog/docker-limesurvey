@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: apache/Dockerfile
+    volumes:
+      - /tmp/upload/:/var/www/html/upload/
     links:
       - lime-db
     depends_on:

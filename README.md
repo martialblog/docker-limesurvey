@@ -4,3 +4,7 @@
 # LimeSurvey Docker
 
 Dockerfile to build a [LimeSurvey](https://limesurvey.org) image for the Docker container platform.
+
+# Persistence
+
+To preserve the uploaded files assign the upload folder into a volume. See *docker-compose.yml* for details.

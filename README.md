@@ -3,13 +3,13 @@
 
 # LimeSurvey Docker
 
-Dockerfile to build a [LimeSurvey](https://limesurvey.org) image for the Docker container platform.
+Dockerfile to build a [LimeSurvey](https://limesurvey.org) Image for the Docker container platform.
 
 # Using the apache image
 
 The apache image comes with an Apache Webserver and PHP installed.
 
-## Apache Configuration
+# Apache Configuration
 
 To change to Apache Webserver configuration mount a Volume into the Container at:
 
@@ -31,8 +31,13 @@ To preserve the uploaded files assign the upload folder into a volume. See *dock
 
 # LimeSurvey Configuration
 
-To change to LimeSuvey configuration simply mount a Volume into the Container at:
+To change to LimeSurvey configuration simply mount a Volume into the Container at:
 
- - /var/www/html/application/config/config.php
+ - /my-data/config.php:/var/www/html/application/config/config.php
 
-**Hint**: If this configuration is present, the LimeSuvery Installer will not run.
+**Hint**: If this configuration is present, the LimeSurvey Installer will not run.
+
+# References
+
+- https://www.limesurvey.org/
+- https://github.com/LimeSurvey/LimeSurvey/

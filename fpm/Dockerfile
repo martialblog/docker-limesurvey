@@ -1,6 +1,6 @@
 FROM php:7.2-fpm
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.4.4+180305'
+ARG version='3.5.0+180309'
 
 # Install OS dependencies
 RUN apt-get update && \

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 
+import argparse
 import feedparser
 import sys
 import subprocess
@@ -17,12 +18,22 @@ docker_feed = feedparser.parse(docker_feed_url)
 limesv_current_release = limesv_feed.entries[0].title_detail.value
 docker_current_release = docker_feed.entries[0].title_detail.value
 
+argumentparser = argparse.ArgumentParser(description='Updates the LimeSurvey Version in the Dockerfiles')
+argumentparser.add_argument('--noop', dest='noop', action="store_true", required=False, help="Don't push just commit")
+argumentparser.add_argument('--check', dest='check', action="store_true", required=False, help="Only check if there's a new version available")
+
+cmdargs = argumentparser.parse_args()
+
 if limesv_current_release == docker_current_release:
     print('Nothing to do.')
     sys.exit(0)
 
-print('New Version {} available. Upgrading...'.format(limesv_current_release))
-commit_message = 'Update to Version {}'.format(limesv_current_release)
+print('New Version {} available.'.format(limesv_current_release))
+
+if cmdargs.check:
+    sys.exit(0)
+
+commit_message = 'Updating to Version {}'.format(limesv_current_release)
 
 # Dockerfiles
 regexp = 's/[0-9]\.[0-9]\.[0-9]+[0-9]*/{new_version}/'.format(new_version=limesv_current_release)
@@ -37,6 +48,9 @@ subprocess.call(['git', 'add',  dockerfile_fpm])
 subprocess.call(['git', 'commit',  '-m', commit_message])
 subprocess.call(['git', 'tag', limesv_current_release])
 print('> Created new Commit and Tag')
+
+if cmdargs.noop:
+    sys.exit(0)
 
 # Git Push
 # subprocess.call(['git', 'push', 'origin', limesv_current_release])

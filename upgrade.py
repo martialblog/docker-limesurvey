@@ -36,7 +36,7 @@ if cmdargs.check:
 commit_message = 'Updating to Version {}'.format(limesv_current_release)
 
 # Dockerfiles
-regexp = 's/[0-9]\.[0-9]\.[0-9]+[0-9]*/{new_version}/'.format(new_version=limesv_current_release)
+regexp = 's/[0-9]+\.[0-9]+\.[0-9]+[0-9]*/{new_version}/'.format(new_version=limesv_current_release)
 subprocess.call(['sed', '-i', '-e',  regexp, dockerfile_apache])
 subprocess.call(['sed', '-i', '-e',  regexp, dockerfile_fpm])
 print('> Updated Dockerfiles')

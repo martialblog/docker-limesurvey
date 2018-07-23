@@ -40,6 +40,8 @@ RUN tar xzvf "/tmp/${version}.tar.gz" --strip-components=1 -C /var/www/html/ && 
     rm "/tmp/${version}.tar.gz" && \
     chown -R www-data:www-data /var/www/html
 
+EXPOSE 9000
+
 COPY entrypoint.sh entrypoint.sh
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["php-fpm"]

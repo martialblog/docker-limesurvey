@@ -1,0 +1,35 @@
+version: "3.0"
+services:
+  limesurvey:
+    build:
+      context: .
+      dockerfile: fpm/Dockerfile
+    volumes:
+      - /tmp/upload/:/var/www/html/upload/
+      - lime:/var/www/html
+    links:
+      - lime-db
+    depends_on:
+      - lime-db
+    environment:
+      - "DB_HOST=docker-limesurvey_lime-db_1"
+      - "DB_PASSWORD=secret"
+      - "ADMIN_PASSWORD=foobar"
+  lime-web:
+    image: nginx
+    links:
+      - limesurvey
+    ports:
+      - "8080:80"
+    volumes:
+      - ./tests/nginx.conf:/etc/nginx/nginx.conf:ro
+      - lime:/var/www/html
+  lime-db:
+    image: mysql:5.7
+    environment:
+      - "MYSQL_USER=limesurvey"
+      - "MYSQL_DATABASE=limesurvey"
+      - "MYSQL_PASSWORD=secret"
+      - "MYSQL_ROOT_PASSWORD=secret"
+volumes:
+  lime:

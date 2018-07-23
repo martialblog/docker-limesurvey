@@ -12,6 +12,10 @@ services:
       - lime-db
     ports:
       - "8080:80"
+    environment:
+      - "DB_HOST=docker-limesurvey_lime-db_1"
+      - "DB_PASSWORD=secret"
+      - "ADMIN_PASSWORD=foobar"
   lime-db:
     image: mysql:5.7
     environment:

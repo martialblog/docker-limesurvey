@@ -8,6 +8,9 @@ fileContentTests:
   - name: 'Limesurvey admin file content'
     path: '/var/www/html/admin/index.php'
     expectedContents: ['LimeSurvey']
+  - name: 'Entrypoint file content'
+    path: '/var/www/html/entrypoint.sh'
+    expectedContents: ['console.php', 'ADMIN_USER']
 
 fileExistenceTests:
   - name: 'Limesurvey files'
@@ -47,6 +50,10 @@ fileExistenceTests:
     shouldExist: true
 
 commandTests:
+  - name:  "Dependencies - netcat"
+    command: "dpkg"
+    args: ["-l", "netcat"]
+    exitCode: 0
   - name:  "Dependencies - libldap2-dev"
     command: "dpkg"
     args: ["-l", "libldap2-dev"]

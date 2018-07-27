@@ -11,7 +11,7 @@ The apache image comes with an Apache Webserver and PHP installed.
 
 # Apache Configuration
 
-To change to Apache Webserver configuration mount a Volume into the Container at:
+To change to Apache Webserver configuration, mount a Volume into the Container at:
 
  - /etc/apache2/sites-available/000-default.conf
 
@@ -19,7 +19,7 @@ See the example configuration provided.
 
 # Using the fpm image
 
-To use the fpm image you need an additional web server that can proxy http-request to the fpm-port of the container.
+To use the fpm image, you need an additional web server that can proxy http-request to the fpm-port of the container. See *docker-compose.fpm.yml* for example
 
 # Using an external database
 
@@ -27,15 +27,39 @@ LimeSurvey requires an external database (MySQL, PostgreSQL) to run. See *docker
 
 # Persistent data
 
-To preserve the uploaded files assign the upload folder into a volume. See *docker-compose.yml* for details.
+To preserve the uploaded files assign the upload folder into a volume. See *docker-compose.yml* for example.
+
+Path: */var/www/html/upload/*
 
 # LimeSurvey Configuration
 
-To change to LimeSurvey configuration simply mount a Volume into the Container at:
+The entrypoint will create a new config.php if none is provided and run the LimeSurvey command line interface for installation.
+
+To change to LimeSurvey configuration, you can mount a Volume into the Container at:
 
  - /my-data/config.php:/var/www/html/application/config/config.php
 
-**Hint**: If this configuration is present, the LimeSurvey Installer will not run.
+**Hint**: If this configuration is present before the installation, the LimeSurvey Web Installer will not run automatically.
+
+# Environment Variables
+
+| Parameter       | Description                               |
+| ---------       | -----------                               |
+| DB_TYPE         | Database Type to use. mysql or postgresql |
+| DB_HOST         | Database server hostname                  |
+| DB_PORT         | Database server port                      |
+| DB_NAME         | Database name                             |
+| DB_TABLE_PREFIX | Database table prefix                     |
+| DB_USERNAME     | Database user                             |
+| DB_PASSWORD     | Database user's password                  |
+| ADMIN_USER      | LimeSurvey Admin User                     |
+| ADMIN_NAME      | LimeSurvey Admin Username                 |
+| ADMIN_EMAIL     | LimeSurvey Admin Email                    |
+| ADMIN_PASSWORD  | LimeSurvey Admin Password                 |
+| PUBLIC_URL      | Public URL for public scripts             |
+| URL_FORMAT      | URL Format. path or get                   |
+
+For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 
 # References
 

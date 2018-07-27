@@ -12,6 +12,7 @@ RUN apt-get update && \
     libkrb5-dev \
     libpng-dev \
     libpq-dev \
+    netcat \
     && apt-get autoclean; apt-get autoremove && \
     rm -rf /var/lib/apt/lists/*
 
@@ -38,3 +39,7 @@ ADD "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" /tmp
 RUN tar xzvf "/tmp/${version}.tar.gz" --strip-components=1 -C /var/www/html/ && \
     rm "/tmp/${version}.tar.gz" && \
     chown -R www-data:www-data /var/www/html
+
+COPY entrypoint.sh entrypoint.sh
+ENTRYPOINT ["/var/www/html/entrypoint.sh"]
+CMD ["apache2-foreground"]

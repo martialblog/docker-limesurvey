@@ -22,7 +22,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./tests/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./examples/nginx.conf:/etc/nginx/nginx.conf:ro
       - lime:/var/www/html
   lime-db:
     image: mysql:5.7

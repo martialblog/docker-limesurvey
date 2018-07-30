@@ -6,6 +6,6 @@ services:
 matrix:
   include:
     - env: TAG=martialblog/limesurvey-apache
-      script: docker build -q -t $TAG -f apache/Dockerfile . && tests/run.sh $TAG
+      script: cd apache; docker build -q -t $TAG . && cd ..; ./tests/run.sh $TAG
     - env: TAG=martialblog/limesurvey-fpm
-      script: docker build -q -t $TAG -f fpm/Dockerfile . && tests/run.sh $TAG
+      script: cd fpm; docker build -q -t $TAG . && cd ..; ./tests/run.sh $TAG

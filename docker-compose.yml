@@ -2,8 +2,8 @@ version: "3.0"
 services:
   limesurvey:
     build:
-      context: .
-      dockerfile: apache/Dockerfile
+      context: apache/
+      dockerfile: Dockerfile
     volumes:
       - /tmp/upload/:/var/www/html/upload/
     links:

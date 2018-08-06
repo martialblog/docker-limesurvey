@@ -1,6 +1,6 @@
 #!/bin/bash
+# Entrypoint for Docker Container
 
-set -e
 
 DB_TYPE=${DB_TYPE:-'mysql'}
 DB_HOST=${DB_HOST:-'mysql'}
@@ -19,17 +19,13 @@ PUBLIC_URL=${PUBLIC_URL:-}
 URL_FORMAT=${URL_FORMAT:-'path'}
 
 
-# Check if DB_PASSWORD is set
-if [ -z "$DB_PASSWORD" ]; then
-    echo >&2 'Error: Missing DB_PASSWORD'
-    exit 1
-fi
+# Check if database is available
+until nc -z -v -w30 $DB_HOST $DB_PORT
+do
+    echo "Info: Waiting for database connection..."
+    sleep 5
+done
 
-# Check if DB_PASSWORD is set
-if [ -z "$ADMIN_PASSWORD" ]; then
-    echo >&2 'Error: Missing ADMIN_PASSWORD'
-    exit 1
-fi
 
 # Check if already provisioned
 if [ -f application/config/config.php ]; then
@@ -66,14 +62,30 @@ else
     fi
 fi
 
-until nc -z -v -w30 $DB_HOST $DB_PORT
-do
-    echo "Info: Waiting for database connection..."
-    sleep 5
-done
 
-echo 'Running console.php install'
-# Hint: The console.php script seems to always exit with 1, so that is why
-php application/commands/console.php install $ADMIN_USER $ADMIN_PASSWORD $ADMIN_NAME $ADMIN_EMAIL || true
+# Check if LimeSurvey database is provisioned
+echo 'Info: Check if database already provisioned. Nevermind the Stack trace.'
+php application/commands/console.php updatedb
+
+
+if [ $? -eq 0 ]; then
+    echo 'Info: Database already provisioned'
+else
+    # Check if DB_PASSWORD is set
+    if [ -z "$DB_PASSWORD" ]; then
+        echo >&2 'Error: Missing DB_PASSWORD'
+        exit 1
+    fi
+
+    # Check if DB_PASSWORD is set
+    if [ -z "$ADMIN_PASSWORD" ]; then
+        echo >&2 'Error: Missing ADMIN_PASSWORD'
+        exit 1
+    fi
+
+    echo ''
+    echo 'Running console.php install'
+    php application/commands/console.php install $ADMIN_USER $ADMIN_PASSWORD $ADMIN_NAME $ADMIN_EMAIL
+fi
 
 exec "$@"

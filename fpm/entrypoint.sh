@@ -39,7 +39,7 @@ else
         cp application/config/config-sample-mysql.php application/config/config.php
     fi
 
-    if [ "$DB_TYPE" = 'postgresql' ]; then
+    if [ "$DB_TYPE" = 'pgsql' ]; then
         echo 'Info: Using PostgreSQL configuration'
         DB_CHARSET=${DB_CHARSET:-'utf8'}
         cp application/config/config-sample-pgsql.php application/config/config.php

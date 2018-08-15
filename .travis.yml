@@ -9,3 +9,5 @@ matrix:
       script: cd apache; docker build -q -t $TAG . && cd ..; ./tests/run.sh $TAG
     - env: TAG=martialblog/limesurvey-fpm
       script: cd fpm; docker build -q -t $TAG . && cd ..; ./tests/run.sh $TAG
+    - env: TAG=martialblog/limesurvey-alpine
+      script: cd fpm; docker build -q -t $TAG . && cd ..; ./tests/run.sh $TAG

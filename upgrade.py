@@ -8,6 +8,7 @@ import subprocess
 
 dockerfile_apache = 'apache/Dockerfile'
 dockerfile_fpm = 'fpm/Dockerfile'
+dockerfile_alpine = 'fpm-alpine/Dockerfile'
 
 limesv_feed_url = 'https://github.com/LimeSurvey/LimeSurvey/releases.atom'
 docker_feed_url = 'https://github.com/martialblog/docker-limesurvey/releases.atom'
@@ -39,6 +40,7 @@ commit_message = 'Updating to Version {}'.format(limesv_current_release)
 regexp = 's/[0-9]+\.[0-9]+\.[0-9]+[0-9]*/{new_version}/'.format(new_version=limesv_current_release)
 subprocess.call(['sed', '-i', '-e',  regexp, dockerfile_apache])
 subprocess.call(['sed', '-i', '-e',  regexp, dockerfile_fpm])
+subprocess.call(['sed', '-i', '-e',  regexp, dockerfile_alpine])
 print('> Updated Dockerfiles')
 
 # Git Commit/Tag

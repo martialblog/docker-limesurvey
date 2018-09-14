@@ -46,7 +46,14 @@ else
     fi
 
     # Set Database config
-    sed -i "s#\('connectionString' => \).*,\$#\\1'${DB_TYPE}:host=${DB_HOST};port=${DB_PORT};dbname=${DB_NAME};',#g" application/config/config.php
+    if [ ! -z "$DB_SOCK" ]; then
+        echo 'Info: Using unix socket'
+        sed -i "s#\('connectionString' => \).*,\$#\\1'${DB_TYPE}:unix_socket=${DB_SOCK};dbname=${DB_NAME};',#g" application/config/config.php
+    else
+        echo 'Info: Using TCP connection'
+        sed -i "s#\('connectionString' => \).*,\$#\\1'${DB_TYPE}:host=${DB_HOST};port=${DB_PORT};dbname=${DB_NAME};',#g" application/config/config.php
+    fi
+
     sed -i "s#\('username' => \).*,\$#\\1'${DB_USERNAME}',#g" application/config/config.php
     sed -i "s#\('password' => \).*,\$#\\1'${DB_PASSWORD}',#g" application/config/config.php
     sed -i "s#\('charset' => \).*,\$#\\1'${DB_CHARSET}',#g" application/config/config.php

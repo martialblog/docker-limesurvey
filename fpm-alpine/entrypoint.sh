@@ -1,10 +1,11 @@
-#!/bin/sh
+#!/bin/bash
 # Entrypoint for Docker Container
 
 
 DB_TYPE=${DB_TYPE:-'mysql'}
 DB_HOST=${DB_HOST:-'mysql'}
 DB_PORT=${DB_PORT:-'3306'}
+DB_SOCK=${DB_SOCK:-}
 DB_NAME=${DB_NAME:-'limesurvey'}
 DB_TABLE_PREFIX=${DB_TABLE_PREFIX:-'lime_'}
 DB_USERNAME=${DB_USERNAME:-'limesurvey'}
@@ -20,11 +21,13 @@ URL_FORMAT=${URL_FORMAT:-'path'}
 
 
 # Check if database is available
-until nc -z -v -w30 $DB_HOST $DB_PORT
-do
-    echo "Info: Waiting for database connection..."
-    sleep 5
-done
+if [ -z "$DB_SOCK" ]; then
+    until nc -z -v -w30 $DB_HOST $DB_PORT
+    do
+        echo "Info: Waiting for database connection..."
+        sleep 5
+    done
+fi
 
 
 # Check if already provisioned

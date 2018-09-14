@@ -48,6 +48,7 @@ To change to LimeSurvey configuration, you can mount a Volume into the Container
 | DB_TYPE         | Database Type to use. mysql or pgsql      |
 | DB_HOST         | Database server hostname                  |
 | DB_PORT         | Database server port                      |
+| DB_SOCK         | Database unix socket instead of host/port |
 | DB_NAME         | Database name                             |
 | DB_TABLE_PREFIX | Database table prefix                     |
 | DB_USERNAME     | Database user                             |

@@ -1,6 +1,6 @@
 FROM php:7.2-apache
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.15.3+181108'
+ARG version='3.15.5+181115'
 
 # Install OS dependencies
 RUN apt-get update && \

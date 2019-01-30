@@ -1,6 +1,6 @@
 FROM php:7.2-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.15.6+190108'
+ARG version='3.15.7+190124'
 
 # Install OS dependencies
 RUN apk add --no-cache --virtual .build-deps \

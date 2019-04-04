@@ -30,7 +30,7 @@ RUN set -ex; \
 ADD "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" /tmp
 
 RUN set -ex; \
-        echo "${sha256_checksum} /tmp/${version}.tar.gz" | sha256sum -c - && \
+        echo "${sha256_checksum}  /tmp/${version}.tar.gz" | sha256sum -c - && \
         \
         tar xzvf "/tmp/${version}.tar.gz" --strip-components=1 -C /var/www/html/ && \
         \

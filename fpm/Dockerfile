@@ -17,7 +17,7 @@ RUN set -ex; \
         libpq-dev \
         netcat \
         \
-        && apt-get autoclean; apt-get autoremove; \
+        && apt-get -y autoclean; apt-get -y autoremove; \
         rm -rf /var/lib/apt/lists/*
 
 # Link LDAP library for PHP ldap extension

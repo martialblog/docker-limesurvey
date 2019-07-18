@@ -62,6 +62,20 @@ To change to LimeSurvey configuration, you can mount a Volume into the Container
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 
+# Running this image with docker-compose
+
+The easiest way to get a fully featured and functional setup is using a docker-compose file. Several examples are provided in the repository.
+
+```
+docker-compose up
+
+# Frontend
+http://localhost:8080/
+
+# Backend
+http://localhost:8080/index.php/admin
+```
+
 # References
 
 - https://www.limesurvey.org/

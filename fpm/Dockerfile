@@ -10,6 +10,8 @@ RUN set -ex; \
         apt-get install --no-install-recommends -y \
         \
         libldap2-dev \
+        libfreetype6-dev \
+        libjpeg-dev \
         zlib1g-dev \
         libc-client-dev \
         libkrb5-dev \
@@ -26,6 +28,7 @@ RUN set -ex; \
 
 # Install PHP Plugins and Configure PHP imap plugin
 RUN set -ex; \
+        docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr; \
         docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
         docker-php-ext-install -j5 \
         gd \

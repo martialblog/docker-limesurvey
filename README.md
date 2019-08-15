@@ -29,7 +29,9 @@ LimeSurvey requires an external database (MySQL, PostgreSQL) to run. See *docker
 
 To preserve the uploaded files assign the upload folder into a volume. See *docker-compose.yml* for example.
 
-Path: */var/www/html/upload/*
+Path: */var/www/html/upload/surveys*
+
+**Hint**: The mounted directory must be owned by the webserver user (e.g. www-data)
 
 # LimeSurvey Configuration
 

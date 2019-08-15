@@ -6,7 +6,9 @@ ARG sha256_checksum='1bed7812431d3fb268821dd9a40a8d9b2924f06f7b16e5f02a6cc2162c7
 # Install OS dependencies
 RUN set -ex; \
         apk add --no-cache --virtual .build-deps \
+        freetype-dev \
         libpng-dev \
+        libjpeg-turbo-dev \
         openldap-dev \
         imap-dev \
         postgresql-dev && \
@@ -14,6 +16,7 @@ RUN set -ex; \
 
 # Install PHP Plugins
 RUN set -ex; \
+        docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr ; \
         docker-php-ext-configure imap --with-imap-ssl && \
         docker-php-ext-install \
         gd \

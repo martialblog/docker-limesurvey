@@ -5,7 +5,7 @@ services:
       context: fpm-alpine/
       dockerfile: Dockerfile
     volumes:
-      - /tmp/upload/:/var/www/html/upload/
+      - /tmp/upload/surveys:/var/www/html/upload/surveys
       - lime:/var/www/html
     links:
       - lime-db

@@ -1,7 +1,7 @@
 FROM php:7.2-apache
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.22.1+200129'
-ARG sha256_checksum='c808b45f69bca76d2caac3fedbc58b243762d371dc9d602bab9d9373082c0a28'
+ARG version='3.22.2+200204'
+ARG sha256_checksum='2227b397fe02e2977197563b41d55a473828b99abf187ef053425c8177f3d4d0'
 
 # Install OS dependencies
 RUN set -ex; \

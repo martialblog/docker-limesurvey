@@ -1,0 +1,33 @@
+version: '3'
+services:
+  limesurvey:
+    image: martialblog/limesurvey:latest
+    restart: always
+    environment:
+      - DB_TYPE=pgsql
+      - DB_PORT=5432
+      - DB_HOST=limesurvey_db_1.limesurvey_default
+      - DB_PASSWORD=example
+      - DB_NAME=limesurvey
+      - DB_USERNAME=limesurvey
+      - ADMIN_USER=admin
+      - ADMIN_NAME=Admin
+      - ADMIN_PASSWORD=example
+      - ADMIN_EMAIL=admin@example.com
+      - PUBLIC_URL=foobar.com
+    volumes:
+      - limesurvey:/var/www/html/upload/surveys
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+  db:
+    image: postgres:9.6-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=limesurvey
+      - POSTGRES_DB=limesurvey
+      - POSTGRES_PASSWORD=example
+
+volumes:
+  limesurvey:

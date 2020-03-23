@@ -37,7 +37,7 @@ Path: */var/www/html/upload/surveys*
 
 The entrypoint will create a new config.php if none is provided and run the LimeSurvey command line interface for installation.
 
-**Hint**: Changing the *ADMIN_* configuration has no effect after initial configuration. It's best to do this within the application.
+**Hint**: Changing the *ADMIN_* configuration has no effect after the initial configuration. It's best to do this within the application.
 
 To change to LimeSurvey configuration, you can mount a Volume into the Container at:
 

@@ -57,10 +57,10 @@ To change to LimeSurvey configuration, you can mount a Volume into the Container
 | DB_TABLE_PREFIX | Database table prefix                     |
 | DB_USERNAME     | Database user                             |
 | DB_PASSWORD     | Database user's password                  |
-| ADMIN_USER      | LimeSurvey Admin User                     |
-| ADMIN_NAME      | LimeSurvey Admin Username                 |
-| ADMIN_EMAIL     | LimeSurvey Admin Email                    |
-| ADMIN_PASSWORD  | LimeSurvey Admin Password                 |
+| ADMIN_USER      | Initial LimeSurvey Admin User             |
+| ADMIN_NAME      | Initial LimeSurvey Admin Username         |
+| ADMIN_EMAIL     | Initial LimeSurvey Admin Email            |
+| ADMIN_PASSWORD  | Initial LimeSurvey Admin Password         |
 | PUBLIC_URL      | Public URL for public scripts             |
 | URL_FORMAT      | URL Format. path or get                   |
 

@@ -19,7 +19,14 @@ See the example configuration provided.
 
 # Using the fpm image
 
-To use the fpm image, you need an additional web server that can proxy http-request to the fpm-port of the container. See *docker-compose.fpm.yml* for example
+To use the fpm image, you need an additional web server that can proxy http-request to the fpm-port of the container. See *docker-compose.fpm.yml* for example.
+
+# Using the fpm image with https
+If you would like to run the fpm setup with https, you can get a free certificate from Letsencrypt. As an example, the configuration in *docker-compose.fpm-certbot.yml*
+will take care of getting a certificate and installing it. Please note that you will have to adjust the domain name in the file *examples/nginx-certbot.conf* to match
+the domain used in the *HOSTNAMES* variable in the docker-compose configuration file. If you added both the a domain and the hostname *www* within the domain,
+*nginx-certbot.conf* needs to contain the domain without the hostname. E.g. if you set *"HOSTNAMES=example.org www.example.org"*, the path in *nginx-certbot.conf* needs
+to contain *example.org*.
 
 # Using an external database
 

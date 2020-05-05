@@ -1,0 +1,49 @@
+version: "3.0"
+services:
+  limesurvey:
+    build:
+      context: 4.0/fpm/
+      dockerfile: Dockerfile
+    volumes:
+      - /tmp/upload/surveys:/var/www/html/upload/surveys
+      - lime:/var/www/html
+    links:
+      - lime-db
+    depends_on:
+      - lime-db
+    environment:
+      - "DB_HOST=lime-db"
+      - "DB_PASSWORD=secret"
+      - "ADMIN_PASSWORD=foobar"
+  lime-web:
+    build:
+      context: nginx-certbot/
+      dockerfile: Dockerfile
+    links:
+      - limesurvey
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./examples/nginx-certbot.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - lime:/var/www/html
+    environment:
+      - "HOSTNAMES=www.example.com example.com"
+  certbot:
+    image: certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  lime-db:
+    image: mysql:5.7
+    environment:
+      - "MYSQL_USER=limesurvey"
+      - "MYSQL_DATABASE=limesurvey"
+      - "MYSQL_PASSWORD=secret"
+      - "MYSQL_ROOT_PASSWORD=secret"
+volumes:
+  lime:

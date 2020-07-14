@@ -31,6 +31,7 @@ RUN set -ex; \
         docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr; \
         docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
         docker-php-ext-install -j5 \
+        exif \
         gd \
         imap \
         ldap \

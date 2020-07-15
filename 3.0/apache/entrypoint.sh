@@ -11,14 +11,30 @@ DB_TABLE_PREFIX=${DB_TABLE_PREFIX:-'lime_'}
 DB_USERNAME=${DB_USERNAME:-'limesurvey'}
 DB_PASSWORD=${DB_PASSWORD:-}
 
+ENCRYPT_KEYPAIR=${ENCRYPT_KEYPAIR:-}
+ENCRYPT_PUBLIC_KEY=${ENCRYPT_PUBLIC_KEY:-}
+ENCRYPT_SECRET_KEY=${ENCRYPT_SECRET_KEY:-}
+
 ADMIN_USER=${ADMIN_USER:-'admin'}
 ADMIN_NAME=${ADMIN_NAME:-'admin'}
 ADMIN_EMAIL=${ADMIN_EMAIL:-'foobar@example.com'}
-ADMIN_PASSWORD=${ADMIN_PASSWORD:-'-'}
+ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
 
 PUBLIC_URL=${PUBLIC_URL:-}
 URL_FORMAT=${URL_FORMAT:-'path'}
 
+DEBUG=${DEBUG:-0}
+DEBUG_SQL=${DEBUG_SQL:-0}
+
+if [ -z "$DB_PASSWORD" ]; then
+    echo >&2 'Error: Missing DB_PASSWORD'
+    exit 1
+fi
+
+if [ -z "$ADMIN_PASSWORD" ]; then
+    echo >&2 'Error: Missing ADMIN_PASSWORD'
+    exit 1
+fi
 
 # Check if database is available
 if [ -z "$DB_SOCK" ]; then
@@ -29,8 +45,7 @@ if [ -z "$DB_SOCK" ]; then
     done
 fi
 
-
-# Check if already provisioned
+# Check if config already provisioned
 if [ -f application/config/config.php ]; then
     echo 'Info: config.php already provisioned'
 else
@@ -39,60 +54,83 @@ else
     if [ "$DB_TYPE" = 'mysql' ]; then
         echo 'Info: Using MySQL configuration'
         DB_CHARSET=${DB_CHARSET:-'utf8mb4'}
-        cp application/config/config-sample-mysql.php application/config/config.php
     fi
 
     if [ "$DB_TYPE" = 'pgsql' ]; then
         echo 'Info: Using PostgreSQL configuration'
         DB_CHARSET=${DB_CHARSET:-'utf8'}
-        cp application/config/config-sample-pgsql.php application/config/config.php
     fi
 
-    # Set Database config
     if [ ! -z "$DB_SOCK" ]; then
         echo 'Info: Using unix socket'
-        sed -i "s#\('connectionString' => \).*,\$#\\1'${DB_TYPE}:unix_socket=${DB_SOCK};dbname=${DB_NAME};',#g" application/config/config.php
+        DB_CONNECT='unix_socket'
     else
         echo 'Info: Using TCP connection'
-        sed -i "s#\('connectionString' => \).*,\$#\\1'${DB_TYPE}:host=${DB_HOST};port=${DB_PORT};dbname=${DB_NAME};',#g" application/config/config.php
+        DB_CONNECT='host'
     fi
 
-    sed -i "s#\('username' => \).*,\$#\\1'${DB_USERNAME}',#g" application/config/config.php
-    sed -i "s#\('password' => \).*,\$#\\1'${DB_PASSWORD}',#g" application/config/config.php
-    sed -i "s#\('charset' => \).*,\$#\\1'${DB_CHARSET}',#g" application/config/config.php
-    sed -i "s#\('tablePrefix' => \).*,\$#\\1'${DB_TABLE_PREFIX}',#g" application/config/config.php
-
-    # Set URL config
-    sed -i "s#\('urlFormat' => \).*,\$#\\1'${URL_FORMAT}',#g" application/config/config.php
-
-    # Set Public URL
     if [ -z "$PUBLIC_URL" ]; then
         echo 'Info: Setting PublicURL'
-        sed -i "s#\('debug'=>0,\)\$#'publicurl'=>'${PUBLIC_URL}',\n\t\t\\1 #g" application/config/config.php
     fi
+
+    cat <<EOF > application/config/config.php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+return array(
+  'components' => array(
+    'db' => array(
+      'connectionString' => '$DB_TYPE:$DB_CONNECT=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME;',
+      'emulatePrepare' => true,
+      'username' => '$DB_USERNAME',
+      'password' => '$DB_PASSWORD',
+      'charset' => '$DB_CHARSET',
+      'tablePrefix' => '$DB_TABLE_PREFIX',
+    ),
+    'urlManager' => array(
+      'urlFormat' => '$URL_FORMAT',
+      'rules' => array(),
+      'showScriptName' => true,
+    ),
+  ),
+  'config'=>array(
+    'publicurl'=>'$PUBLIC_URL',
+    'debug'=>$DEBUG,
+    'debugsql'=>$DEBUG_SQL,
+  )
+);
+
+EOF
+
 fi
 
+# Check if security config already provisioned
+if [ -f application/config/security.php ]; then
+    echo 'Info: security.php already provisioned'
+else
+    echo 'Info: Creating security.php'
+    if [ ! -z "$ENCRYPT_KEYPAIR" ]; then
+
+        cat <<EOF > application/config/security.php
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+\$config = array();
+\$config['encryptionkeypair'] = '$ENCRYPT_KEYPAIR';
+\$config['encryptionpublickey'] = '$ENCRYPT_PUBLIC_KEY';
+\$config['encryptionsecretkey'] = '$ENCRYPT_SECRET_KEY';
+return \$config;
+EOF
+    else
+        echo >&2 'Warning: No encryption keys were provided'
+        echo >&2 'Warning: A security.php config will be created by the application'
+        echo >&2 'Warning: THIS FILE NEEDS TO BE PERSISTENT'
+    fi
+fi
 
 # Check if LimeSurvey database is provisioned
 echo 'Info: Check if database already provisioned. Nevermind the Stack trace.'
 php application/commands/console.php updatedb
 
-
 if [ $? -eq 0 ]; then
     echo 'Info: Database already provisioned'
 else
-    # Check if DB_PASSWORD is set
-    if [ -z "$DB_PASSWORD" ]; then
-        echo >&2 'Error: Missing DB_PASSWORD'
-        exit 1
-    fi
-
-    # Check if DB_PASSWORD is set
-    if [ -z "$ADMIN_PASSWORD" ]; then
-        echo >&2 'Error: Missing ADMIN_PASSWORD'
-        exit 1
-    fi
-
     echo ''
     echo 'Running console.php install'
     php application/commands/console.php install $ADMIN_USER $ADMIN_PASSWORD $ADMIN_NAME $ADMIN_EMAIL

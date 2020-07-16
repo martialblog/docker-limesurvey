@@ -18,6 +18,7 @@ RUN set -ex; \
         libpng-dev \
         libpq-dev \
         netcat \
+        curl \
         \
         && apt-get -y autoclean; apt-get -y autoremove; \
         rm -rf /var/lib/apt/lists/*
@@ -58,13 +59,13 @@ RUN a2enmod headers rewrite remoteip; \
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # Download, unzip and chmod LimeSurvey from official GitHub repository
-ADD "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" /tmp
+RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
 
 RUN set -ex; \
-        echo "${sha256_checksum}  /tmp/${version}.tar.gz" | sha256sum -c - && \
+        echo "${sha256_checksum}  /tmp/limesurvey.tar.gz" | sha256sum -c - && \
         \
-        tar xzvf "/tmp/${version}.tar.gz" --strip-components=1 -C /var/www/html/ && \
-        rm -f "/tmp/${version}.tar.gz" && \
+        tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
+        rm -f "/tmp/limesurvey.tar.gz" && \
         chown -R www-data:www-data /var/www/html
 
 COPY entrypoint.sh entrypoint.sh

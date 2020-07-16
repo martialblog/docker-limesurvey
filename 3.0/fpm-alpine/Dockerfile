@@ -30,14 +30,14 @@ RUN set -ex; \
         zip
 
 # Download, unzip and chmod of LimeSurvey
-ADD "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" /tmp
+RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
 
 RUN set -ex; \
-        echo "${sha256_checksum}  /tmp/${version}.tar.gz" | sha256sum -c - && \
+        echo "${sha256_checksum}  /tmp/limesurvey.tar.gz" | sha256sum -c - && \
         \
-        tar xzvf "/tmp/${version}.tar.gz" --strip-components=1 -C /var/www/html/ && \
+        tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
         \
-        rm -rf "/tmp/${version}.tar.gz" \
+        rm -rf "/tmp/limesurvey.tar.gz" \
         /var/www/html/docs \
         /var/www/html/tests \
         /var/www/html/*.md && \

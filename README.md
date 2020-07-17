@@ -52,6 +52,16 @@ To change to LimeSurvey configuration, you can mount a Volume into the Container
 
 **Hint**: If this configuration is present before the installation, the LimeSurvey Web Installer will not run automatically.
 
+## Data Encryption
+
+LimeSurvey 4 supports data encryption, this image give you these options:
+
+* Provide a security.php file directly (volume)
+* Provide encryption keys for the security.php file (environment variables)
+* Provide nothing and get a non-persistent security.php file
+
+For further details on the settings see: https://manual.limesurvey.org/Data_encryption
+
 # Environment Variables
 
 | Parameter       | Description                               |
@@ -70,6 +80,11 @@ To change to LimeSurvey configuration, you can mount a Volume into the Container
 | ADMIN_PASSWORD  | Initial LimeSurvey Admin Password         |
 | PUBLIC_URL      | Public URL for public scripts             |
 | URL_FORMAT      | URL Format. path or get                   |
+| DEBUG           | Debug level (0, 1, 2). Default: 0         |
+| DEBUG_SQL       | SQL Debug level (0, 1, 2). Default 0      |
+| ENCRYPT_KEYPAIR  | Data encryption keypair                  |
+| ENCRYPT_PUBLIC_KEY | Data encryption public key             |
+| ENCRYPY_SECRET_KEY | Data encryption secret key             |
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 

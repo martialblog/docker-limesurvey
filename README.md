@@ -90,7 +90,7 @@ For further details on the settings see: https://manual.limesurvey.org/Optional_
 
 # Running this image with docker-compose
 
-The easiest way to get a fully featured and functional setup is using a docker-compose file. Several examples are provided in the repository.
+The easiest way to get a fully featured and functional setup is using a docker-compose file. Several examples are provided in the [repository](https://github.com/martialblog/docker-limesurvey).
 
 ```
 docker-compose up

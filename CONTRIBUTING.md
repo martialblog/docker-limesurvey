@@ -4,23 +4,27 @@ Every Pull Request is welcome.
 
 ## Upgrading the Version
 
-To upgrade the LimeSurvey Version the ARG variable needs to be changed.
+The versions in this repository should correspond to the [GitHub LimeSurvey Releases](https://github.com/LimeSurvey/LimeSurvey/releases)
+
+To update the version, simply update ARG variables for version and corresponding checksum:
 
 ```bash
-$ grep Agrep ARG apache/Dockerfile
-ARG version='3.7.0+180418'
+# Version from GitHub Tags
+# sha256 of tar.gz from GitHub Releases
+
+$ grep ARG 4.0/apache/Dockerfile
+ARG version='4.3.13+200824'
+ARG sha256_checksum='4e9c6f20e'
 ```
 
-Since this is a reoccuring and boring task, a script is provided.
+It is best to use the upgrade shell script:
 
 ```bash
-# Dependencies
-python3 -m venv .venv
-source .venv/bin/activate
-pip3 install -r requirements.txt
+./upgrade.sh 4.3.13+200824
+# Check if sha256 is correct
 
-# Upgrades to latest Limesurvey version
-./upgrade.py
+git add 4.0/ && git commit -m 'Upgrading to Version 4.3.13+200824'
+git tag 4.3.13+200824
 ```
 
 ## Testing

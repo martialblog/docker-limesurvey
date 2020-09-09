@@ -84,7 +84,7 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 | DEBUG_SQL       | SQL Debug level (0, 1, 2). Default 0      |
 | ENCRYPT_KEYPAIR  | Data encryption keypair                  |
 | ENCRYPT_PUBLIC_KEY | Data encryption public key             |
-| ENCRYPY_SECRET_KEY | Data encryption secret key             |
+| ENCRYPT_SECRET_KEY | Data encryption secret key             |
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 

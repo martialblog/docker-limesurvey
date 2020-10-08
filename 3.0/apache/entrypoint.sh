@@ -20,6 +20,7 @@ ADMIN_NAME=${ADMIN_NAME:-'admin'}
 ADMIN_EMAIL=${ADMIN_EMAIL:-'foobar@example.com'}
 ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
 
+BASE_URL=${BASE_URL:-}
 PUBLIC_URL=${PUBLIC_URL:-}
 URL_FORMAT=${URL_FORMAT:-'path'}
 
@@ -90,6 +91,9 @@ return array(
       'rules' => array(),
       'showScriptName' => true,
     ),
+    'request' => array(
+      'baseUrl' => '$BASE_URL',
+     ),
   ),
   'config'=>array(
     'publicurl'=>'$PUBLIC_URL',

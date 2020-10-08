@@ -52,6 +52,17 @@ To change to LimeSurvey configuration, you can mount a Volume into the Container
 
 **Hint**: If this configuration is present before the installation, the LimeSurvey Web Installer will not run automatically.
 
+# Reverse Proxy Configuration
+
+## Traefik Example
+
+```
+# BASE_URL = /limesurvey
+"traefik.http.routers.limesurvey.rule=PathPrefix(`/limesurvey`)",
+"traefik.http.routers.limesurvey.middlewares=strip-limesurvey@docker",
+"traefik.http.middlewares.strip-limesurvey.stripprefix.prefixes=/limesurvey",
+```
+
 ## Data Encryption
 
 LimeSurvey 4 supports data encryption, this image give you these options:
@@ -79,6 +90,7 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 | ADMIN_EMAIL     | Initial LimeSurvey Admin Email            |
 | ADMIN_PASSWORD  | Initial LimeSurvey Admin Password         |
 | PUBLIC_URL      | Public URL for public scripts             |
+| BASE_URL        | Application Base URL                      |
 | URL_FORMAT      | URL Format. path or get                   |
 | DEBUG           | Debug level (0, 1, 2). Default: 0         |
 | DEBUG_SQL       | SQL Debug level (0, 1, 2). Default 0      |

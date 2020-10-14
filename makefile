@@ -11,4 +11,4 @@ fpm-alpine4:
 fpm3:
 	docker build --pull -t martialblog/limesurvey:3-fpm 3.0/fpm
 fpm4:
-	docker build --pull -t martialblog/limesurvey:3-fpm 4.0/fpm
+	docker build --pull -t martialblog/limesurvey:4-fpm 4.0/fpm

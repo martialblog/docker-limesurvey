@@ -5,23 +5,38 @@
 
 Dockerfile to build a [LimeSurvey](https://limesurvey.org) Image for the Docker container platform.
 
-# Using the apache image
+## Quick reference
+
+- **Maintained by:** https://github.com/martialblog/
+- **Where to get help:** [GitHub Issues](https://github.com/martialblog/docker-limesurvey/issues)
+
+## Supported tags and respective Dockerfile links
+
+- [`4-apache`, `4.<BUILD-NUMBER>-apache`, `latest` ](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/apache/Dockerfile)
+- [`4-fpm`, `4.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/fpm/Dockerfile)
+- [`4-fpm-alpine`, `4.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/fpm-alpine/Dockerfile)
+- [`3-apache`, `3.<BUILD-NUMBER>-apache`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/apache/Dockerfile)
+- [`3-fpm`, `3.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/fpm/Dockerfile)
+- [`3-fpm-alpine`, `3.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/fpm-alpine/Dockerfile)
+
+# Using the Apache Image
 
 The apache image comes with an Apache Webserver and PHP installed.
 
-# Apache Configuration
+## Apache Configuration
 
 To change to Apache Webserver configuration, mount a Volume into the Container at:
 
- - /etc/apache2/sites-available/000-default.conf
+ - `/etc/apache2/sites-available/000-default.conf`
 
 See the example configuration provided.
 
-# Using the fpm image
+# Using the fpm Image
 
 To use the fpm image, you need an additional web server that can proxy http-request to the fpm-port of the container. See *docker-compose.fpm.yml* for example.
 
-# Using the fpm image with https
+## Using the fpm Image with HTTPS
+
 If you would like to run the fpm setup with https, you can get a free certificate from Letsencrypt. As an example, the configuration in *docker-compose.fpm-certbot.yml*
 will take care of getting a certificate and installing it. Please note that you will have to adjust the domain name in the file *examples/nginx-certbot.conf* to match
 the domain used in the *HOSTNAMES* variable in the docker-compose configuration file. If you added both the a domain and the hostname *www* within the domain,
@@ -36,11 +51,11 @@ LimeSurvey requires an external database (MySQL, PostgreSQL) to run. See *docker
 
 To preserve the uploaded files assign the upload folder into a volume. See *docker-compose.yml* for example.
 
-Path: */var/www/html/upload/surveys*
+Path: `/var/www/html/upload/surveys`
 
 **Hint**: The mounted directory must be owned by the webserver user (e.g. www-data)
 
-# LimeSurvey Configuration
+# LimeSurvey configuration
 
 The entrypoint will create a new config.php if none is provided and run the LimeSurvey command line interface for installation.
 
@@ -48,13 +63,23 @@ The entrypoint will create a new config.php if none is provided and run the Lime
 
 To change to LimeSurvey configuration, you can mount a Volume into the Container at:
 
- - /my-data/config.php:/var/www/html/application/config/config.php
+ - `/my-data/config.php:/var/www/html/application/config/config.php`
 
 **Hint**: If this configuration is present before the installation, the LimeSurvey Web Installer will not run automatically.
 
-# Reverse Proxy Configuration
+## Data encryption
 
-## Traefik Example
+LimeSurvey 4 supports data encryption, this image give you these options:
+
+* Provide a security.php file directly (volume)
+* Provide encryption keys for the `security.php` file (environment variables)
+* Provide nothing and get a non-persistent `security.php` file
+
+For further details on the settings see: https://manual.limesurvey.org/Data_encryption
+
+# Reverse Proxy configuration
+
+## Traefik example
 
 ```
 # BASE_URL = /limesurvey
@@ -62,16 +87,6 @@ To change to LimeSurvey configuration, you can mount a Volume into the Container
 "traefik.http.routers.limesurvey.middlewares=strip-limesurvey@docker",
 "traefik.http.middlewares.strip-limesurvey.stripprefix.prefixes=/limesurvey",
 ```
-
-## Data Encryption
-
-LimeSurvey 4 supports data encryption, this image give you these options:
-
-* Provide a security.php file directly (volume)
-* Provide encryption keys for the security.php file (environment variables)
-* Provide nothing and get a non-persistent security.php file
-
-For further details on the settings see: https://manual.limesurvey.org/Data_encryption
 
 # Environment Variables
 
@@ -100,7 +115,7 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 
-# Running this image with docker-compose
+# Running this Image with docker-compose
 
 The easiest way to get a fully featured and functional setup is using a docker-compose file. Several examples are provided in the [repository](https://github.com/martialblog/docker-limesurvey).
 

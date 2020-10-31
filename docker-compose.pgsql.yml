@@ -15,7 +15,7 @@ services:
     environment:
       - "DB_TYPE=pgsql"
       - "DB_PORT=5432"
-      - "DB_HOST=docker-limesurvey_lime-db_1"
+      - "DB_HOST=lime-db"
       - "DB_PASSWORD=secret"
       - "ADMIN_PASSWORD=foobar"
   lime-db:

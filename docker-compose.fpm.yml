@@ -12,7 +12,7 @@ services:
     depends_on:
       - lime-db
     environment:
-      - "DB_HOST=docker-limesurvey_lime-db_1"
+      - "DB_HOST=lime-db"
       - "DB_PASSWORD=secret"
       - "ADMIN_PASSWORD=foobar"
   lime-web:

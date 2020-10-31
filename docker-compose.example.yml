@@ -6,7 +6,7 @@ services:
     environment:
       - DB_TYPE=pgsql
       - DB_PORT=5432
-      - DB_HOST=limesurvey_db_1.limesurvey_default
+      - DB_HOST=db
       - DB_PASSWORD=example
       - DB_NAME=limesurvey
       - DB_USERNAME=limesurvey

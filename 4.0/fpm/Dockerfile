@@ -1,4 +1,4 @@
-FROM php:7.2-fpm
+FROM php:7.4-fpm
 LABEL maintainer="markus@martialblog.de"
 ARG version='4.3.23+201026'
 ARG sha256_checksum='c78c0d821b1be9f522da3d6fda13910db27efb4bf32fc903b7986bbd7e39a312'
@@ -12,11 +12,13 @@ RUN set -ex; \
         libldap2-dev \
         libfreetype6-dev \
         libjpeg-dev \
+        libonig-dev \
         zlib1g-dev \
         libc-client-dev \
         libkrb5-dev \
         libpng-dev \
         libpq-dev \
+        libzip-dev \
         netcat \
         \
         && apt-get -y autoclean; apt-get -y autoremove; \
@@ -28,7 +30,7 @@ RUN set -ex; \
 
 # Install PHP Plugins and Configure PHP imap plugin
 RUN set -ex; \
-        docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr; \
+        docker-php-ext-configure gd && \
         docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
         docker-php-ext-install -j5 \
         exif \

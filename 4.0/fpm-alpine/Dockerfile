@@ -1,4 +1,4 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.4-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
 ARG version='4.3.23+201026'
 ARG sha256_checksum='c78c0d821b1be9f522da3d6fda13910db27efb4bf32fc903b7986bbd7e39a312'
@@ -8,15 +8,17 @@ RUN set -ex; \
         apk add --no-cache --virtual .build-deps \
         freetype-dev \
         libpng-dev \
+        libzip-dev \
         libjpeg-turbo-dev \
         openldap-dev \
+        oniguruma-dev \
         imap-dev \
         postgresql-dev && \
         apk add --no-cache netcat-openbsd bash
 
 # Install PHP Plugins
 RUN set -ex; \
-        docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr ; \
+        docker-php-ext-configure gd && \
         docker-php-ext-configure imap --with-imap-ssl && \
         docker-php-ext-install \
         exif \

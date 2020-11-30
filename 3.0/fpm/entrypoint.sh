@@ -11,10 +11,6 @@ DB_TABLE_PREFIX=${DB_TABLE_PREFIX:-'lime_'}
 DB_USERNAME=${DB_USERNAME:-'limesurvey'}
 DB_PASSWORD=${DB_PASSWORD:-}
 
-ENCRYPT_KEYPAIR=${ENCRYPT_KEYPAIR:-}
-ENCRYPT_PUBLIC_KEY=${ENCRYPT_PUBLIC_KEY:-}
-ENCRYPT_SECRET_KEY=${ENCRYPT_SECRET_KEY:-}
-
 ADMIN_USER=${ADMIN_USER:-'admin'}
 ADMIN_NAME=${ADMIN_NAME:-'admin'}
 ADMIN_EMAIL=${ADMIN_EMAIL:-'foobar@example.com'}
@@ -106,27 +102,6 @@ EOF
 
 fi
 
-# Check if security config already provisioned
-if [ -f application/config/security.php ]; then
-    echo 'Info: security.php already provisioned'
-else
-    echo 'Info: Creating security.php'
-    if [ ! -z "$ENCRYPT_KEYPAIR" ]; then
-
-        cat <<EOF > application/config/security.php
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-\$config = array();
-\$config['encryptionkeypair'] = '$ENCRYPT_KEYPAIR';
-\$config['encryptionpublickey'] = '$ENCRYPT_PUBLIC_KEY';
-\$config['encryptionsecretkey'] = '$ENCRYPT_SECRET_KEY';
-return \$config;
-EOF
-    else
-        echo >&2 'Warning: No encryption keys were provided'
-        echo >&2 'Warning: A security.php config will be created by the application'
-        echo >&2 'Warning: THIS FILE NEEDS TO BE PERSISTENT'
-    fi
-fi
 
 # Check if LimeSurvey database is provisioned
 echo 'Info: Check if database already provisioned. Nevermind the Stack trace.'

@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/martialblog/docker-limesurvey.svg?branch=master)](https://travis-ci.org/martialblog/docker-limesurvey)
+[![Build Status](https://travis-ci.com/martialblog/docker-limesurvey.svg?branch=master)](https://travis-ci.com/martialblog/docker-limesurvey)
 [![](https://images.microbadger.com/badges/image/martialblog/limesurvey.svg)](https://microbadger.com/images/martialblog/limesurvey "Get your own image badge on microbadger.com")
 
 # LimeSurvey Docker

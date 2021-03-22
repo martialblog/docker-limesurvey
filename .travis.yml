@@ -2,12 +2,17 @@ sudo: required
 language: bash
 services:
   - docker
-
-matrix:
+install:
+jobs:
   include:
+    - env: HADOLINT="${HOME}/hadolint"
+      script:
+          - curl -sL -o ${HADOLINT} "https://github.com/hadolint/hadolint/releases/download/v1.23.0/hadolint-$(uname -s)-$(uname -m)"
+          - chmod 700 ${HADOLINT}
+          - git ls-files --exclude='Dockerfile*' --ignored | xargs --max-lines=1 ${HADOLINT} --ignore DL4006 --ignore DL3008 --ignore DL3018
     - env: TAG=martialblog/limesurvey-apache
-      script: cd 3.0/apache; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
+      script: cd 4.0/apache; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
     - env: TAG=martialblog/limesurvey-fpm
-      script: cd 3.0/fpm; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
+      script: cd 4.0/fpm; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
     - env: TAG=martialblog/limesurvey-alpine
-      script: cd 3.0/fpm; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
+      script: cd 4.0/fpm; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG

@@ -10,6 +10,8 @@ RUN set -ex; \
         libpng-dev \
         libzip-dev \
         libjpeg-turbo-dev \
+        tidyhtml-dev \
+        libsodium-dev \
         openldap-dev \
         oniguruma-dev \
         imap-dev \
@@ -18,7 +20,7 @@ RUN set -ex; \
 
 # Install PHP Plugins
 RUN set -ex; \
-        docker-php-ext-configure gd && \
+        docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr && \
         docker-php-ext-configure imap --with-imap-ssl && \
         docker-php-ext-install \
         gd \
@@ -29,6 +31,8 @@ RUN set -ex; \
         pdo_mysql \
         pdo_pgsql \
         pgsql \
+        sodium \
+        tidy \
         zip
 
 # Download, unzip and chmod of LimeSurvey
@@ -48,6 +52,7 @@ RUN set -ex; \
 
 EXPOSE 9000
 
+WORKDIR /var/www/html
 COPY entrypoint.sh entrypoint.sh
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["php-fpm"]

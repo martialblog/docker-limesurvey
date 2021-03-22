@@ -19,6 +19,8 @@ RUN set -ex; \
         libpng-dev \
         libpq-dev \
         libzip-dev \
+        libtidy-dev \
+        libsodium-dev \
         netcat \
         \
         && apt-get -y autoclean; apt-get -y autoremove; \
@@ -30,7 +32,7 @@ RUN set -ex; \
 
 # Install PHP Plugins and Configure PHP imap plugin
 RUN set -ex; \
-        docker-php-ext-configure gd && \
+        docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr && \
         docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
         docker-php-ext-install -j5 \
         exif \
@@ -42,6 +44,8 @@ RUN set -ex; \
         pdo_mysql \
         pdo_pgsql \
         pgsql \
+        sodium \
+        tidy \
         zip
 
 ENV LIMESURVEY_VERSION=$version
@@ -69,7 +73,7 @@ RUN set -ex; \
         rm -f "/tmp/limesurvey.tar.gz" && \
         chown -R www-data:www-data /var/www/html
 
+WORKDIR /var/www/html
 COPY entrypoint.sh entrypoint.sh
-
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["apache2-foreground"]

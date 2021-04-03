@@ -20,7 +20,12 @@ services:
       - "ADMIN_PASSWORD=foobar"
   lime-db:
     image: postgres:10
+    volumes:
+      - db-data:/var/lib/postgresql
     environment:
       - "POSTGRES_USER=limesurvey"
       - "POSTGRES_DB=limesurvey"
       - "POSTGRES_PASSWORD=secret"
+
+volumes:
+  db-data:

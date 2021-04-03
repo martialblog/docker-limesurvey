@@ -22,8 +22,10 @@ services:
     depends_on:
       - db
   db:
-    image: postgres:9.6-alpine
+    image: postgres:10-alpine
     restart: always
+    volumes:
+      - db-data:/var/lib/postgresql
     environment:
       - POSTGRES_USER=limesurvey
       - POSTGRES_DB=limesurvey
@@ -31,3 +33,4 @@ services:
 
 volumes:
   limesurvey:
+  db-data:

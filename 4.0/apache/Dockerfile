@@ -23,8 +23,9 @@ RUN set -ex; \
         libsodium-dev \
         netcat \
         curl \
+        zlib1g-dev \
         \
-        && apt-get -y autoclean; apt-get -y autoremove; \
+        && apt-get -y autoclean; \
         rm -rf /var/lib/apt/lists/*
 
 # Link LDAP library for PHP ldap extension

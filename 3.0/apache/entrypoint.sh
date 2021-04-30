@@ -36,7 +36,7 @@ if [ -z "$ADMIN_PASSWORD" ]; then
 fi
 
 if [ "$LISTEN_PORT" != "80" ]; then
-    echo "Info: Customzizing Apache Listen port to $LISTEN_PORT"
+    echo "Info: Customizing Apache Listen port to $LISTEN_PORT"
     sed -i "s/80/$LISTEN_PORT/" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
 fi
 

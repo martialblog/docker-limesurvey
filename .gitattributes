@@ -1,0 +1,2 @@
+# force LF in entrypoint.sh
+entrypoint.sh text eol=lf

@@ -31,6 +31,8 @@ To change to Apache Webserver configuration, mount a Volume into the Container a
 
 See the example configuration provided.
 
+If you want to run Apache on a non-privileged port inside the container, just specify a environment variable `LISTEN_PORT` (e.g. `LISTEN_PORT=8080`).
+
 # Using the fpm Image
 
 To use the fpm image, you need an additional web server that can proxy http-request to the fpm-port of the container. See *docker-compose.fpm.yml* for example.
@@ -112,6 +114,7 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 | ENCRYPT_KEYPAIR  | Data encryption keypair                  |
 | ENCRYPT_PUBLIC_KEY | Data encryption public key             |
 | ENCRYPT_SECRET_KEY | Data encryption secret key             |
+| LISTEN_PORT     | Apache: Listen port. Default: 80          |
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 

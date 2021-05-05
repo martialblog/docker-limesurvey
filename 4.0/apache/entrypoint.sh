@@ -27,7 +27,7 @@ URL_FORMAT=${URL_FORMAT:-'path'}
 DEBUG=${DEBUG:-0}
 DEBUG_SQL=${DEBUG_SQL:-0}
 
-LISTEN_PORT=${LISTEN_PORT:-"80"}
+LISTEN_PORT=${LISTEN_PORT:-"8080"}
 
 if [ -z "$DB_PASSWORD" ]; then
     echo >&2 'Error: Missing DB_PASSWORD'
@@ -39,7 +39,7 @@ if [ -z "$ADMIN_PASSWORD" ]; then
     exit 1
 fi
 
-if [ "$LISTEN_PORT" != "80" ]; then
+if [ "$LISTEN_PORT" != "8080" ]; then
     echo "Info: Customizing Apache Listen port to $LISTEN_PORT"
     sed -i "s/80/$LISTEN_PORT/" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
 fi

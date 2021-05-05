@@ -2,7 +2,7 @@ FROM php:7.4-apache
 LABEL maintainer="markus@martialblog.de"
 ARG version='4.5.1+210420'
 ARG sha256_checksum='e26c95db575897f65c6906993ce9d8eb7cfea9e76f40700fbe708bf24a3a07d3'
-ARG USER=root
+ARG USER=www-data
 
 # Install OS dependencies
 RUN set -ex; \

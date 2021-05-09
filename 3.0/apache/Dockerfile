@@ -2,6 +2,8 @@ FROM php:7.4-apache
 LABEL maintainer="markus@martialblog.de"
 ARG version='3.26.1+210427'
 ARG sha256_checksum='25ed4c956e4b839db05178d7a38f508799a5ea2556b540fec04aeb750817b900'
+ARG USER=root
+ARG LISTEN_PORT=80
 
 # Install OS dependencies
 RUN set -ex; \
@@ -71,9 +73,10 @@ RUN set -ex; \
         \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
         rm -f "/tmp/limesurvey.tar.gz" && \
-        chown -R www-data:www-data /var/www/html
+        chown -R www-data:www-data /var/www/html /etc/apache2
 
 WORKDIR /var/www/html
 COPY entrypoint.sh entrypoint.sh
+USER $USER
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["apache2-foreground"]

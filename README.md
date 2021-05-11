@@ -13,15 +13,19 @@ Dockerfile to build a [LimeSurvey](https://limesurvey.org) Image for the Docker 
 ## Supported tags and respective Dockerfile links
 
 - [`4-apache`, `4.<BUILD-NUMBER>-apache`, `latest` ](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/apache/Dockerfile)
+- [`4-apache-rootless`, `4.<BUILD-NUMBER>-apache-rootless`](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/apache/Dockerfile)
 - [`4-fpm`, `4.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/fpm/Dockerfile)
 - [`4-fpm-alpine`, `4.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/fpm-alpine/Dockerfile)
 - [`3-apache`, `3.<BUILD-NUMBER>-apache`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/apache/Dockerfile)
+- [`3-apache-rootless`, `3.<BUILD-NUMBER>-apache-rootless`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/apache/Dockerfile)
 - [`3-fpm`, `3.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/fpm/Dockerfile)
 - [`3-fpm-alpine`, `3.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/fpm-alpine/Dockerfile)
 
 # Using the Apache Image
 
-The apache image comes with an Apache Webserver and PHP installed.
+The `apache` image comes with an Apache Webserver and PHP installed.
+
+This image is also available as `rootless` with `www-data` as default user.
 
 ## Apache Configuration
 

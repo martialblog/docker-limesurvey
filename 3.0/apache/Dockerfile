@@ -1,7 +1,7 @@
 FROM php:7.4-apache
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.26.1+210427'
-ARG sha256_checksum='25ed4c956e4b839db05178d7a38f508799a5ea2556b540fec04aeb750817b900'
+ARG version='3.26.2+210503'
+ARG sha256_checksum='f76f1983e9dbf432346679c5697189a64e41a795facffa392bb9c66ea0de5675'
 ARG USER=root
 ARG LISTEN_PORT=80
 

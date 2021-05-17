@@ -1,7 +1,7 @@
 FROM php:7.4-fpm
 LABEL maintainer="markus@martialblog.de"
-ARG version='4.6.1+210510'
-ARG sha256_checksum='6051b14d7c92e466799ed02710b7ecb0203613663769e93a4759e4a5b4175d85'
+ARG version='4.6.2+210512'
+ARG sha256_checksum='7c2d26294e09a35bdca698277ff4b71190911596b5c8173a8d628bf8fb761789'
 
 # Install OS dependencies
 RUN set -ex; \

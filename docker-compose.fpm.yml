@@ -2,7 +2,7 @@ version: "3.0"
 services:
   limesurvey:
     build:
-      context: 4.0/fpm/
+      context: 5.0/fpm/
       dockerfile: Dockerfile
     volumes:
       - /tmp/upload/surveys:/var/www/html/upload/surveys

@@ -136,6 +136,42 @@ http://localhost:8080/
 http://localhost:8080/index.php/admin
 ```
 
+# Upgrade Guide
+
+These guides are only referring to the Docker Image, for details on the application users should consult the [official LimeSurvey documentation](https://manual.limesurvey.org/Upgrading_from_a_previous_version) for details.
+
+## Upgrading the FPM Images
+
+If you are using docker-compose to run the FPM Images, you need to stop the application and webserver Containers and delete the application volume:
+
+```
+$ docker volume ls
+DRIVER    VOLUME NAME
+local     docker-limesurvey_lime
+
+$ docker volume rm docker-limesurvey_lime
+```
+
+## Upgrading to 5.0 from 4.x
+
+The default user in the Container will now be *www-data* (uid 33 in Debian, uid 82 in Alpine), any volumes mounted need the corresponding permissions:
+
+```
+# Debian
+$ ls -ln upload/
+total 4
+drwxr-xr-x 3 33 33 4096 Jun  3 13:51 surveys
+```
+
+```
+# Alpine
+$ ls -ln upload/
+total 4
+drwxr-xr-x 3 82 82 4096 Jun  3 13:51 surveys
+```
+
+If you are using the Apache2 Images, the default port will now be **8080**. Depending on your setup the port configurations might need adjustment.
+
 # References
 
 - https://www.limesurvey.org/

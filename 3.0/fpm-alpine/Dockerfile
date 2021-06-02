@@ -35,10 +35,9 @@ RUN set -ex; \
         tidy \
         zip
 
-# Download, unzip and chmod of LimeSurvey
-RUN curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz
-
+# Download, unzip and chmod LimeSurvey from official GitHub repository
 RUN set -ex; \
+        curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz && \
         echo "${sha256_checksum}  /tmp/limesurvey.tar.gz" | sha256sum -c - && \
         \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \

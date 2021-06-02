@@ -2,7 +2,7 @@ version: "3.0"
 services:
   limesurvey:
     build:
-      context: 4.0/apache/
+      context: 5.0/apache/
       dockerfile: Dockerfile
     volumes:
       - /tmp/upload/surveys:/var/www/html/upload/surveys
@@ -11,7 +11,7 @@ services:
     depends_on:
       - lime-db
     ports:
-      - "8080:80"
+      - "8080:8080"
     environment:
       - "DB_HOST=lime-db"
       - "DB_PASSWORD=secret"

@@ -23,6 +23,7 @@ ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
 BASE_URL=${BASE_URL:-}
 PUBLIC_URL=${PUBLIC_URL:-}
 URL_FORMAT=${URL_FORMAT:-'path'}
+SHOW_SCRIPT_NAME=${SHOW_SCRIPT_NAME:-'true'}
 
 DEBUG=${DEBUG:-0}
 DEBUG_SQL=${DEBUG_SQL:-0}
@@ -89,7 +90,7 @@ return array(
     'urlManager' => array(
       'urlFormat' => '$URL_FORMAT',
       'rules' => array(),
-      'showScriptName' => true,
+      'showScriptName' => $SHOW_SCRIPT_NAME,
     ),
     'request' => array(
       'baseUrl' => '$BASE_URL',

@@ -11,8 +11,8 @@ jobs:
           - chmod 700 ${HADOLINT}
           - git ls-files --exclude='Dockerfile*' --ignored | xargs --max-lines=1 ${HADOLINT} --ignore DL4006 --ignore DL3008 --ignore DL3018
     - env: TAG=martialblog/limesurvey-apache
-      script: cd 4.0/apache; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
+      script: cd 5.0/apache; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
     - env: TAG=martialblog/limesurvey-fpm
-      script: cd 4.0/fpm; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
+      script: cd 5.0/fpm; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
     - env: TAG=martialblog/limesurvey-alpine
-      script: cd 4.0/fpm; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG
+      script: cd 5.0/fpm; docker build -q -t $TAG . && cd ../..; ./tests/run.sh $TAG

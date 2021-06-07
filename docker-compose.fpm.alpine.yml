@@ -2,9 +2,10 @@ version: "3.0"
 services:
   limesurvey:
     build:
-      context: 4.0/fpm-alpine/
+      context: 5.0/fpm-alpine/
       dockerfile: Dockerfile
     volumes:
+      # Hint: This is just an example, change /tmp to something persistent
       - /tmp/upload/surveys:/var/www/html/upload/surveys
       - lime:/var/www/html
     links:

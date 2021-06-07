@@ -1,7 +1,8 @@
-FROM php:7.4-fpm
+FROM php:8-fpm
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.26.5+210519'
-ARG sha256_checksum='fbe6c59b6b23f34f1d9dbc8ca64dfb4ce8573cc0925e9aad2db00c6b0d4b62fd'
+ARG version='5.0.0+210526'
+ARG sha256_checksum='b82edc84970b438fdcc63880bb4dee74ee5afb61540f25be8c84a102881c2bc0'
+ARG USER=www-data
 
 # Install OS dependencies
 RUN set -ex; \
@@ -57,11 +58,12 @@ RUN set -ex; \
         \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
         rm -f "/tmp/limesurvey.tar.gz" && \
-        chown -R www-data:www-data /var/www/html
+        chown -R "$USER:$USER" /var/www/html
 
 EXPOSE 9000
 
 WORKDIR /var/www/html
 COPY entrypoint.sh entrypoint.sh
+USER $USER
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["php-fpm"]

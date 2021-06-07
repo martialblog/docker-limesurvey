@@ -12,12 +12,10 @@ Dockerfile to build a [LimeSurvey](https://limesurvey.org) Image for the Docker 
 
 ## Supported tags and respective Dockerfile links
 
-- [`4-apache`, `4.<BUILD-NUMBER>-apache`, `latest` ](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/apache/Dockerfile)
-- [`4-apache-rootless`, `4.<BUILD-NUMBER>-apache-rootless`](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/apache/Dockerfile)
-- [`4-fpm`, `4.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/fpm/Dockerfile)
-- [`4-fpm-alpine`, `4.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/4.0/fpm-alpine/Dockerfile)
+- [`5-apache`, `5.<BUILD-NUMBER>-apache`, `latest` ](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/apache/Dockerfile)
+- [`5-fpm`, `5.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm/Dockerfile)
+- [`5-fpm-alpine`, `5.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm-alpine/Dockerfile)
 - [`3-apache`, `3.<BUILD-NUMBER>-apache`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/apache/Dockerfile)
-- [`3-apache-rootless`, `3.<BUILD-NUMBER>-apache-rootless`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/apache/Dockerfile)
 - [`3-fpm`, `3.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/fpm/Dockerfile)
 - [`3-fpm-alpine`, `3.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/fpm-alpine/Dockerfile)
 
@@ -25,7 +23,7 @@ Dockerfile to build a [LimeSurvey](https://limesurvey.org) Image for the Docker 
 
 The `apache` image comes with an Apache Webserver and PHP installed.
 
-This image is also available as `rootless` with `www-data` as default user.
+This image is also available in a `rootless` variant with `www-data` as default user and Apache listening on 8080. Starting from 5.0, the `rootless` variant is the default for Apache images.
 
 ## Apache Configuration
 
@@ -35,7 +33,7 @@ To change to Apache Webserver configuration, mount a Volume into the Container a
 
 See the example configuration provided.
 
-If you want to run Apache on a non-privileged port inside the container, just specify a environment variable `LISTEN_PORT` (e.g. `LISTEN_PORT=8080`).
+The Apache port can be specified by setting the environment variable `LISTEN_PORT` (e.g. `LISTEN_PORT=8080`). Starting from 5.0, Apache defaults to listening on a non-privilged port (8080) in inside the container.
 
 # Using the fpm Image
 
@@ -75,7 +73,7 @@ To change to LimeSurvey configuration, you can mount a Volume into the Container
 
 ## Data encryption
 
-LimeSurvey 4 supports data encryption, this image give you these options:
+LimeSurvey version 4.0 and newer support data encryption, this image give you these options:
 
 * Provide a security.php file directly (volume)
 * Provide encryption keys for the `security.php` file (environment variables)
@@ -113,12 +111,13 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 | PUBLIC_URL      | Public URL for public scripts             |
 | BASE_URL        | Application Base URL                      |
 | URL_FORMAT      | URL Format. path or get                   |
+| SHOW_SCRIPT_NAME | Script name in URL (true|false). Default: true |
 | DEBUG           | Debug level (0, 1, 2). Default: 0         |
 | DEBUG_SQL       | SQL Debug level (0, 1, 2). Default 0      |
 | ENCRYPT_KEYPAIR  | Data encryption keypair                  |
 | ENCRYPT_PUBLIC_KEY | Data encryption public key             |
 | ENCRYPT_SECRET_KEY | Data encryption secret key             |
-| LISTEN_PORT     | Apache: Listen port. Default: 80          |
+| LISTEN_PORT     | Apache: Listen port. Default: 8080        |
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 
@@ -135,6 +134,42 @@ http://localhost:8080/
 # Backend
 http://localhost:8080/index.php/admin
 ```
+
+# Upgrade Guide
+
+These guides are only referring to the Docker Image, for details on the application users should consult the [official LimeSurvey documentation](https://manual.limesurvey.org/Upgrading_from_a_previous_version) for details.
+
+## Upgrading the FPM Images
+
+If you are using docker-compose to run the FPM Images, you need to stop the application and webserver Containers and delete the application volume:
+
+```
+$ docker volume ls
+DRIVER    VOLUME NAME
+local     docker-limesurvey_lime
+
+$ docker volume rm docker-limesurvey_lime
+```
+
+## Upgrading to 5.0 from 4.x
+
+The default user in the Container will now be *www-data* (uid 33 in Debian, uid 82 in Alpine), any volumes mounted need the corresponding permissions:
+
+```
+# Debian
+$ ls -ln upload/
+total 4
+drwxr-xr-x 3 33 33 4096 Jun  3 13:51 surveys
+```
+
+```
+# Alpine
+$ ls -ln upload/
+total 4
+drwxr-xr-x 3 82 82 4096 Jun  3 13:51 surveys
+```
+
+If you are using the Apache2 Images, the default port will now be **8080**. Depending on your setup the port configurations might need adjustment.
 
 # References
 

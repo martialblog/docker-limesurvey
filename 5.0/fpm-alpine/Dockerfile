@@ -1,7 +1,8 @@
-FROM php:7.4-fpm-alpine
+FROM php:8-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
-ARG version='4.6.3+210518'
-ARG sha256_checksum='3c59afc13d0cf974c465c5f851cb8837117518e94031f5e3a28ba468ad734ce2'
+ARG version='5.0.0+210526'
+ARG sha256_checksum='b82edc84970b438fdcc63880bb4dee74ee5afb61540f25be8c84a102881c2bc0'
+ARG USER=www-data
 
 # Install OS dependencies
 RUN set -ex; \
@@ -47,12 +48,13 @@ RUN set -ex; \
         /var/www/html/docs \
         /var/www/html/tests \
         /var/www/html/*.md && \
-        chown -R www-data:root /var/www/ ; \
+        chown -R "${USER}:root" /var/www/ ; \
         chmod -R g=u /var/www
 
 EXPOSE 9000
 
 WORKDIR /var/www/html
 COPY entrypoint.sh entrypoint.sh
+USER $USER
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["php-fpm"]

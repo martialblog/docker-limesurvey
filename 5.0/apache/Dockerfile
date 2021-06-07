@@ -1,7 +1,9 @@
-FROM php:7.4-fpm
+FROM php:8-apache
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.26.5+210519'
-ARG sha256_checksum='fbe6c59b6b23f34f1d9dbc8ca64dfb4ce8573cc0925e9aad2db00c6b0d4b62fd'
+ARG version='5.0.0+210526'
+ARG sha256_checksum='b82edc84970b438fdcc63880bb4dee74ee5afb61540f25be8c84a102881c2bc0'
+ARG USER=www-data
+ARG LISTEN_PORT=8080
 
 # Install OS dependencies
 RUN set -ex; \
@@ -22,6 +24,7 @@ RUN set -ex; \
         libtidy-dev \
         libsodium-dev \
         netcat \
+        curl \
         \
         && apt-get -y autoclean; apt-get -y autoremove; \
         rm -rf /var/lib/apt/lists/*
@@ -50,6 +53,19 @@ RUN set -ex; \
 
 ENV LIMESURVEY_VERSION=$version
 
+# Apache configuration
+RUN a2enmod headers rewrite remoteip; \
+        {\
+        echo RemoteIPHeader X-Real-IP ;\
+        echo RemoteIPTrustedProxy 10.0.0.0/8 ;\
+        echo RemoteIPTrustedProxy 172.16.0.0/12 ;\
+        echo RemoteIPTrustedProxy 192.168.0.0/16 ;\
+        } > /etc/apache2/conf-available/remoteip.conf;\
+        a2enconf remoteip
+
+# Use the default production configuration
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
 # Download, unzip and chmod LimeSurvey from official GitHub repository
 RUN set -ex; \
         curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz && \
@@ -57,11 +73,12 @@ RUN set -ex; \
         \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \
         rm -f "/tmp/limesurvey.tar.gz" && \
-        chown -R www-data:www-data /var/www/html
+        chown -R "$USER:$USER" /var/www/html /etc/apache2
 
-EXPOSE 9000
+EXPOSE $LISTEN_PORT
 
 WORKDIR /var/www/html
 COPY entrypoint.sh entrypoint.sh
+USER $USER
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
-CMD ["php-fpm"]
+CMD ["apache2-foreground"]

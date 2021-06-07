@@ -2,16 +2,17 @@ version: "3.0"
 services:
   limesurvey:
     build:
-      context: 4.0/apache/
+      context: 5.0/apache/
       dockerfile: Dockerfile
     volumes:
+      # Hint: This is just an example, change /tmp to something persistent
       - /tmp/upload/surveys:/var/www/html/upload/surveys
     links:
       - lime-db
     depends_on:
       - lime-db
     ports:
-      - "8080:80"
+      - "8080:8080"
     environment:
       - "DB_TYPE=pgsql"
       - "DB_PORT=5432"

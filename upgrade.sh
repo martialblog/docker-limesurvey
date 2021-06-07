@@ -32,4 +32,4 @@ sed -r -i -e "s/[A-Fa-f0-9]{64}/$SHA256_CHECKSUM/" $MAJOR_VERSION/apache/Dockerf
 
 # After that, check and commit
 echo "git add 3.0 ; git commit -m 'Upgrading to LTS Version ${NEW_VERSION}' && git tag ${NEW_VERSION}"
-echo "git add 4.0 ; git commit -m 'Upgrading to Version ${NEW_VERSION}' && git tag ${NEW_VERSION}"
+echo "git add 5.0 ; git commit -m 'Upgrading to Version ${NEW_VERSION}' && git tag ${NEW_VERSION}"

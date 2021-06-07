@@ -5,7 +5,7 @@ services:
       context: 5.0/apache/
       dockerfile: Dockerfile
     volumes:
-      # Hint: This is just an example, change /tmp to something persisent
+      # Hint: This is just an example, change /tmp to something persistent
       - /tmp/upload/surveys:/var/www/html/upload/surveys
     links:
       - lime-db

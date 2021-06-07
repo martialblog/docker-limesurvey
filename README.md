@@ -35,7 +35,6 @@ See the example configuration provided.
 
 The Apache port can be specified by setting the environment variable `LISTEN_PORT` (e.g. `LISTEN_PORT=8080`). Starting from 5.0, Apache defaults to listening on a non-privilged port (8080) in inside the container.
 
-
 # Using the fpm Image
 
 To use the fpm image, you need an additional web server that can proxy http-request to the fpm-port of the container. See *docker-compose.fpm.yml* for example.

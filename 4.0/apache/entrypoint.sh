@@ -41,7 +41,7 @@ fi
 
 if [ "$LISTEN_PORT" != "80" ]; then
     echo "Info: Customizing Apache Listen port to $LISTEN_PORT"
-    sed -i "s/80/$LISTEN_PORT/" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+    sed -i "s/Listen 80\$/Listen $LISTEN_PORT/" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
 fi
 
 # Check if database is available

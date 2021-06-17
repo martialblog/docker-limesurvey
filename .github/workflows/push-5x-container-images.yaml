@@ -1,0 +1,89 @@
+name: Publish 5.x container images
+on:
+  push:
+    tags:
+      - '5.*'
+
+jobs:
+  push_images_to_registries:
+    name: Push container images to registries
+    environment: docker-build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        with:
+          buildkitd-flags: --debug
+      - name: Log in to Docker Hub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      # - name: Log in to GitHub Container Registry
+      #   uses: docker/login-action@v1
+      #   with:
+      #     registry: gchr.io
+      #     username: ${{ github.repository_owner }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Apache variant metadata
+        id: metadata-apache
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            martialblog/limesurvey
+          # ghcr.io/martialblog/limesurvey
+          tags: |
+            type=semver,pattern={{raw}},suffix=-apache
+            type=semver,pattern={{major}},suffix=-apache
+          flavor: |
+            latest=false
+      - name: 'Build and push "5-apache" container images'
+        uses: docker/build-push-action@v2
+        with:
+          context: 5.0/apache
+          push: true
+          tags: ${{ steps.metadata-apache.outputs.tags }}
+          labels: ${{ steps.metadata-apache.outputs.labels }}
+
+      - name: FPM variant metadata
+        id: metadata-fpm
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            martialblog/limesurvey
+            # ghcr.io/martialblog/limesurvey
+          tags: |
+            type=semver,pattern={{version}},suffix=-fpm
+            type=semver,pattern={{major}},suffix=-fpm
+      - name: 'Build and push "5-fpm" container images'
+        uses: docker/build-push-action@v2
+        with:
+          context: 5.0/fpm
+          push: true
+          tags: ${{ steps.metadata-fpm.outputs.tags }}
+          labels: ${{ steps.metadata-apache.outputs.labels }}
+
+      - name: FPM Alpine variant metadata
+        id: metadata-fpm-alpine
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            martialblog/limesurvey
+          # ghcr.io/martialblog/limesurvey
+          tags: |
+            type=semver,pattern={{version}},suffix=-fpm-alpine
+            type=semver,pattern={{major}},suffix=-fpm-alpine
+      - name: 'Build and push "5-fpm-alpine" container images'
+        uses: docker/build-push-action@v2
+        with:
+          context: 5.0/fpm-alpine
+          push: true
+          tags: ${{ steps.metadata-fpm-alpine.outputs.tags }}
+          labels: ${{ steps.metadata-apache.outputs.labels }}

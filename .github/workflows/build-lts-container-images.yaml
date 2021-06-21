@@ -1,0 +1,110 @@
+name: Publish LTS Container Images
+on:
+  push:
+    tags:
+      - '3.*'
+
+jobs:
+  lint_dockerfiles:
+    name: 'Lint Dockerfile with hadolint'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dockerfile:
+          - 3.0/apache/Dockerfile
+          - 3.0/fpm-alpine/Dockerfile
+          - 3.0/fpm/Dockerfile
+    steps:
+      - uses: actions/checkout@v2
+      - uses: hadolint/hadolint-action@v1.5.0
+        with:
+          dockerfile: ${{ matrix.dockerfile }}
+          ignore: DL4006 DL3008 DL3018
+
+  push_images_to_registries:
+    name: 'Push container images to registries'
+    runs-on: ubuntu-latest
+    needs: [lint_dockerfiles]
+    environment: docker-build
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: 'Check out the repo'
+        uses: actions/checkout@v2
+      - name: 'Set up Docker Buildx'
+        uses: docker/setup-buildx-action@v1
+        with:
+          buildkitd-flags: --debug
+      - name: 'Log in to DockerHub'
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      ## Can be enabled in the future
+      # - name: Log in to GitHub Container Registry
+      #   uses: docker/login-action@v1
+      #   with:
+      #     registry: gchr.io
+      #     username: ${{ github.repository_owner }}
+      #     password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Apache variant metadata'
+        id: metadata-apache
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            docker.io/martialblog/limesurvey
+          ## Can be enabled in the future
+          # ghcr.io/martialblog/limesurvey
+          tags: |
+            type=semver,pattern={{raw}},suffix=-apache
+            type=semver,pattern={{major}},suffix=-apache
+          flavor: |
+            latest=false
+      - name: 'Build and push LTS apache container images'
+        uses: docker/build-push-action@v2
+        with:
+          context: 3.0/apache
+          push: true
+          tags: ${{ steps.metadata-apache.outputs.tags }}
+          labels: ${{ steps.metadata-apache.outputs.labels }}
+
+      - name: 'FPM variant metadata'
+        id: metadata-fpm
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            docker.io/martialblog/limesurvey
+            ## Can be enabled in the future
+            # ghcr.io/martialblog/limesurvey
+          tags: |
+            type=semver,pattern={{version}},suffix=-fpm
+            type=semver,pattern={{major}},suffix=-fpm
+      - name: 'Build and push LTS fpm container images'
+        uses: docker/build-push-action@v2
+        with:
+          context: 3.0/fpm
+          push: true
+          tags: ${{ steps.metadata-fpm.outputs.tags }}
+          labels: ${{ steps.metadata-apache.outputs.labels }}
+
+      - name: 'FPM Alpine variant metadata'
+        id: metadata-fpm-alpine
+        uses: docker/metadata-action@v3
+        with:
+          images: |
+            docker.io/martialblog/limesurvey
+          ## Can be enabled in the future
+          # ghcr.io/martialblog/limesurvey
+          tags: |
+            type=semver,pattern={{version}},suffix=-fpm-alpine
+            type=semver,pattern={{major}},suffix=-fpm-alpine
+      - name: 'Build and push LTS fpm-alpine container images'
+        uses: docker/build-push-action@v2
+        with:
+          context: 3.0/fpm-alpine
+          push: true
+          tags: ${{ steps.metadata-fpm-alpine.outputs.tags }}
+          labels: ${{ steps.metadata-apache.outputs.labels }}

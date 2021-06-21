@@ -76,7 +76,8 @@ jobs:
         with:
           images: |
             docker.io/martialblog/limesurvey
-            # ghcr.io/martialblog/limesurvey
+          ## Can be enabled in the future
+          # ghcr.io/martialblog/limesurvey
           tags: |
             type=semver,pattern={{version}},suffix=-fpm
             type=semver,pattern={{major}},suffix=-fpm
@@ -86,7 +87,7 @@ jobs:
           context: 5.0/fpm
           push: true
           tags: ${{ steps.metadata-fpm.outputs.tags }}
-          labels: ${{ steps.metadata-apache.outputs.labels }}
+          labels: ${{ steps.metadata-fpm.outputs.labels }}
 
       - name: 'FPM Alpine variant metadata'
         id: metadata-fpm-alpine
@@ -105,4 +106,4 @@ jobs:
           context: 5.0/fpm-alpine
           push: true
           tags: ${{ steps.metadata-fpm-alpine.outputs.tags }}
-          labels: ${{ steps.metadata-apache.outputs.labels }}
+          labels: ${{ steps.metadata-fpm-alpine.outputs.labels }}

@@ -1,0 +1,57 @@
+schemaVersion: "2.0.0"
+
+globalEnvVars:
+  - key: "PATH"
+    value: "/env/bin:$PATH"
+
+fileContentTests:
+  - name: 'Limesurvey admin file content'
+    path: '/var/www/html/admin/index.php'
+    expectedContents: ['LimeSurvey']
+  - name: 'Entrypoint file content'
+    path: '/var/www/html/entrypoint.sh'
+    expectedContents: ['console.php', 'ADMIN_USER']
+
+fileExistenceTests:
+  - name: 'Limesurvey files'
+    path: '/var/www/html/index.php'
+    shouldExist: true
+    permissions: '-rw-rw-r--'
+  - name: 'Limesurvey admin files'
+    path: '/var/www/html/admin/index.php'
+    shouldExist: true
+    permissions: '-rw-rw-r--'
+  - name:  "Dependencies - PHP - gd"
+    path: '/usr/local/etc/php/conf.d/docker-php-ext-gd.ini'
+    shouldExist: true
+  - name:  "Dependencies - PHP - imap"
+    path: '/usr/local/etc/php/conf.d/docker-php-ext-imap.ini'
+    shouldExist: true
+  - name:  "Dependencies - PHP - ldap"
+    path: '/usr/local/etc/php/conf.d/docker-php-ext-ldap.ini'
+    shouldExist: true
+  - name:  "Dependencies - PHP - pgsql"
+    path: '/usr/local/etc/php/conf.d/docker-php-ext-pgsql.ini'
+    shouldExist: true
+  - name:  "Dependencies - PHP - zip"
+    path: '/usr/local/etc/php/conf.d/docker-php-ext-zip.ini'
+    shouldExist: true
+  - name:  "Dependencies - PHP - sodium"
+    path: '/usr/local/etc/php/conf.d/docker-php-ext-sodium.ini'
+    shouldExist: true
+  - name:  "Dependencies - PHP - pdo_mysql"
+    path: '/usr/local/etc/php/conf.d/docker-php-ext-pdo_mysql.ini'
+    shouldExist: true
+  - name:  "Dependencies - PHP - pdo_pgsql"
+    path: '/usr/local/etc/php/conf.d/docker-php-ext-pdo_pgsql.ini'
+    shouldExist: true
+
+commandTests:
+  - name:  "Dependencies - netcat"
+    command: "apk"
+    args: ["info", "-e", "netcat-openbsd"]
+    exitCode: 0
+  - name:  "Dependencies - PHP Modules"
+    command: "php"
+    args: ["-m"]
+    expectedOutput: ["ldap", "zip", "pdo_mysql", "pdo_sqlite", "gd", "mbstring", "PDO", "imap"]

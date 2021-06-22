@@ -32,7 +32,7 @@ jobs:
         uses: plexsystems/container-structure-test-action@v0.2.0
         with:
           image: docker.io/martialblog/limesurvey:3-${{ matrix.context }}
-          config: tests/image_tests.yaml
+          config: tests/${{ matrix.context }}-tests.yaml
 
       - name: 'Run vulnerability scanner'
         uses: aquasecurity/trivy-action@master
@@ -41,7 +41,6 @@ jobs:
           format: 'template'
           template: '@/contrib/sarif.tpl'
           output: trivy-results-3-${{ matrix.context }}.sarif
-          ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
 
       - name: 'Upload Trivy scan results to GitHub'

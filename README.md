@@ -1,4 +1,6 @@
-[![Build Status](https://travis-ci.com/martialblog/docker-limesurvey.svg?branch=master)](https://travis-ci.com/martialblog/docker-limesurvey)
+[![Lint Dockerfile](https://github.com/martialblog/docker-limesurvey/actions/workflows/lint-dockerfiles.yaml/badge.svg)](https://github.com/martialblog/docker-limesurvey/actions/workflows/lint-dockerfiles.yaml)
+[![Test LTS Container Images](https://github.com/martialblog/docker-limesurvey/actions/workflows/test-lts-container-images.yaml/badge.svg)](https://github.com/martialblog/docker-limesurvey/actions/workflows/test-lts-container-images.yaml)
+[![Test Latest Container Images](https://github.com/martialblog/docker-limesurvey/actions/workflows/test-latest-container-images.yaml/badge.svg)](https://github.com/martialblog/docker-limesurvey/actions/workflows/test-latest-container-images.yaml)
 [![](https://images.microbadger.com/badges/image/martialblog/limesurvey.svg)](https://microbadger.com/images/martialblog/limesurvey "Get your own image badge on microbadger.com")
 
 # LimeSurvey Docker

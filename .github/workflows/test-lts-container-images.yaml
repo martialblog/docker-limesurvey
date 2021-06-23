@@ -1,7 +1,6 @@
 name: Test LTS Container Images
 
-# TODO: When to Trigger?
-on: [push]
+on: [push, pull_request]
 
 jobs:
   test_images:

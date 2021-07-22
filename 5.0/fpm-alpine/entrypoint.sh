@@ -24,6 +24,7 @@ BASE_URL=${BASE_URL:-}
 PUBLIC_URL=${PUBLIC_URL:-}
 URL_FORMAT=${URL_FORMAT:-'path'}
 SHOW_SCRIPT_NAME=${SHOW_SCRIPT_NAME:-'true'}
+TABLE_SESSION=${TABLE_SESSION:-}
 
 DEBUG=${DEBUG:-0}
 DEBUG_SQL=${DEBUG_SQL:-0}
@@ -87,6 +88,11 @@ return array(
       'charset' => '$DB_CHARSET',
       'tablePrefix' => '$DB_TABLE_PREFIX',
     ),
+    //'session' => array (
+    //   'class' => 'application.core.web.DbHttpSession',
+    //   'connectionID' => 'db',
+    //   'sessionTableName' => '{{sessions}}',
+    //),
     'urlManager' => array(
       'urlFormat' => '$URL_FORMAT',
       'rules' => array(),
@@ -105,6 +111,13 @@ return array(
 
 EOF
 
+fi
+
+# Enable Table Sessions if required
+if [ -n "$TABLE_SESSION" ]; then
+    echo 'Info: Setting Table Session'
+    # Remove the comments in the config
+    sed -i "s/\/\///g" application/config/config.php
 fi
 
 # Check if security config already provisioned

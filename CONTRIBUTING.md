@@ -24,15 +24,29 @@ It is best to use the upgrade shell script:
 # Check if sha256 is correct
 
 git add 4.0/ && git commit -m 'Upgrading to Version 4.3.13+200824'
-git tag 4.3.13+200824
+git tag 4.3.13-200824
 ```
 
 ## Testing
 
-In order to make sure the image works as promised, some tests are provided:
-
-```bash
-./tests/run.sh
-```
+In order to make sure the image works as promised, some container-structure-tests are provided. The tests require the `container-structure-test` tool to be installed.
 
 For further information:  https://github.com/GoogleContainerTools/container-structure-test
+
+```bash
+make apache-latest
+
+container-structure-test test --image docker.io/martialblog/limesurvey:5-apache --config tests/apache-tests.yaml
+```
+
+```bash
+make fpm-latest
+
+container-structure-test test --image  docker.io/martialblog/limesurvey:5-fpm-alpine --config tests/fpm-alpine-tests.yaml
+```
+
+```bash
+make fpm-alpine-latest
+
+container-structure-test test --image  docker.io/martialblog/limesurvey:5-fpm --config tests/fpm-tests.yaml
+```

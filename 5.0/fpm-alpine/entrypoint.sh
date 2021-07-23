@@ -41,7 +41,7 @@ fi
 
 # Check if database is available
 if [ -z "$DB_SOCK" ]; then
-    until nc -z -v -w30 $DB_HOST $DB_PORT
+    until nc -z -v -w30 "$DB_HOST" "$DB_PORT"
     do
         echo "Info: Waiting for database connection..."
         sleep 5
@@ -64,7 +64,7 @@ else
         DB_CHARSET=${DB_CHARSET:-'utf8'}
     fi
 
-    if [ ! -z "$DB_SOCK" ]; then
+    if [ -n "$DB_SOCK" ]; then
         echo 'Info: Using unix socket'
         DB_CONNECT='unix_socket'
     else
@@ -125,7 +125,7 @@ if [ -f application/config/security.php ]; then
     echo 'Info: security.php already provisioned'
 else
     echo 'Info: Creating security.php'
-    if [ ! -z "$ENCRYPT_KEYPAIR" ]; then
+    if [ -n "$ENCRYPT_KEYPAIR" ]; then
 
         cat <<EOF > application/config/security.php
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
@@ -146,12 +146,14 @@ fi
 echo 'Info: Check if database already provisioned. Nevermind the Stack trace.'
 php application/commands/console.php updatedb
 
-if [ $? -eq 0 ]; then
+PHP_UPDATEDB_EXIT_CODE=$?
+
+if [ $PHP_UPDATEDB_EXIT_CODE -eq 0 ]; then
     echo 'Info: Database already provisioned'
 else
     echo ''
     echo 'Running console.php install'
-    php application/commands/console.php install $ADMIN_USER $ADMIN_PASSWORD $ADMIN_NAME $ADMIN_EMAIL
+    php application/commands/console.php install "$ADMIN_USER" "$ADMIN_PASSWORD" "$ADMIN_NAME" "$ADMIN_EMAIL"
 fi
 
 exec "$@"

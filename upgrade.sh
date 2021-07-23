@@ -11,12 +11,14 @@ if [ $# -eq 0 ]
 fi
 
 NEW_VERSION=$1
-MAJOR_VERSION=$(echo $NEW_VERSION | cut -c 1 | awk '{print $1".0"}')
-NEW_TAG=$(echo $NEW_VERSION | sed "s/+/-/")
+MAJOR_VERSION="${NEW_VERSION%%.*}.0"
+NEW_TAG="${NEW_VERSION%+*}-${NEW_VERSION#*+}"
 
-grep -qc $NEW_VERSION $MAJOR_VERSION/apache/Dockerfile $MAJOR_VERSION/fpm/Dockerfile $MAJOR_VERSION/fpm-alpine/Dockerfile
+grep -qc "$NEW_VERSION" "$MAJOR_VERSION/apache/Dockerfile" "$MAJOR_VERSION/fpm/Dockerfile" "$MAJOR_VERSION/fpm-alpine/Dockerfile"
 
-if [ $? -eq 0 ]
+GREP_NEW_VERSION_EXIT_CODE=$?
+
+if [ $GREP_NEW_VERSION_EXIT_CODE -eq 0 ]
    then
        echo "Already at version ${NEW_VERSION}"
        exit 0
@@ -28,8 +30,8 @@ wget -P /tmp "https://github.com/LimeSurvey/LimeSurvey/archive/${NEW_VERSION}.ta
 SHA256_CHECKSUM=$(sha256sum "/tmp/${NEW_VERSION}.tar.gz" | awk '{ print $1 }')
 
 # Update lines in the files
-sed -r -i -e "s/[0-9]+(\.[0-9]+)+\+[0-9]+/$NEW_VERSION/" $MAJOR_VERSION/apache/Dockerfile $MAJOR_VERSION/fpm/Dockerfile $MAJOR_VERSION/fpm-alpine/Dockerfile
-sed -r -i -e "s/[A-Fa-f0-9]{64}/$SHA256_CHECKSUM/" $MAJOR_VERSION/apache/Dockerfile $MAJOR_VERSION/fpm/Dockerfile $MAJOR_VERSION/fpm-alpine/Dockerfile
+sed -r -i -e "s/[0-9]+(\.[0-9]+)+\+[0-9]+/$NEW_VERSION/" "$MAJOR_VERSION/apache/Dockerfile" "$MAJOR_VERSION/fpm/Dockerfile" "$MAJOR_VERSION/fpm-alpine/Dockerfile"
+sed -r -i -e "s/[A-Fa-f0-9]{64}/$SHA256_CHECKSUM/" "$MAJOR_VERSION/apache/Dockerfile" "$MAJOR_VERSION/fpm/Dockerfile" "$MAJOR_VERSION/fpm-alpine/Dockerfile"
 
 # After that, check and commit
 echo "git add 3.0 ; git commit -m 'Upgrading to LTS Version ${NEW_VERSION}' && git tag ${NEW_TAG}"

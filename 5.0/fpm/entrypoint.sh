@@ -76,33 +76,7 @@ else
     fi
 
     cat <<EOF > application/config/config.php
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-return array(
-  'components' => array(
-    'db' => array(
-      'connectionString' => '$DB_TYPE:$DB_CONNECT=$DB_HOST;port=$DB_PORT;dbname=$DB_NAME;',
-      'emulatePrepare' => true,
-      'username' => '$DB_USERNAME',
-      'password' => '$DB_PASSWORD',
-      'charset' => '$DB_CHARSET',
-      'tablePrefix' => '$DB_TABLE_PREFIX',
-    ),
-    'urlManager' => array(
-      'urlFormat' => '$URL_FORMAT',
-      'rules' => array(),
-      'showScriptName' => $SHOW_SCRIPT_NAME,
-    ),
-    'request' => array(
-      'baseUrl' => '$BASE_URL',
-     ),
-  ),
-  'config'=>array(
-    'publicurl'=>'$PUBLIC_URL',
-    'debug'=>$DEBUG,
-    'debugsql'=>$DEBUG_SQL,
-  )
-);
-
+$CONFIG_PHP
 EOF
 
 fi
@@ -115,12 +89,7 @@ else
     if [ -n "$ENCRYPT_KEYPAIR" ]; then
 
         cat <<EOF > application/config/security.php
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-\$config = array();
-\$config['encryptionkeypair'] = '$ENCRYPT_KEYPAIR';
-\$config['encryptionpublickey'] = '$ENCRYPT_PUBLIC_KEY';
-\$config['encryptionsecretkey'] = '$ENCRYPT_SECRET_KEY';
-return \$config;
+$SECURITY_PHP
 EOF
     else
         echo >&2 'Warning: No encryption keys were provided'

@@ -39,6 +39,7 @@ jobs:
           image-ref: docker.io/martialblog/limesurvey:3-${{ matrix.context }}
           format: 'template'
           template: '@/contrib/sarif.tpl'
+          exit-code: '0'
           output: trivy-results-3-${{ matrix.context }}.sarif
           severity: 'CRITICAL,HIGH'
 

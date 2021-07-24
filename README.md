@@ -121,7 +121,6 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 | ENCRYPT_PUBLIC_KEY | Data encryption public key             |
 | ENCRYPT_SECRET_KEY | Data encryption secret key             |
 | LISTEN_PORT     | Apache: Listen port. Default: 8080        |
-| IGNORE_USER_AGENT | User Agent to ignore in Apache Logs. Default: kube-probe |
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 

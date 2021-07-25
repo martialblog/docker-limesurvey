@@ -76,6 +76,7 @@ RUN set -ex; \
 
 WORKDIR /var/www/html
 COPY entrypoint.sh entrypoint.sh
+COPY vhosts-access-log.conf /etc/apache2/conf-enabled/other-vhosts-access-log.conf
 USER $USER
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["apache2-foreground"]

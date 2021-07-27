@@ -124,7 +124,7 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 
-# Running this Image with docker-compose
+# Running LimeSurvey with docker-compose
 
 The easiest way to get a fully featured and functional setup is using a docker-compose file. Several examples are provided in the [repository](https://github.com/martialblog/docker-limesurvey).
 
@@ -137,6 +137,12 @@ http://localhost:8080/
 # Backend
 http://localhost:8080/index.php/admin
 ```
+
+# Running LimeSurvey with Helm
+
+A Helm Chart for this Image can be used for deployments. Please refer to the Helm Repository for further details:
+
+https://github.com/martialblog/helm-charts
 
 # Upgrade Guide
 

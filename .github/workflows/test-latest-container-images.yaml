@@ -40,6 +40,8 @@ jobs:
           format: 'template'
           template: '@/contrib/sarif.tpl'
           exit-code: '0'
+          # Since we are not in charge of the Application
+          vuln-type: 'os'
           output: trivy-results-5-${{ matrix.context }}.sarif
           severity: 'CRITICAL,HIGH'
 

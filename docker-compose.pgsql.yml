@@ -2,6 +2,7 @@ version: "3.0"
 services:
   limesurvey:
     build:
+      # Hint: Change it to 3.0/apache/ if you want to use LimeSurvey 3.*
       context: 5.0/apache/
       dockerfile: Dockerfile
     volumes:
@@ -12,6 +13,7 @@ services:
     depends_on:
       - lime-db
     ports:
+      # Hint: Change it to 80:8080 if you are using LimeSurvey 3.*
       - "8080:8080"
     environment:
       - "DB_TYPE=pgsql"

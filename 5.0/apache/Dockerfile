@@ -79,7 +79,13 @@ EXPOSE $LISTEN_PORT
 
 WORKDIR /var/www/html
 COPY entrypoint.sh entrypoint.sh
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY vhosts-access-log.conf /etc/apache2/conf-enabled/other-vhosts-access-log.conf
 USER $USER
 ENTRYPOINT ["/var/www/html/entrypoint.sh"]
 CMD ["apache2-foreground"]
+VOLUME ["/var/www/html/application/config"]
+VOLUME ["/var/www/html/upload"]
+VOLUME ["/var/www/html/plugins"]
+VOLUME ["/etc/apache2/sites-available"]
+VOLUME ["/etc/apache2/sites-enabled"]

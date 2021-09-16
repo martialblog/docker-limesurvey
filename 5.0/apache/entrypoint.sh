@@ -10,6 +10,7 @@ DB_NAME=${DB_NAME:-'limesurvey'}
 DB_TABLE_PREFIX=${DB_TABLE_PREFIX:-'lime_'}
 DB_USERNAME=${DB_USERNAME:-'limesurvey'}
 DB_PASSWORD=${DB_PASSWORD:-}
+SERVER_NAME=${SERVER_NAME:-'apache-patch.afya.pl'}
 
 ENCRYPT_KEYPAIR=${ENCRYPT_KEYPAIR:-}
 ENCRYPT_PUBLIC_KEY=${ENCRYPT_PUBLIC_KEY:-}
@@ -43,8 +44,14 @@ fi
 
 if [ "$LISTEN_PORT" != "80" ]; then
     echo "Info: Customizing Apache Listen port to $LISTEN_PORT"
-    sed -i "s/Listen 80\$/Listen $LISTEN_PORT/" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
+    sed -i "s/<VirtualHost \\*:80>\$/<VirtualHost *:$LISTEN_PORT>/" /etc/apache2/sites-available/000-default.conf
+    sed -i "s/Listen 80\$/Listen $LISTEN_PORT/" /etc/apache2/ports.conf 
 fi
+
+#mandatory Server Name
+echo "Info: Changing Apache Server Name"
+sed -i "s/ServerName SERVER_NAME\$/ServerName $SERVER_NAME/" /etc/apache2/sites-available/000-default.conf
+
 
 # Check if database is available
 if [ -z "$DB_SOCK" ]; then

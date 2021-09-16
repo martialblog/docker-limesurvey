@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  limesurvey:
+    container_name: limesurvey_apache_patch
+    build:
+      context: 5.0/apache/
+      dockerfile: Dockerfile
+    volumes:
+      - conf:/var/www/html/application/config
+      - apache:/etc/apache2/sites-available
+      - upload:/var/www/html/upload
+    ports:
+      - "8080:8080"
+    environment:
+      - "DB_HOST=192.168.0.1"
+      - "DB_PASSWORD=password"
+      - "DB_PORT=3306"
+      - "DB_USERNAME=limesurvey_user"
+      - "DB_NAME=limesurvey"
+      - "ADMIN_EMAIL=your_email"
+      - "ADMIN_PASSWORD=admin"
+      - "ADMIN_NAME=admin"
+      - "ADMIN_USER=admin"
+      - "LISTEN_PORT=8080"
+volumes:
+  conf:
+  apache:
+  upload:

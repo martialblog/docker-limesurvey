@@ -10,6 +10,7 @@ DB_NAME=${DB_NAME:-'limesurvey'}
 DB_TABLE_PREFIX=${DB_TABLE_PREFIX:-'lime_'}
 DB_USERNAME=${DB_USERNAME:-'limesurvey'}
 DB_PASSWORD=${DB_PASSWORD:-}
+DB_MYSQL_ENGINE=${DB_MYSQL_ENGINE:-'MyISAM'}
 
 ENCRYPT_KEYPAIR=${ENCRYPT_KEYPAIR:-}
 ENCRYPT_PUBLIC_KEY=${ENCRYPT_PUBLIC_KEY:-}
@@ -113,6 +114,7 @@ return array(
     'publicurl'=>'$PUBLIC_URL',
     'debug'=>$DEBUG,
     'debugsql'=>$DEBUG_SQL,
+    'mysqlEngine' => '$DB_MYSQL_ENGINE',
   )
 );
 

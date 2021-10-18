@@ -32,21 +32,3 @@ jobs:
         with:
           image: docker.io/martialblog/limesurvey:5-${{ matrix.context }}
           config: tests/${{ matrix.context }}-tests.yaml
-
-      - name: 'Run vulnerability scanner'
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: docker.io/martialblog/limesurvey:5-${{ matrix.context }}
-          format: 'template'
-          template: '@/contrib/sarif.tpl'
-          exit-code: '0'
-          # Since we are not in charge of the Application
-          vuln-type: 'os'
-          output: trivy-results-5-${{ matrix.context }}.sarif
-          severity: 'CRITICAL,HIGH'
-
-      - name: 'Upload Trivy scan results to GitHub'
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: trivy-results-5-${{ matrix.context }}.sarif
-          category: "${{ matrix.context }}"

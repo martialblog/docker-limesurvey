@@ -15,6 +15,8 @@ DB_MYSQL_ENGINE=${DB_MYSQL_ENGINE:-'MyISAM'}
 ENCRYPT_KEYPAIR=${ENCRYPT_KEYPAIR:-}
 ENCRYPT_PUBLIC_KEY=${ENCRYPT_PUBLIC_KEY:-}
 ENCRYPT_SECRET_KEY=${ENCRYPT_SECRET_KEY:-}
+ENCRYPT_NONCE=${ENCRYPT_NONCE:-}
+ENCRYPT_SECRET_BOX_KEY=${ENCRYPT_SECRET_BOX_KEY:-}
 
 ADMIN_USER=${ADMIN_USER:-'admin'}
 ADMIN_NAME=${ADMIN_NAME:-'admin'}
@@ -142,6 +144,8 @@ else
 \$config['encryptionkeypair'] = '$ENCRYPT_KEYPAIR';
 \$config['encryptionpublickey'] = '$ENCRYPT_PUBLIC_KEY';
 \$config['encryptionsecretkey'] = '$ENCRYPT_SECRET_KEY';
+\$config['encryptionnonce'] = '$ENCRYPT_NONCE';
+\$config['encryptionsecretboxkey'] = '$ENCRYPT_SECRET_BOX_KEY';
 return \$config;
 EOF
     else

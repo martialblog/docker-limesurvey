@@ -121,6 +121,8 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 | ENCRYPT_KEYPAIR  | Data encryption keypair                  |
 | ENCRYPT_PUBLIC_KEY | Data encryption public key             |
 | ENCRYPT_SECRET_KEY | Data encryption secret key             |
+| ENCRYPT_NONCE      | Data encryption nonce (used in 5.0)    |
+| ENCRYPT_SECRET_BOX_KEY | Data encryption secret box key (used in 5.0)             |
 | LISTEN_PORT     | Apache: Listen port. Default: 8080        |
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings

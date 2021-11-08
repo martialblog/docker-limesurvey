@@ -96,7 +96,7 @@ return array(
       'username' => '$DB_USERNAME',
       'password' => '$DB_PASSWORD',
       'charset' => '$DB_CHARSET',
-      'tablePrefix' => '$DB_TABLE_PREFIX',
+      'tablePrefix' => '${DB_TABLE_PREFIX//[[:space:]]/}',
     ),
     //'session' => array (
     //   'class' => 'application.core.web.DbHttpSession',

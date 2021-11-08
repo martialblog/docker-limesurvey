@@ -17,6 +17,8 @@ services:
       - "DB_HOST=lime-db"
       - "DB_PASSWORD=secret"
       - "ADMIN_PASSWORD=foobar"
+      # If you require an empty table prefix, use a space as the DB_TABLE_PREFIX
+      # - "DB_TABLE_PREFIX= "
   lime-db:
     image: mysql:5.7
     environment:

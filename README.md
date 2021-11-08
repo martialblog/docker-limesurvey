@@ -103,7 +103,7 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 | DB_PORT         | Database server port                      |
 | DB_SOCK         | Database unix socket instead of host/port |
 | DB_NAME         | Database name                             |
-| DB_TABLE_PREFIX | Database table prefix                     |
+| DB_TABLE_PREFIX | Database table prefix; set this to a single whitespace if you don't want a table prefix. |
 | DB_MYSQL_ENGINE | MySQL engine used for survey tables (values: MyISAM, InnoDB, default: MyISAM)       |
 | DB_USERNAME     | Database user                             |
 | DB_PASSWORD     | Database user's password                  |

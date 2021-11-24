@@ -9,7 +9,7 @@ fileContentTests:
     path: '/var/www/html/admin/index.php'
     expectedContents: ['LimeSurvey']
   - name: 'Entrypoint file content'
-    path: '/var/www/html/entrypoint.sh'
+    path: '/usr/local/bin/entrypoint.sh'
     expectedContents: ['console.php', 'ADMIN_USER']
 
 fileExistenceTests:

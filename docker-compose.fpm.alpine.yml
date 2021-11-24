@@ -20,6 +20,8 @@ services:
     image: nginx:alpine
     links:
       - limesurvey
+    depends_on:
+      - limesurvey
     ports:
       - "8080:80"
     volumes:

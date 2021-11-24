@@ -75,8 +75,8 @@ RUN set -ex; \
         chown -R www-data:www-data /var/www/html /etc/apache2
 
 WORKDIR /var/www/html
-COPY entrypoint.sh entrypoint.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY vhosts-access-log.conf /etc/apache2/conf-enabled/other-vhosts-access-log.conf
 USER $USER
-ENTRYPOINT ["/var/www/html/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["apache2-foreground"]

@@ -62,6 +62,6 @@ RUN set -ex; \
 EXPOSE 9000
 
 WORKDIR /var/www/html
-COPY entrypoint.sh entrypoint.sh
-ENTRYPOINT ["/var/www/html/entrypoint.sh"]
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["php-fpm"]

@@ -78,8 +78,8 @@ RUN set -ex; \
 EXPOSE $LISTEN_PORT
 
 WORKDIR /var/www/html
-COPY entrypoint.sh entrypoint.sh
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY vhosts-access-log.conf /etc/apache2/conf-enabled/other-vhosts-access-log.conf
 USER $USER
-ENTRYPOINT ["/var/www/html/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["apache2-foreground"]

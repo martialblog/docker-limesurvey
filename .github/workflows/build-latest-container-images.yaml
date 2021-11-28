@@ -29,7 +29,8 @@ jobs:
           images: |
             docker.io/martialblog/limesurvey
           tags: |
-            type=semver,pattern={{raw}},suffix=-apache
-            type=semver,pattern={{major}},suffix=-apache
+            type=match,pattern=(.+),group=1
+            type=match,pattern=^(\d+),group=1
           flavor: |
             latest=false
+            suffix=-apache

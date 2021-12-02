@@ -159,7 +159,7 @@ if [ $PHP_UPDATEDB_EXIT_CODE -eq 0 ]; then
 else
     echo ''
     echo 'Running console.php install'
-    php application/commands/console.php install "$ADMIN_USER" "$ADMIN_PASSWORD" "$ADMIN_NAME $ADMIN_EMAIL"
+    php application/commands/console.php install "$ADMIN_USER" "$ADMIN_PASSWORD" "$ADMIN_NAME" "$ADMIN_EMAIL"
 fi
 
 exec "$@"

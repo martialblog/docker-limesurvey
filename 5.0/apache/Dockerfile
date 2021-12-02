@@ -1,4 +1,4 @@
-FROM php:8-apache
+FROM php:8.0-apache
 LABEL maintainer="markus@martialblog.de"
 ARG version='5.2.3+211122'
 ARG sha256_checksum='5a5bf3bbc1cc3ddff943e377dfdcb5469a5e5f4532fdc6b43261e7494d82f406'

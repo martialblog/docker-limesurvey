@@ -87,6 +87,8 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 
 ## Traefik example
 
+**Hint**: if you want to deploy LimeSurvey on a sub-path (e.g. https://example.com/limesurvey) you have to set the BASE_URL and adjust the Containers Webservers. See the docker-compose Traefik example in the repository.
+
 ```
 # BASE_URL = /limesurvey
 "traefik.http.routers.limesurvey.rule=PathPrefix(`/limesurvey`)",

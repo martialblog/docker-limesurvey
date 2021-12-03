@@ -1,4 +1,4 @@
-FROM php:8-fpm-alpine
+FROM php:8.0-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
 ARG version='5.2.3+211122'
 ARG sha256_checksum='5a5bf3bbc1cc3ddff943e377dfdcb5469a5e5f4532fdc6b43261e7494d82f406'

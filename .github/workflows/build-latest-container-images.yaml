@@ -52,7 +52,7 @@ jobs:
             type=match,pattern=(.+),group=1
             type=match,pattern=^(\d+),group=1
           flavor: |
-            latest=false
+            latest=true
             suffix=-apache
       - name: 'Build and push latest Apache container images'
         uses: docker/build-push-action@v2

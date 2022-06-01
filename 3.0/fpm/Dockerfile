@@ -1,7 +1,7 @@
 FROM php:8.0-fpm
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.28.11+220517'
-ARG sha256_checksum='8a36643b4341dd5095ee484da677a94a4bff25ee2ed6567136062bd0c7af4226'
+ARG version='3.28.12+220524'
+ARG sha256_checksum='18437545fc0b86900663d494508284a1a5340e6db4fc9eb7a598fb8304dd8def'
 ARG repository='LimeSurvey/LimeSurvey'
 
 # Install OS dependencies

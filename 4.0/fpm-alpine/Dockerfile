@@ -1,7 +1,8 @@
 FROM php:8.0-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
-ARG version='4.6.3+210518'
-ARG sha256_checksum='3c59afc13d0cf974c465c5f851cb8837117518e94031f5e3a28ba468ad734ce2'
+ARG version="4.6.3+210518"
+ARG sha256_checksum="3c59afc13d0cf974c465c5f851cb8837117518e94031f5e3a28ba468ad734ce2"
+ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
 
 # Install OS dependencies
 RUN set -ex; \
@@ -36,9 +37,9 @@ RUN set -ex; \
         tidy \
         zip
 
-# Download, unzip and chmod LimeSurvey from official GitHub repository
+# Download, unzip and chmod LimeSurvey from GitHub (defaults to the official LimeSurvey/LimeSurvey repository) 
 RUN set -ex; \
-        curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz && \
+        curl -sSL "${archive_url}" --output /tmp/limesurvey.tar.gz && \
         echo "${sha256_checksum}  /tmp/limesurvey.tar.gz" | sha256sum -c - && \
         \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \

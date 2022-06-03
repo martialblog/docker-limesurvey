@@ -1,7 +1,8 @@
 FROM php:8.0-apache
 LABEL maintainer="markus@martialblog.de"
-ARG version='3.28.12+220524'
-ARG sha256_checksum='18437545fc0b86900663d494508284a1a5340e6db4fc9eb7a598fb8304dd8def'
+ARG version="3.28.12+220524"
+ARG sha256_checksum="18437545fc0b86900663d494508284a1a5340e6db4fc9eb7a598fb8304dd8def"
+ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
 ARG USER=root
 ARG LISTEN_PORT=80
 
@@ -65,9 +66,9 @@ RUN a2enmod headers rewrite remoteip; \
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-# Download, unzip and chmod LimeSurvey from official GitHub repository
+# Download, unzip and chmod LimeSurvey from GitHub (defaults to the official LimeSurvey/LimeSurvey repository) 
 RUN set -ex; \
-        curl -sSL "https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz && \
+        curl -sSL "${archive_url}" --output /tmp/limesurvey.tar.gz && \
         echo "${sha256_checksum}  /tmp/limesurvey.tar.gz" | sha256sum -c - && \
         \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \

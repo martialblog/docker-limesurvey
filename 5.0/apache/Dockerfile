@@ -2,7 +2,7 @@ FROM php:8.0-apache
 LABEL maintainer="markus@martialblog.de"
 ARG version='5.3.17+220525'
 ARG sha256_checksum='fe94c4d9dc11bf0742855c70ce496be48e5556365f403fe9fcb433ed0b0494a8'
-ARG repository='LimeSurvey/LimeSurvey'
+ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
 ARG USER=www-data
 ARG LISTEN_PORT=8080
 
@@ -69,7 +69,7 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 # Download, unzip and chmod LimeSurvey from GitHub (defaults to the official LimeSurvey/LimeSurvey repository) 
 RUN set -ex; \
-        curl -sSL "https://github.com/${repository}/archive/${version}.tar.gz" --output /tmp/limesurvey.tar.gz && \
+        curl -sSL "${archive_url}" --output /tmp/limesurvey.tar.gz && \
         echo "${sha256_checksum}  /tmp/limesurvey.tar.gz" | sha256sum -c - && \
         \
         tar xzvf "/tmp/limesurvey.tar.gz" --strip-components=1 -C /var/www/html/ && \

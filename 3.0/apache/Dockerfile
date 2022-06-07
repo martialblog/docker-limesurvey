@@ -1,7 +1,7 @@
 FROM php:8.0-apache
 LABEL maintainer="markus@martialblog.de"
-ARG version="3.28.12+220524"
-ARG sha256_checksum="18437545fc0b86900663d494508284a1a5340e6db4fc9eb7a598fb8304dd8def"
+ARG version="3.28.13+220531"
+ARG sha256_checksum="57273ebd94c54e1501496451137f2d1cf205551c7dd0eebcb42b6aebeec6e1a7"
 ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
 ARG USER=root
 ARG LISTEN_PORT=80

@@ -1,7 +1,7 @@
 FROM php:8.0-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
-ARG version="5.3.17+220525"
-ARG sha256_checksum="fe94c4d9dc11bf0742855c70ce496be48e5556365f403fe9fcb433ed0b0494a8"
+ARG version="5.3.18+220530"
+ARG sha256_checksum="3b866045dcefd78dab39bcef186a8e4ca6408c08e4c43b636415e75610fa9434"
 ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
 ARG USER=www-data
 

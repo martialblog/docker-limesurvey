@@ -12,19 +12,19 @@ To update the version, simply update ARG variables for version and corresponding
 # Version from GitHub Tags
 # sha256 of tar.gz from GitHub Releases
 
-$ grep ARG 4.0/apache/Dockerfile
-ARG version='4.3.13+200824'
+$ grep ARG 5.0/apache/Dockerfile
+ARG version='5.3.13+200824'
 ARG sha256_checksum='4e9c6f20e'
 ```
 
 It is best to use the upgrade shell script:
 
 ```bash
-./upgrade.sh 4.3.13+200824
+./upgrade.sh 5.3.13+200824
 # Check if sha256 is correct
 
-git add 4.0/ && git commit -m 'Upgrading to Version 4.3.13+200824'
-git tag 4.3.13-200824
+git add 5.0/ && git commit -m 'Upgrading to Version 5.3.13+200824'
+git tag 5.3.13-200824
 ```
 
 ## Testing

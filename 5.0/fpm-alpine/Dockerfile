@@ -1,9 +1,5 @@
 FROM php:8.0-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
-ARG version="5.3.18+220530"
-ARG sha256_checksum="3b866045dcefd78dab39bcef186a8e4ca6408c08e4c43b636415e75610fa9434"
-ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
-ARG USER=www-data
 
 # Install OS dependencies
 RUN set -ex; \
@@ -37,6 +33,12 @@ RUN set -ex; \
         sodium \
         tidy \
         zip
+
+ARG version="5.3.18+220530"
+ARG sha256_checksum="3b866045dcefd78dab39bcef186a8e4ca6408c08e4c43b636415e75610fa9434"
+ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
+ARG USER=www-data
+ENV LIMESURVEY_VERSION=$version
 
 # Download, unzip and chmod LimeSurvey from GitHub (defaults to the official LimeSurvey/LimeSurvey repository) 
 RUN set -ex; \

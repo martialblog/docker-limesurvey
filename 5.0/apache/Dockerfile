@@ -1,10 +1,5 @@
 FROM php:8.0-apache
 LABEL maintainer="markus@martialblog.de"
-ARG version="5.3.18+220530"
-ARG sha256_checksum="3b866045dcefd78dab39bcef186a8e4ca6408c08e4c43b636415e75610fa9434"
-ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
-ARG USER=www-data
-ARG LISTEN_PORT=8080
 
 # Install OS dependencies
 RUN set -ex; \
@@ -52,8 +47,6 @@ RUN set -ex; \
         tidy \
         zip
 
-ENV LIMESURVEY_VERSION=$version
-
 # Apache configuration
 RUN a2enmod headers rewrite remoteip; \
         {\
@@ -66,6 +59,13 @@ RUN a2enmod headers rewrite remoteip; \
 
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+
+ARG version="5.3.18+220530"
+ARG sha256_checksum="3b866045dcefd78dab39bcef186a8e4ca6408c08e4c43b636415e75610fa9434"
+ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
+ARG USER=www-data
+ARG LISTEN_PORT=8080
+ENV LIMESURVEY_VERSION=$version
 
 # Download, unzip and chmod LimeSurvey from GitHub (defaults to the official LimeSurvey/LimeSurvey repository) 
 RUN set -ex; \

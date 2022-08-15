@@ -46,8 +46,8 @@ RUN set -ex; \
         tidy \
         zip
 
-ARG version="5.3.29+220801"
-ARG sha256_checksum="25bf38daf834f62cacfbc14aa29888ccecfec0a1dacbad5d9d2dbe29494e9584"
+ARG version="5.3.30+220808"
+ARG sha256_checksum="9a2a7a52f5b4ff1faed82ebb76bb6512352d428d3dba02f5e9bb6352876fafcf"
 ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
 ARG USER=www-data
 ENV LIMESURVEY_VERSION=$version

@@ -1,4 +1,4 @@
-FROM php:8.0-apache
+FROM docker.io/php:8.0-apache
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies

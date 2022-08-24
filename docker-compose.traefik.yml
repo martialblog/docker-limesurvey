@@ -24,7 +24,7 @@ services:
       - "PUBLIC_URL=http://localhost:8888/limesurvey"
       - "BASE_URL=http://localhost:8888/limesurvey"
   traefik:
-    image: "traefik:v2.5"
+    image: docker.io/traefik:v2.5
     container_name: "traefik"
     command:
       - "--api.insecure=true"
@@ -37,7 +37,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
   lime-db:
-    image: mysql:5.7
+    image: docker.io/mysql:5.7
     environment:
       - "MYSQL_USER=limesurvey"
       - "MYSQL_DATABASE=limesurvey"

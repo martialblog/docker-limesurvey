@@ -1,7 +1,7 @@
 version: '3'
 services:
   limesurvey:
-    image: martialblog/limesurvey:latest
+    image: docker.io/martialblog/limesurvey:latest
     restart: always
     environment:
       - DB_TYPE=pgsql
@@ -22,7 +22,7 @@ services:
     depends_on:
       - db
   db:
-    image: postgres:10-alpine
+    image: docker.io/postgres:10-alpine
     restart: always
     volumes:
       - db-data:/var/lib/postgresql

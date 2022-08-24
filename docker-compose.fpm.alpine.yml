@@ -17,7 +17,7 @@ services:
       - "DB_PASSWORD=secret"
       - "ADMIN_PASSWORD=foobar"
   lime-web:
-    image: nginx:alpine
+    image: docker.io/nginx:alpine
     links:
       - limesurvey
     depends_on:
@@ -28,7 +28,7 @@ services:
       - ./examples/nginx.conf:/etc/nginx/nginx.conf:ro
       - lime:/var/www/html
   lime-db:
-    image: mysql:5.7
+    image: docker.io/mysql:5.7
     environment:
       - "MYSQL_USER=limesurvey"
       - "MYSQL_DATABASE=limesurvey"

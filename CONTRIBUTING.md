@@ -2,6 +2,15 @@
 
 Every Pull Request is welcome.
 
+## Branches
+Choosing a proper name for a branch helps us identify its purpose and possibly find an associated bug or feature. Generally a branch name should include a topic such as `fix` or `feature` followed by a description. Branches should have only changes relevant to a specific issue.
+
+```
+git checkout -b fix/bug-in-connection
+git checkout -b feature/improved-config-handling
+git checkout -b doc/fix-typo
+```
+
 ## Upgrading the Version
 
 The versions in this repository should correspond to the [GitHub LimeSurvey Releases](https://github.com/LimeSurvey/LimeSurvey/releases)

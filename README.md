@@ -117,7 +117,7 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 | BASE_URL        | Application Base URL                      |
 | URL_FORMAT      | URL Format. path or get                   |
 | TABLE_SESSION   | Enable table sessions (true)              |
-| SHOW_SCRIPT_NAME | Script name in URL (true|false). Default: true |
+| SHOW_SCRIPT_NAME | Script name in URL (true\|false). Default: true |
 | DEBUG           | Debug level (0, 1, 2). Default: 0         |
 | DEBUG_SQL       | SQL Debug level (0, 1, 2). Default 0      |
 | ENCRYPT_KEYPAIR  | Data encryption keypair                  |

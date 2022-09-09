@@ -85,6 +85,12 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 
 # Reverse Proxy configuration
 
+If you are running LimeSurvey behind a Reverse Proxy you might need some additional configuration in the Proxy. For example:
+
+* Apache: `ProxyPreserveHost On`
+* Nginx: `fastcgi_param HTTP_HOST my-survey.example.local;`
+* Traefik: Set the Host Header explicitly via a customRequestHeaders
+
 ## Traefik example
 
 **Hint**: if you want to deploy LimeSurvey on a sub-path (e.g. https://example.com/limesurvey) you have to set the BASE_URL and adjust the Containers Webservers. See the docker-compose Traefik example in the repository.

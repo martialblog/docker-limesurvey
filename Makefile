@@ -1,6 +1,4 @@
-# .PHONY: apache fpm fpm-alpine
-
-RUNTIME = podman
+RUNTIME?=podman
 
 apache-lts:
 	$(RUNTIME) build --pull -t docker.io/martialblog/limesurvey:3-apache 3.0/apache

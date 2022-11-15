@@ -185,6 +185,15 @@ drwxr-xr-x 3 82 82 4096 Jun  3 13:51 surveys
 
 If you are using the Apache2 Images, the default port will now be **8080**. Depending on your setup the port configurations might need adjustment.
 
+# Known Issues
+
+## LimeSurvey behind a reverse proxy with a subdirectory
+
+When running LimeSurvey behind a reverse proxy with a subdirectory (i.e. example.com/limesurvey), the admin area might not be displayed correctly due to a routing issue. The application will forward you to the base url regardless. See:
+- https://github.com/martialblog/docker-limesurvey/issues/49
+- https://github.com/martialblog/docker-limesurvey/issues/127
+- https://github.com/martialblog/docker-limesurvey/issues/106
+
 # References
 
 - https://www.limesurvey.org/

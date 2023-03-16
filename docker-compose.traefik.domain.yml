@@ -7,22 +7,18 @@ services:
     labels:
       traefik.enable: 'true'
       traefik.http.routers.limesurvey-http-router.entrypoints: "http"
-      traefik.http.routers.limesurvey-http-router.rule: "PathPrefix(`/limesurvey`)"
+      traefik.http.routers.limesurvey-http-router.rule: "Host(`my.survey.localhost`)"
       traefik.http.services.limesurvey-service.loadbalancer.server.port: "8080"
     links:
       - lime-db
     depends_on:
       - lime-db
-    volumes:
-      # Unfortunately the StripPrefix Function in Traefik won't work;
-      # Meaning, we will have to set 'Alias /limesurvey "/var/www/html"' in the Apache Config
-      - "./examples/apache-example.conf:/etc/apache2/sites-available/000-default.conf:ro"
     environment:
       - "DB_HOST=lime-db"
       - "DB_PASSWORD=secret"
       - "ADMIN_PASSWORD=foobar"
-      - "PUBLIC_URL=http://localhost:8888/limesurvey"
-      - "BASE_URL=http://localhost:8888/limesurvey"
+      - "PUBLIC_URL=http://my.survey.localhost:8888"
+      - "BASE_URL=http://my.survey.localhost:8888"
   traefik:
     image: docker.io/traefik:v2.9
     container_name: "traefik"

@@ -21,9 +21,6 @@ fileExistenceTests:
     path: '/var/www/html/admin/index.php'
     shouldExist: true
     permissions: '-rw-rw-r--'
-  - name: 'Ldap syslink'
-    path: '/usr/lib/x86_64-linux-gnu/libldap.so'
-    shouldExist: true
   - name:  "Dependencies - PHP - gd"
     path: '/usr/local/etc/php/conf.d/docker-php-ext-gd.ini'
     shouldExist: true

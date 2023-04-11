@@ -3,7 +3,7 @@ services:
   limesurvey:
     build:
       # Hint: Change it to 3.0/apache/ if you want to use LimeSurvey 3.*
-      context: 5.0/apache/
+      context: 6.0/apache/
       dockerfile: Dockerfile
     volumes:
       # Hint: This is just an example, change /tmp to something persistent

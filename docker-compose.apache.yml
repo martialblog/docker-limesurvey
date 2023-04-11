@@ -1,7 +1,7 @@
 version: "3.0"
 services:
   limesurvey:
-    image: docker.io/martialblog/limesurvey:3-apache
+    image: docker.io/martialblog/limesurvey:latest
     links:
       - lime-db
     depends_on:

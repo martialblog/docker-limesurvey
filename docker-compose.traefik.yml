@@ -2,7 +2,7 @@ version: "3.0"
 services:
   limesurvey:
     build:
-      context: 5.0/apache/
+      context: 6.0/apache/
       dockerfile: Dockerfile
     labels:
       traefik.enable: 'true'

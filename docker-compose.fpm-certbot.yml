@@ -2,7 +2,7 @@ version: "3.0"
 services:
   limesurvey:
     build:
-      context: 5.0/fpm/
+      context: 6.0/fpm/
       dockerfile: Dockerfile
     volumes:
       # Hint: This is just an example, change /tmp to something persistent

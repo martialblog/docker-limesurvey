@@ -22,13 +22,13 @@ jobs:
       - name: 'Build Container images'
         uses: docker/build-push-action@v2
         with:
-          context: 5.0/${{ matrix.context }}
+          context: 6.0/${{ matrix.context }}
           push: false
           load: true
-          tags: docker.io/martialblog/limesurvey:5-${{ matrix.context }}
+          tags: docker.io/martialblog/limesurvey:6-${{ matrix.context }}
 
       - name: 'Run Structure tests'
         uses: plexsystems/container-structure-test-action@v0.2.0
         with:
-          image: docker.io/martialblog/limesurvey:5-${{ matrix.context }}
+          image: docker.io/martialblog/limesurvey:6-${{ matrix.context }}
           config: tests/${{ matrix.context }}-tests.yaml

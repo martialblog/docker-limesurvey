@@ -64,7 +64,7 @@ jobs:
             latest=true
             suffix=-apache
       - name: 'Build and push latest Apache container images'
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: 6.0/apache
           push: true
@@ -85,7 +85,7 @@ jobs:
             latest=false
             suffix=-fpm
       - name: 'Build and push latest fpm container images'
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: 6.0/fpm
           push: true
@@ -106,7 +106,7 @@ jobs:
             latest=false
             suffix=-fpm-alpine
       - name: 'Build and push latest fpm-alpine container images'
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           context: 6.0/fpm-alpine
           push: true

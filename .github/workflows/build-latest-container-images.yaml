@@ -29,11 +29,6 @@ jobs:
     permissions:
       packages: write
       contents: read
-    strategy:
-      matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
     steps:
       - name: 'Check out the repo'
         uses: actions/checkout@v3
@@ -47,13 +42,13 @@ jobs:
           buildkitd-flags: --debug
       - name: 'Log in to DockerHub'
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: 'Apache variant metadata'
         id: metadata-apache
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: |
             docker.io/martialblog/limesurvey
@@ -70,11 +65,11 @@ jobs:
           push: true
           tags: ${{ steps.metadata-apache.outputs.tags }}
           labels: ${{ steps.metadata-apache.outputs.labels }}
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64
 
       - name: 'FPM variant metadata'
         id: metadata-fpm
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: |
             docker.io/martialblog/limesurvey
@@ -91,11 +86,11 @@ jobs:
           push: true
           tags: ${{ steps.metadata-fpm.outputs.tags }}
           labels: ${{ steps.metadata-fpm.outputs.labels }}
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64
 
       - name: 'FPM Alpine variant metadata'
         id: metadata-fpm-alpine
-        uses: docker/metadata-action@v3
+        uses: docker/metadata-action@v4
         with:
           images: |
             docker.io/martialblog/limesurvey
@@ -112,4 +107,4 @@ jobs:
           push: true
           tags: ${{ steps.metadata-fpm-alpine.outputs.tags }}
           labels: ${{ steps.metadata-fpm-alpine.outputs.labels }}
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64

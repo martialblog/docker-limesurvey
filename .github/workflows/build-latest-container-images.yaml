@@ -2,7 +2,7 @@ name: Publish Latest Container Images
 on:
   push:
     tags:
-      - '5.*'
+      - '6.*'
 
 jobs:
   lint_dockerfiles:
@@ -11,11 +11,11 @@ jobs:
     strategy:
       matrix:
         dockerfile:
-          - 5.0/apache/Dockerfile
-          - 5.0/fpm-alpine/Dockerfile
-          - 5.0/fpm/Dockerfile
+          - 6.0/apache/Dockerfile
+          - 6.0/fpm-alpine/Dockerfile
+          - 6.0/fpm/Dockerfile
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: hadolint/hadolint-action@v1.5.0
         with:
           dockerfile: ${{ matrix.dockerfile }}
@@ -29,11 +29,20 @@ jobs:
     permissions:
       packages: write
       contents: read
+    strategy:
+      matrix:
+        platform:
+          - linux/amd64
+          - linux/arm64
     steps:
       - name: 'Check out the repo'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: 'Set up QEMU'
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: 'arm64,arm'
       - name: 'Set up Docker Buildx'
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
         with:
           buildkitd-flags: --debug
       - name: 'Log in to DockerHub'
@@ -55,12 +64,13 @@ jobs:
             latest=true
             suffix=-apache
       - name: 'Build and push latest Apache container images'
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
-          context: 5.0/apache
+          context: 6.0/apache
           push: true
           tags: ${{ steps.metadata-apache.outputs.tags }}
           labels: ${{ steps.metadata-apache.outputs.labels }}
+          platforms: ${{ matrix.platform }}
 
       - name: 'FPM variant metadata'
         id: metadata-fpm
@@ -75,12 +85,13 @@ jobs:
             latest=false
             suffix=-fpm
       - name: 'Build and push latest fpm container images'
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
-          context: 5.0/fpm
+          context: 6.0/fpm
           push: true
           tags: ${{ steps.metadata-fpm.outputs.tags }}
           labels: ${{ steps.metadata-fpm.outputs.labels }}
+          platforms: ${{ matrix.platform }}
 
       - name: 'FPM Alpine variant metadata'
         id: metadata-fpm-alpine
@@ -95,9 +106,10 @@ jobs:
             latest=false
             suffix=-fpm-alpine
       - name: 'Build and push latest fpm-alpine container images'
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
-          context: 5.0/fpm-alpine
+          context: 6.0/fpm-alpine
           push: true
           tags: ${{ steps.metadata-fpm-alpine.outputs.tags }}
           labels: ${{ steps.metadata-fpm-alpine.outputs.labels }}
+          platforms: ${{ matrix.platform }}

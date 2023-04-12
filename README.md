@@ -14,12 +14,12 @@ Dockerfile to build a [LimeSurvey](https://limesurvey.org) Image for the Docker 
 
 ## Supported tags and respective Dockerfile links
 
+- [`6-apache`, `6.<BUILD-NUMBER>-apache`, `latest` ](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/apache/Dockerfile)
+- [`6-fpm`, `6.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/fpm/Dockerfile)
+- [`6-fpm-alpine`, `6.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/fpm-alpine/Dockerfile)
 - [`5-apache`, `5.<BUILD-NUMBER>-apache`, `latest` ](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/apache/Dockerfile)
 - [`5-fpm`, `5.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm/Dockerfile)
 - [`5-fpm-alpine`, `5.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm-alpine/Dockerfile)
-- [`3-apache`, `3.<BUILD-NUMBER>-apache`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/apache/Dockerfile)
-- [`3-fpm`, `3.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/fpm/Dockerfile)
-- [`3-fpm-alpine`, `3.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/3.0/fpm-alpine/Dockerfile)
 
 # Using the Apache Image
 
@@ -129,8 +129,8 @@ If you are running LimeSurvey behind a Reverse Proxy you might need some additio
 | ENCRYPT_KEYPAIR  | Data encryption keypair                  |
 | ENCRYPT_PUBLIC_KEY | Data encryption public key             |
 | ENCRYPT_SECRET_KEY | Data encryption secret key             |
-| ENCRYPT_NONCE      | Data encryption nonce (used in 5.0)    |
-| ENCRYPT_SECRET_BOX_KEY | Data encryption secret box key (used in 5.0)             |
+| ENCRYPT_NONCE      | Data encryption nonce (used in 5.0 and higher) |
+| ENCRYPT_SECRET_BOX_KEY | Data encryption secret box key (used in 5.0 and higher) |
 | LISTEN_PORT     | Apache: Listen port. Default: 8080        |
 
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
@@ -171,6 +171,12 @@ local     docker-limesurvey_lime
 $ docker volume rm docker-limesurvey_lime
 ```
 
+## Upgrading to 6.0 from 5.x
+
+The LimeSurvey 6 Images will use PHP 8.1 as Base Images.
+
+LimeSurvey 5 will become the new LTS. LimeSurvey 3 is deprecated and will no longer be supported.
+
 ## Upgrading to 5.0 from 4.x
 
 The default user in the Container will now be *www-data* (uid 33 in Debian, uid 82 in Alpine), any volumes mounted need the corresponding permissions:
@@ -195,10 +201,12 @@ If you are using the Apache2 Images, the default port will now be **8080**. Depe
 
 ## LimeSurvey behind a reverse proxy with a subdirectory
 
-When running LimeSurvey behind a reverse proxy with a subdirectory (i.e. example.com/limesurvey), the admin area might not be displayed correctly due to a routing issue. The application will forward you to the base url regardless. See:
-- https://github.com/martialblog/docker-limesurvey/issues/49
+When running LimeSurvey behind a reverse proxy with a subdirectory (i.e. example.com/limesurvey), the admin area might not be displayed correctly due to a routing issue. The application will forward you to the BASE URL regardless.
+
+This might be fixed by setting the HTTP Host Header in the reverse proxy explicitly.
+
+See:
 - https://github.com/martialblog/docker-limesurvey/issues/127
-- https://github.com/martialblog/docker-limesurvey/issues/106
 
 # References
 

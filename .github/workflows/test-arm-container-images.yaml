@@ -1,6 +1,12 @@
-name: Test Latest Container Images
+name: Test ARM Container Images
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - 'arm/**'
+  pull_request:
+    branches:
+      - 'arm/**'
 
 jobs:
   test_images:
@@ -12,6 +18,8 @@ jobs:
           - apache
           - fpm-alpine
           - fpm
+        platform:
+          - linux/arm64
     steps:
       - name: 'Check out the repo'
         uses: actions/checkout@v3
@@ -31,6 +39,7 @@ jobs:
           push: false
           load: true
           tags: docker.io/martialblog/limesurvey:6-${{ matrix.context }}
+          platforms: ${{ matrix.platform }}
 
       - name: 'Run Structure tests'
         uses: plexsystems/container-structure-test-action@v0.2.0

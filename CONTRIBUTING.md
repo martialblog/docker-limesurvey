@@ -59,3 +59,9 @@ make fpm-alpine-latest
 
 container-structure-test test --image  docker.io/martialblog/limesurvey:5-fpm --config tests/fpm-tests.yaml
 ```
+
+### ARM Platform
+
+Changes related to the ARM platform should use branches starting with the `arm/` prefix, this ensures the GitHub Actions are triggered.
+
+Background: ARM builds take a long time to finish on the GitHub Runners.

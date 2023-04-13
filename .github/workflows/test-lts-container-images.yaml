@@ -31,7 +31,7 @@ jobs:
           tags: docker.io/martialblog/limesurvey:5-${{ matrix.context }}
 
       - name: 'Run Structure tests'
-        uses: plexsystems/container-structure-test-action@v0.2.0
+        uses: plexsystems/container-structure-test-action@v0.3.0
         with:
           image: docker.io/martialblog/limesurvey:5-${{ matrix.context }}
           config: tests/${{ matrix.context }}-tests.yaml

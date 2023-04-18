@@ -19,7 +19,7 @@ jobs:
       - uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: ${{ matrix.dockerfile }}
-          ignore: DL4006 DL3008 DL3018
+          ignore: "DL4006,DL3008,DL3018"
 
   push_images_to_registries:
     name: Push Container Images to registries

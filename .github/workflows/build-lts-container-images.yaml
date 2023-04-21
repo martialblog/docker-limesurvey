@@ -29,11 +29,6 @@ jobs:
     permissions:
       packages: write
       contents: read
-    strategy:
-      matrix:
-        platform:
-          - linux/amd64
-          - linux/arm64
     steps:
       - name: 'Check out the repo'
         uses: actions/checkout@v3
@@ -70,7 +65,7 @@ jobs:
           push: true
           tags: ${{ steps.metadata-apache.outputs.tags }}
           labels: ${{ steps.metadata-apache.outputs.labels }}
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64
 
       - name: 'FPM variant metadata'
         id: metadata-fpm
@@ -91,7 +86,7 @@ jobs:
           push: true
           tags: ${{ steps.metadata-fpm.outputs.tags }}
           labels: ${{ steps.metadata-apache.outputs.labels }}
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64
 
       - name: 'FPM Alpine variant metadata'
         id: metadata-fpm-alpine
@@ -112,4 +107,4 @@ jobs:
           push: true
           tags: ${{ steps.metadata-fpm-alpine.outputs.tags }}
           labels: ${{ steps.metadata-apache.outputs.labels }}
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64

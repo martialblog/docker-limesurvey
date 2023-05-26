@@ -2,6 +2,10 @@ FROM docker.io/php:8.0-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies
+RUN apk add --no-cache netcat-openbsd bash
+
+# Install PHP Plugins
+# hadolint ignore=DL3019
 RUN set -ex; \
         apk add --no-cache --virtual .build-deps \
         freetype-dev \
@@ -13,14 +17,12 @@ RUN set -ex; \
         openldap-dev \
         oniguruma-dev \
         imap-dev \
-        postgresql-dev && \
-        apk add --no-cache netcat-openbsd bash
-
-# Install PHP Plugins
-RUN set -ex; \
-        docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr && \
-        docker-php-ext-configure imap --with-imap-ssl && \
-        docker-php-ext-install \
+        postgresql-dev \
+    ; \
+    \
+    docker-php-ext-configure gd --with-freetype --with-jpeg; \
+    docker-php-ext-configure imap --with-imap-ssl; \
+    docker-php-ext-install -j "$(nproc)" \
         exif \
         gd \
         imap \
@@ -32,7 +34,17 @@ RUN set -ex; \
         pgsql \
         sodium \
         tidy \
-        zip
+        zip \
+    ; \
+    \
+    runDeps="$( \
+        scanelf --needed --nobanner --format '%n#p' --recursive /usr/local/lib/php/extensions \
+            | tr ',' '\n' \
+            | sort -u \
+            | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+    )"; \
+    apk add --no-network --virtual .limesurvey-phpext-rundeps $runDeps; \
+    apk del --no-network .build-deps
 
 ARG version="5.6.21+230518"
 ARG sha256_checksum="47ae13c225b7986e65913e3d2206fd53a7acf511166d2d1a73b5257830eacfef"

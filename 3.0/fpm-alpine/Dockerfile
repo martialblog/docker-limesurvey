@@ -5,7 +5,6 @@ LABEL maintainer="markus@martialblog.de"
 RUN apk add --no-cache netcat-openbsd bash
 
 # Install PHP Plugins
-# hadolint ignore=DL3019
 RUN set -ex; \
         apk add --no-cache --virtual .build-deps \
         freetype-dev \
@@ -43,15 +42,15 @@ RUN set -ex; \
             | sort -u \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
     )"; \
-    apk add --no-network --virtual .limesurvey-phpext-rundeps $runDeps; \
-    apk del --no-network .build-deps
+    apk add --no-cache --no-network --virtual .limesurvey-phpext-rundeps "${runDeps}"; \
+    apk del --no-cache --no-network .build-deps
 
 ARG version="3.28.56+230404"
 ARG sha256_checksum="abfdc800d97feabbd448df4a2cfa72a954d2f6b013475132b0691ac2563e7228"
 ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
 ENV LIMESURVEY_VERSION=$version
 
-# Download, unzip and chmod LimeSurvey from GitHub (defaults to the official LimeSurvey/LimeSurvey repository) 
+# Download, unzip and chmod LimeSurvey from GitHub (defaults to the official LimeSurvey/LimeSurvey repository)
 RUN set -ex; \
         curl -sSL "${archive_url}" --output /tmp/limesurvey.tar.gz && \
         echo "${sha256_checksum}  /tmp/limesurvey.tar.gz" | sha256sum -c - && \

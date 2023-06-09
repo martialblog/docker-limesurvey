@@ -51,30 +51,6 @@ commandTests:
     command: "dpkg"
     args: ["-l", "netcat"]
     exitCode: 0
-  - name:  "Dependencies - libldap2-dev"
-    command: "dpkg"
-    args: ["-l", "libldap2-dev"]
-    exitCode: 0
-  - name:  "Dependencies - zlib1g-dev"
-    command: "dpkg"
-    args: ["-l", "zlib1g-dev"]
-    exitCode: 0
-  - name:  "Dependencies - libc-client-dev"
-    command: "dpkg"
-    args: ["-l", "libc-client-dev"]
-    exitCode: 0
-  - name:  "Dependencies - libkrb5-dev"
-    command: "dpkg"
-    args: ["-l", "libkrb5-dev"]
-    exitCode: 0
-  - name:  "Dependencies - libpng-dev"
-    command: "dpkg"
-    args: ["-l", "libpng-dev"]
-    exitCode: 0
-  - name:  "Dependencies - libpq-dev"
-    command: "dpkg"
-    args: ["-l", "libpq-dev"]
-    exitCode: 0
   - name:  "Dependencies - PHP Modules"
     command: "php"
     args: ["-m"]

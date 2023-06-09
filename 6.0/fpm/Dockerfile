@@ -3,48 +3,67 @@ LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies
 RUN set -ex; \
-        apt-get update && \
-        DEBIAN_FRONTEND=noninteractive \
-        apt-get install --no-install-recommends -y \
+        apt-get update; \
+        apt-get install -y --no-install-recommends \
+                netcat \
+        ; \
         \
-        libldap2-dev \
-        libfreetype6-dev \
-        libjpeg-dev \
-        libonig-dev \
-        zlib1g-dev \
-        libc-client-dev \
-        libkrb5-dev \
-        libpng-dev \
-        libpq-dev \
-        libzip-dev \
-        libtidy-dev \
-        libsodium-dev \
-        netcat \
-        \
-        && apt-get -y autoclean; apt-get -y autoremove; \
+        apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
         rm -rf /var/lib/apt/lists/*
-
-# Link LDAP library for PHP ldap extension
-RUN set -ex; \
-        ln -fs /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/
 
 # Install PHP Plugins and Configure PHP imap plugin
 RUN set -ex; \
-        docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr && \
-        docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
-        docker-php-ext-install -j5 \
-        exif \
-        gd \
-        imap \
-        ldap \
-        mbstring \
-        pdo \
-        pdo_mysql \
-        pdo_pgsql \
-        pgsql \
-        sodium \
-        tidy \
-        zip
+        \
+        savedAptMark="$(apt-mark showmanual)"; \
+        \
+        apt-get update; \
+        apt-get install -y --no-install-recommends \
+                libldap2-dev \
+                libfreetype6-dev \
+                libjpeg-dev \
+                libonig-dev \
+                zlib1g-dev \
+                libc-client-dev \
+                libkrb5-dev \
+                libpng-dev \
+                libpq-dev \
+                libzip-dev \
+                libtidy-dev \
+                libsodium-dev \
+        ; \
+        \
+        debMultiarch="$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
+        docker-php-ext-configure gd --with-freetype --with-jpeg; \
+        docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
+        docker-php-ext-configure ldap --with-libdir="lib/$debMultiarch"; \
+        docker-php-ext-install -j "$(nproc)" \
+                exif \
+                gd \
+                imap \
+                ldap \
+                mbstring \
+                pdo \
+                pdo_mysql \
+                pdo_pgsql \
+                pgsql \
+                sodium \
+                tidy \
+                zip \
+        ; \
+        \
+# reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+        apt-mark auto '.*' > /dev/null; \
+        apt-mark manual $savedAptMark; \
+        ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
+                | awk '/=>/ { print $3 }' \
+                | sort -u \
+                | xargs -r dpkg-query -S \
+                | cut -d: -f1 \
+                | sort -u \
+                | xargs -rt apt-mark manual; \
+        \
+        apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+        rm -rf /var/lib/apt/lists/*
 
 ARG version="6.0.7+230515"
 ARG sha256_checksum="de13467a4963d9759bd24300b5bd5b07f3149b0a62943180afaadfbd0513fef7"

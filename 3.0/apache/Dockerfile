@@ -12,6 +12,7 @@ RUN set -ex; \
         rm -rf /var/lib/apt/lists/*
 
 # Install PHP Plugins and Configure PHP imap plugin
+# hadolint ignore=SC2086
 RUN set -ex; \
         \
         savedAptMark="$(apt-mark showmanual)"; \
@@ -51,7 +52,7 @@ RUN set -ex; \
                 zip \
         ; \
         \
-# reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+# Reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
         apt-mark auto '.*' > /dev/null; \
         apt-mark manual $savedAptMark; \
         ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
@@ -85,7 +86,7 @@ ARG USER=root
 ARG LISTEN_PORT=80
 ENV LIMESURVEY_VERSION=$version
 
-# Download, unzip and chmod LimeSurvey from GitHub (defaults to the official LimeSurvey/LimeSurvey repository) 
+# Download, unzip and chmod LimeSurvey from GitHub (defaults to the official LimeSurvey/LimeSurvey repository)
 RUN set -ex; \
         curl -sSL "${archive_url}" --output /tmp/limesurvey.tar.gz && \
         echo "${sha256_checksum}  /tmp/limesurvey.tar.gz" | sha256sum -c - && \

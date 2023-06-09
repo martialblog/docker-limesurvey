@@ -12,6 +12,7 @@ RUN set -ex; \
         rm -rf /var/lib/apt/lists/*
 
 # Install PHP Plugins and Configure PHP imap plugin
+# hadolint ignore=SC2086
 RUN set -ex; \
         \
         savedAptMark="$(apt-mark showmanual)"; \
@@ -51,7 +52,7 @@ RUN set -ex; \
                 zip \
         ; \
         \
-# reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+# Reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
         apt-mark auto '.*' > /dev/null; \
         apt-mark manual $savedAptMark; \
         ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \

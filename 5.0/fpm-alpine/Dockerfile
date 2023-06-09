@@ -5,6 +5,7 @@ LABEL maintainer="markus@martialblog.de"
 RUN apk add --no-cache netcat-openbsd bash
 
 # Install PHP Plugins
+# hadolint ignore=SC2086
 RUN set -ex; \
         apk add --no-cache --virtual .build-deps \
         freetype-dev \
@@ -42,7 +43,7 @@ RUN set -ex; \
             | sort -u \
             | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
     )"; \
-    apk add --no-cache --no-network --virtual .limesurvey-phpext-rundeps "${runDeps}"; \
+    apk add --no-cache --no-network --virtual .limesurvey-phpext-rundeps $runDeps; \
     apk del --no-cache --no-network .build-deps
 
 ARG version="5.6.21+230518"

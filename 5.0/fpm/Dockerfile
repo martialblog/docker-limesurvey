@@ -5,7 +5,7 @@ LABEL maintainer="markus@martialblog.de"
 RUN set -ex; \
         apt-get update; \
         apt-get install -y --no-install-recommends \
-                netcat \
+                netcat-openbsd \
         ; \
         \
         apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \

@@ -1,6 +1,23 @@
 #!/bin/bash
 # Entrypoint for Docker Container
 
+file_env() {
+        local v="$1"
+        local fv="${v}_FILE"
+        local default="${2:-}"
+        if [ "${!v:-}" ] && [ "${!fv:-}" ]; then
+            echo >&2 "$v and $fv are exclusive"
+            exit 1
+        fi
+        local val="$default"
+        if [ "${!v:-}" ]; then
+                val="${!v}"
+        elif [ "${!fv:-}" ]; then
+                val="$(< "${!fv}")"
+        fi
+        export "$v"="$val"
+        unset "$fv"
+}
 
 DB_TYPE=${DB_TYPE:-'mysql'}
 DB_HOST=${DB_HOST:-'mysql'}
@@ -9,19 +26,19 @@ DB_SOCK=${DB_SOCK:-}
 DB_NAME=${DB_NAME:-'limesurvey'}
 DB_TABLE_PREFIX=${DB_TABLE_PREFIX:-'lime_'}
 DB_USERNAME=${DB_USERNAME:-'limesurvey'}
-DB_PASSWORD=${DB_PASSWORD:-}
 DB_MYSQL_ENGINE=${DB_MYSQL_ENGINE:-'MyISAM'}
+file_env 'DB_PASSWORD'
 
-ENCRYPT_KEYPAIR=${ENCRYPT_KEYPAIR:-}
-ENCRYPT_PUBLIC_KEY=${ENCRYPT_PUBLIC_KEY:-}
-ENCRYPT_SECRET_KEY=${ENCRYPT_SECRET_KEY:-}
-ENCRYPT_NONCE=${ENCRYPT_NONCE:-}
-ENCRYPT_SECRET_BOX_KEY=${ENCRYPT_SECRET_BOX_KEY:-}
+file_env 'ENCRYPT_KEYPAIR'
+file_env 'ENCRYPT_PUBLIC_KEY'
+file_env 'ENCRYPT_SECRET_KEY'
+file_env 'ENCRYPT_NONCE'
+file_env 'ENCRYPT_SECRET_BOX_KEY'
 
 ADMIN_USER=${ADMIN_USER:-'admin'}
 ADMIN_NAME=${ADMIN_NAME:-'admin'}
 ADMIN_EMAIL=${ADMIN_EMAIL:-'foobar@example.com'}
-ADMIN_PASSWORD=${ADMIN_PASSWORD:-}
+file_env 'ADMIN_PASSWORD'
 
 BASE_URL=${BASE_URL:-}
 PUBLIC_URL=${PUBLIC_URL:-}
@@ -33,12 +50,12 @@ DEBUG=${DEBUG:-0}
 DEBUG_SQL=${DEBUG_SQL:-0}
 
 if [ -z "$DB_PASSWORD" ]; then
-    echo >&2 'Error: Missing DB_PASSWORD'
+    echo >&2 'Error: Missing DB_PASSWORD or DB_PASSWORD_FILE'
     exit 1
 fi
 
 if [ -z "$ADMIN_PASSWORD" ]; then
-    echo >&2 'Error: Missing ADMIN_PASSWORD'
+    echo >&2 'Error: Missing ADMIN_PASSWORD or ADMIN_PASSWORD_FILE'
     exit 1
 fi
 

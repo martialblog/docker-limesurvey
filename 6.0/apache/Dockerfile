@@ -1,11 +1,11 @@
-FROM docker.io/php:8.1-apache
+FROM docker.io/php:8.0-apache
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies
 RUN set -ex; \
         apt-get update; \
         apt-get install -y --no-install-recommends \
-                netcat \
+                netcat-openbsd \
         ; \
         \
         apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \

@@ -1,4 +1,4 @@
-FROM docker.io/php:8.1-fpm-alpine
+FROM docker.io/php:8.0-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies

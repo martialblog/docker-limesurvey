@@ -2,7 +2,12 @@ FROM docker.io/php:8.0-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies
-RUN apk add --no-cache netcat-openbsd bash
+RUN set -ex; \
+        apk add --no-cache \
+        netcat-openbsd \
+        libsasl \
+        libldap \
+        bash
 
 # Install PHP Plugins
 # hadolint ignore=SC2086

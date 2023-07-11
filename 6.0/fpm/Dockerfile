@@ -6,6 +6,8 @@ RUN set -ex; \
         apt-get update; \
         apt-get install -y --no-install-recommends \
                 netcat-openbsd \
+                libldap-common \
+                libsasl2-modules \
         ; \
         \
         apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \

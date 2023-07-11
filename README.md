@@ -133,6 +133,18 @@ If you are running LimeSurvey behind a Reverse Proxy you might need some additio
 | ENCRYPT_SECRET_BOX_KEY | Data encryption secret box key (used in 5.0 and higher) |
 | LISTEN_PORT     | Apache: Listen port. Default: 8080        |
 
+Sensitive information can also be passed `_FILE` to the following environment variables to load the values from the given file path. Example `DB_PASSWORD_FILE=/run/secrets/db_password`.
+
+```
+DB_PASSWORD_FILE
+ADMIN_PASSWORD_FILE
+ENCRYPT_KEYPAIR_FILE
+ENCRYPT_PUBLIC_KEY_FILE
+ENCRYPT_SECRET_KEY_FILE
+ENCRYPT_NONCE_FILE
+ENCRYPT_SECRET_BOX_KEY_FILE
+```
+
 For further details on the settings see: https://manual.limesurvey.org/Optional_settings#Advanced_Path_Settings
 
 # Running LimeSurvey with docker-compose

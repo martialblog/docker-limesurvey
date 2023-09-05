@@ -70,7 +70,7 @@ RUN set -ex; \
 
 ARG version="6.2.5+230828"
 ARG sha256_checksum="ce87447506c2c25cd0cea2e1dd38263b10e843f45a91a41cb0d37a5818d49845"
-ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
+ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/refs/tags/${version}.tar.gz"
 ARG USER=www-data
 ENV LIMESURVEY_VERSION=$version
 

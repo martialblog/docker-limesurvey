@@ -69,8 +69,8 @@ RUN set -ex; \
         rm -rf /var/lib/apt/lists/*
 
 ARG version="5.6.36+230830"
-ARG sha256_checksum="39c9f622e0aca58ab759f7a6fcd360deb7d3affa03bfc1fe64cd1ec62b4702f5"
-ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/${version}.tar.gz"
+ARG sha256_checksum="9146a97e16c94303cb899b0ef5468d8d4b789ae9fe0a98eb31072fdd070d9d83"
+ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/refs/tags/${version}.tar.gz"
 ARG USER=www-data
 ENV LIMESURVEY_VERSION=$version
 

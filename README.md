@@ -149,7 +149,7 @@ For further details on the settings see: https://manual.limesurvey.org/Optional_
 
 # Running LimeSurvey with docker-compose
 
-The easiest way to get a fully featured and functional setup is using a docker-compose file. Several examples are provided in the [repository](https://github.com/martialblog/docker-limesurvey).
+The easiest way to get a fully featured and functional setup is using a docker-compose file. Several examples are provided in the [repository](https://github.com/martialblog/docker-limesurvey). To sign into the example admin panel the credentials are username: *admin* password: *foobar*.
 
 ```
 docker-compose up
@@ -159,7 +159,6 @@ http://localhost:8080/
 
 # Backend
 http://localhost:8080/index.php/admin
-_(default account/password used in examples: admin/foobar)_
 ```
 
 # Running LimeSurvey with Helm

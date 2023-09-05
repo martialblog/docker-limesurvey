@@ -159,6 +159,7 @@ http://localhost:8080/
 
 # Backend
 http://localhost:8080/index.php/admin
+_(default account/password used in examples: admin/foobar)_
 ```
 
 # Running LimeSurvey with Helm

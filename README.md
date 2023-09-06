@@ -115,10 +115,10 @@ If you are running LimeSurvey behind a Reverse Proxy you might need some additio
 | DB_MYSQL_ENGINE | MySQL engine used for survey tables (values: MyISAM, InnoDB, default: MyISAM)       |
 | DB_USERNAME     | Database user                             |
 | DB_PASSWORD     | Database user's password                  |
-| ADMIN_USER      | Initial LimeSurvey Admin User             |
-| ADMIN_NAME      | Initial LimeSurvey Admin Username         |
+| ADMIN_USER      | Initial LimeSurvey Admin Username (for signing into admin panel)             |
+| ADMIN_NAME      | Initial LimeSurvey Admin Name             |
 | ADMIN_EMAIL     | Initial LimeSurvey Admin Email            |
-| ADMIN_PASSWORD  | Initial LimeSurvey Admin Password         |
+| ADMIN_PASSWORD  | Initial LimeSurvey Admin Password (for signing into admin panel)         |
 | PUBLIC_URL      | Public URL for public scripts             |
 | BASE_URL        | Application Base URL                      |
 | URL_FORMAT      | URL Format. path or get                   |
@@ -160,6 +160,8 @@ http://localhost:8080/
 # Backend
 http://localhost:8080/index.php/admin
 ```
+
+Please note / warning: To sign into the admin panel in the examples, the credentials are username: *admin* password: *foobar*, however, if you are planning for any use beyond testing, it is highly recommended that you use environment variables to define a secure username and password.
 
 # Running LimeSurvey with Helm
 

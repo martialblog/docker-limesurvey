@@ -48,7 +48,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: 'Apache variant metadata'
         id: metadata-apache
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             docker.io/martialblog/limesurvey
@@ -69,7 +69,7 @@ jobs:
 
       - name: 'FPM variant metadata'
         id: metadata-fpm
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             docker.io/martialblog/limesurvey
@@ -90,7 +90,7 @@ jobs:
 
       - name: 'FPM Alpine variant metadata'
         id: metadata-fpm-alpine
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             docker.io/martialblog/limesurvey

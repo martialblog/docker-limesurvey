@@ -151,6 +151,8 @@ For further details on the settings see: https://manual.limesurvey.org/Optional_
 
 The easiest way to get a fully featured and functional setup is using a docker-compose file. Several examples are provided in the [repository](https://github.com/martialblog/docker-limesurvey).
 
+**Hint:** You need to configure database and Limesurvey password in the `docker-compose` files before starting. No defaults are provided to discourage production use with default passwords.
+
 ```
 docker-compose up
 
@@ -160,8 +162,6 @@ http://localhost:8080/
 # Backend
 http://localhost:8080/index.php/admin
 ```
-
-Please note / warning: To sign into the admin panel in the examples, the credentials are username: *admin* password: *foobar*, however, if you are planning for any use beyond testing, it is highly recommended that you use environment variables to define a secure username and password.
 
 # Running LimeSurvey with Helm
 

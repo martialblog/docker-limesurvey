@@ -15,7 +15,7 @@ jobs:
           - 6.0/fpm-alpine/Dockerfile
           - 6.0/fpm/Dockerfile
     steps:
-      - uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: ${{ matrix.dockerfile }}
@@ -31,7 +31,7 @@ jobs:
       contents: read
     steps:
       - name: 'Check out the repo'
-        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: 'Set up QEMU'
         uses: docker/setup-qemu-action@v3
         with:

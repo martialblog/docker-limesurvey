@@ -151,7 +151,7 @@ For further details on the settings see: https://manual.limesurvey.org/Optional_
 
 The easiest way to get a fully featured and functional setup is using a docker-compose file. Several examples are provided in the [repository](https://github.com/martialblog/docker-limesurvey).
 
-**Hint:** You need to configure database and Limesurvey password in the `docker-compose` files before starting. No defaults are provided to discourage production use with default passwords.
+**Hint:** You need to configure a database and Limesurvey password in the `docker-compose` files before starting. No defaults are provided to discourage production use with default passwords.
 
 ```
 docker-compose up

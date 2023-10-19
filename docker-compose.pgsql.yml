@@ -19,8 +19,8 @@ services:
       - "DB_TYPE=pgsql"
       - "DB_PORT=5432"
       - "DB_HOST=lime-db"
-      - "DB_PASSWORD=secret"
-      - "ADMIN_PASSWORD=foobar"
+      # - "DB_PASSWORD="
+      # - "ADMIN_PASSWORD="
   lime-db:
     image: docker.io/postgres:10
     volumes:
@@ -28,7 +28,7 @@ services:
     environment:
       - "POSTGRES_USER=limesurvey"
       - "POSTGRES_DB=limesurvey"
-      - "POSTGRES_PASSWORD=secret"
+      # - "POSTGRES_PASSWORD="
 
 volumes:
   db-data:

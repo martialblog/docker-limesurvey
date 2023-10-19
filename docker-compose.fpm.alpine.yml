@@ -14,8 +14,8 @@ services:
       - lime-db
     environment:
       - "DB_HOST=lime-db"
-      - "DB_PASSWORD=secret"
-      - "ADMIN_PASSWORD=foobar"
+      # - "DB_PASSWORD="
+      # - "ADMIN_PASSWORD="
   lime-web:
     image: docker.io/nginx:alpine
     links:
@@ -32,7 +32,7 @@ services:
     environment:
       - "MYSQL_USER=limesurvey"
       - "MYSQL_DATABASE=limesurvey"
-      - "MYSQL_PASSWORD=secret"
-      - "MYSQL_ROOT_PASSWORD=secret"
+      # - "MYSQL_PASSWORD="
+      # - "MYSQL_ROOT_PASSWORD="
 volumes:
   lime:

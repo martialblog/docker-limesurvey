@@ -153,7 +153,7 @@ if [ -f application/config/security.php ]; then
     echo 'Info: security.php already provisioned'
 else
     echo 'Info: Creating security.php'
-    if [ -n "$ENCRYPT_KEYPAIR" ]; then
+    if [ -n "$ENCRYPT_KEYPAIR" ] || [ -n "$ENCRYPT_SECRET_BOX_KEY" ]; then
 
         cat <<EOF > application/config/security.php
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');

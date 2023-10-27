@@ -25,7 +25,7 @@ services:
     image: docker.io/postgres:10-alpine
     restart: always
     volumes:
-      - db-data:/var/lib/postgresql
+      - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=limesurvey
       - POSTGRES_DB=limesurvey

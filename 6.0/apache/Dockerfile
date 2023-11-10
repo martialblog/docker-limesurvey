@@ -64,6 +64,13 @@ RUN set -ex; \
                 | cut -d: -f1 \
                 | sort -u \
                 | xargs -rt apt-mark manual; \
+        ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
+                | awk '$3 ~ /^\/lib/ { print "/usr"$3 }' \
+                | sort -u \
+                | xargs -r dpkg-query -S \
+                | cut -d: -f1 \
+                | sort -u \
+                | xargs -rt apt-mark manual; \
         \
         apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
         rm -rf /var/lib/apt/lists/*

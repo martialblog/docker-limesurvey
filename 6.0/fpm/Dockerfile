@@ -75,8 +75,8 @@ RUN set -ex; \
         apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
         rm -rf /var/lib/apt/lists/*
 
-ARG version="6.3.4+231108"
-ARG sha256_checksum="a25362ae606188765ced18412896174507388846d30ee38a76490052f39f3760"
+ARG version="6.3.5+231113"
+ARG sha256_checksum="388fd543acaae18748755b2d7a85479260ecbca455c8deb4ec803e1dc6bae534"
 ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/refs/tags/${version}.tar.gz"
 ARG USER=www-data
 ENV LIMESURVEY_VERSION=$version

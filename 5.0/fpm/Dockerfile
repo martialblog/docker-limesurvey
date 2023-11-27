@@ -1,4 +1,4 @@
-FROM docker.io/php:8.0-fpm
+FROM docker.io/php:8.3-fpm
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies

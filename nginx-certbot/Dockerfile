@@ -5,7 +5,7 @@ RUN set -ex; \
         apt-get update && \
         DEBIAN_FRONTEND=noninteractive \
         apt-get install --no-install-recommends -y \
-        certbot curl python-certbot-nginx && \
+        certbot curl python3-certbot-nginx && \
         apt-get -y autoclean; apt-get -y autoremove; \
         rm -rf /var/lib/apt/lists/*
 

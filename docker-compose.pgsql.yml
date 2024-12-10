@@ -1,34 +1,36 @@
-version: "3.0"
 services:
   limesurvey:
     build:
-      # Hint: Change it to 3.0/apache/ if you want to use LimeSurvey 3.*
       context: 6.0/apache/
       dockerfile: Dockerfile
     volumes:
-      # Hint: This is just an example, change /tmp to something persistent
-      - /tmp/upload/surveys:/var/www/html/upload/surveys
-    links:
-      - lime-db
+      # TODO Update storage location as desired
+      - ./lime-data/surveys:/var/www/html/upload/surveys
+    networks:
+      - limesurvey-db
     depends_on:
       - lime-db
     ports:
-      # Hint: Change it to 80:8080 if you are using LimeSurvey 3.*
       - "8080:8080"
     environment:
       - "DB_TYPE=pgsql"
       - "DB_PORT=5432"
       - "DB_HOST=lime-db"
+      # TODO set passwords
       # - "DB_PASSWORD="
       # - "ADMIN_PASSWORD="
   lime-db:
-    image: docker.io/postgres:10
+    image: postgres:17
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./lime-data/postgres:/var/lib/postgresql/data
+    networks:
+      - limesurvey-db
     environment:
-      - "POSTGRES_USER=limesurvey"
       - "POSTGRES_DB=limesurvey"
+      - "POSTGRES_USER=limesurvey"
+      # TODO set passwords
       # - "POSTGRES_PASSWORD="
 
-volumes:
-  db-data:
+networks:
+  limesurvey-db:
+    driver: bridge

@@ -17,7 +17,7 @@ services:
       - PUBLIC_URL=foobar.com
     volumes:
       # All subdirectories of the upload may contain
-      # data intended to be persisten (e.g. themes)
+      # data intended to be persistent (e.g. themes)
       - limesurvey:/var/www/html/upload
     ports:
       - 8080:8080

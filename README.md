@@ -227,7 +227,7 @@ See:
 The `/var/www/html/upload` directory contains multiple subdirectories for different kind of persistent data,
 e.g. themes, plugins and survey uploads. In past, the example configuration recommended only the persistent
 volume for survey uploads. In such a situation, any rebuild of the container will remove other stored data.
-To keep them persisten, you need to ensure that all subdirectories of `upload` are stored in a volume.
+To keep them persistent, you need to ensure that all subdirectories of `upload` are stored in a volume.
 
 The easiest way is to mount the whole `/var/www/html/upload`. If you want to update an existing deployment
 from previous configuration, please keep in mind that just changing the mount path may cause data loss 

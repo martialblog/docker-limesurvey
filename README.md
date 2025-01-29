@@ -57,7 +57,7 @@ LimeSurvey requires an external database (MySQL, PostgreSQL) to run. See *docker
 
 To preserve the uploaded files assign the upload folder into a volume. See *docker-compose.yml* for example.
 
-Path: `/var/www/html/upload/surveys`
+Path: `/var/www/html/upload`
 
 **Hint**: The mounted directory must be owned by the webserver user (e.g. www-data)
 
@@ -221,6 +221,26 @@ This might be fixed by setting the HTTP Host Header in the reverse proxy explici
 
 See:
 - https://github.com/martialblog/docker-limesurvey/issues/127
+
+## Updating or rebuilding container removes themes/plugins/...
+
+The `/var/www/html/upload` directory contains multiple subdirectories for different kind of persistent data,
+e.g. themes, plugins and survey uploads. In past, the example configuration recommended only the persistent
+volume for survey uploads. In such a situation, any rebuild of the container will remove other stored data.
+To keep them persistent, you need to ensure that all subdirectories of `upload` are stored in a volume.
+
+The easiest way is to mount the whole `/var/www/html/upload`. If you want to update an existing deployment
+from previous configuration, please keep in mind that just changing the mount path may cause data loss 
+(e.g. already uploaded themes). Please backup your data from the container before any modifications.
+You may also consider separated volumes for each subdirectory.
+
+## Apache generates redirects with internal port / URLs don't work without trailing slash
+
+If your deployment is behind an additional proxy that listens on a different port than the Apache in the
+container, you may notice some issues with redirects generated from Apache, e.g. when redirecting
+URLs to the cannonical version. Apache will try to add the port it's listening on to the URL.
+To prevent this, you may edit the Apache configuration and add the `ServerName` directive with your
+domain. In this case, Apache won't try to construct it automatically and use the configured value.
 
 # References
 

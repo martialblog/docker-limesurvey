@@ -16,7 +16,9 @@ services:
       - ADMIN_EMAIL=admin@example.com
       - PUBLIC_URL=foobar.com
     volumes:
-      - limesurvey:/var/www/html/upload/surveys
+      # All subdirectories of the upload may contain
+      # data intended to be persistent (e.g. themes)
+      - limesurvey:/var/www/html/upload
     ports:
       - 8080:8080
     depends_on:

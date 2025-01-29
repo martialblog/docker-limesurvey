@@ -232,7 +232,7 @@ To keep them persistent, you need to ensure that all subdirectories of `upload` 
 The easiest way is to mount the whole `/var/www/html/upload`. If you want to update an existing deployment
 from previous configuration, please keep in mind that just changing the mount path may cause data loss 
 (e.g. already uploaded themes). Please backup your data from the container before any modifications.
-You may also consider separated volumes for every subdirectory.
+You may also consider separated volumes for each subdirectory.
 
 ## Apache generates redirects with internal port / URLs don't work without trailing slash
 

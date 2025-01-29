@@ -239,7 +239,7 @@ You may also consider separated volumes for each subdirectory.
 If your deployment is behind an additional proxy that listens on a different port than the Apache in the
 container, you may notice some issues with redirects generated from Apache, e.g. when redirecting
 URLs to the cannonical version. Apache will try to add the port it's listening on to the URL.
-To prevent this, you may edit the Apache configuration and add `ServerName` directive with your
+To prevent this, you may edit the Apache configuration and add the `ServerName` directive with your
 domain. In this case, Apache won't try to construct it automatically and use the configured value.
 
 # References

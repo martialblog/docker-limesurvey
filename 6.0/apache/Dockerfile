@@ -88,8 +88,8 @@ RUN a2enmod headers rewrite remoteip; \
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-ARG version="6.10.4+250210"
-ARG sha256_checksum="f6a27f6ad8dbe0656d4d0b20b6191947be489853df54aff180aed63e1e17675e"
+ARG version="6.10.5+250217"
+ARG sha256_checksum="0d9ec16891bce1250586ed868730385e8d7085a4d028955392a92e649d95c011"
 ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/refs/tags/${version}.tar.gz"
 ARG USER=www-data
 ARG LISTEN_PORT=8080

@@ -3,3 +3,18 @@
 
 .venv/
 container-structure-test
+mariadb-data/.my-healthcheck.cnf
+mariadb-data/aria_log_control
+mariadb-data/aria_log.00000001
+mariadb-data/ddl_recovery.log
+mariadb-data/ib_buffer_pool
+mariadb-data/ib_logfile0
+mariadb-data/ibdata1
+mariadb-data/ibtmp1
+mariadb-data/mariadb_upgrade_info
+mariadb-data/multi-master.info
+mariadb-data/tc.log
+mariadb-data/undo001
+mariadb-data/undo002
+mariadb-data/undo003
+.env

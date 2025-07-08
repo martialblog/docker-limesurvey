@@ -12,9 +12,9 @@ services:
       - "4000:8080"
     environment:
       - "DB_HOST=lime-db"
-      # TODO set passwords
-      - "DB_PASSWORD=limesurvey"
-      - "ADMIN_PASSWORD=limesurvey"
+
+      - "DB_PASSWORD=${DB_PASSWORD}"
+      - "ADMIN_PASSWORD=${ADMIN_PASSWORD}"
       # If you require an empty table prefix, use a space as the DB_TABLE_PREFIX
       # - "DB_TABLE_PREFIX= "
     restart: unless-stopped
@@ -25,9 +25,8 @@ services:
     environment:
       - "MYSQL_USER=limesurvey"
       - "MYSQL_DATABASE=limesurvey"
-      # TODO set passwords
-      - "MYSQL_PASSWORD=limesurvey"
-      - "MYSQL_ROOT_PASSWORD=limesurvey"
+      - "MYSQL_PASSWORD=${MYSQL_PASSWORD}"
+      - "MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}"
     volumes:
       - ./mariadb-data:/var/lib/mysql
     restart: unless-stopped

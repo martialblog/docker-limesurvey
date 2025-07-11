@@ -1,7 +1,7 @@
 services:
   limesurvey:
     build:
-      context: 6.0/apache/
+      context: 5.0/apache/
       dockerfile: Dockerfile
     volumes:
       # TODO Update storage location as desired

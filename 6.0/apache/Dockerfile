@@ -1,13 +1,13 @@
-FROM docker.io/php:8.3-apache
+FROM docker.io/php:8.0-apache
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies
 RUN set -ex; \
         apt-get update; \
         apt-get install -y --no-install-recommends \
-                netcat-openbsd \
-                libldap-common \
-                libsasl2-modules \
+        netcat-openbsd \
+        libldap-common \
+        libsasl2-modules \
         ; \
         \
         apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
@@ -21,18 +21,18 @@ RUN set -ex; \
         \
         apt-get update; \
         apt-get install -y --no-install-recommends \
-                libldap2-dev \
-                libfreetype6-dev \
-                libjpeg-dev \
-                libonig-dev \
-                zlib1g-dev \
-                libc-client-dev \
-                libkrb5-dev \
-                libpng-dev \
-                libpq-dev \
-                libzip-dev \
-                libtidy-dev \
-                libsodium-dev \
+        libldap2-dev \
+        libfreetype6-dev \
+        libjpeg-dev \
+        libonig-dev \
+        zlib1g-dev \
+        libc-client-dev \
+        libkrb5-dev \
+        libpng-dev \
+        libpq-dev \
+        libzip-dev \
+        libtidy-dev \
+        libsodium-dev \
         ; \
         \
         debMultiarch="$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
@@ -40,37 +40,37 @@ RUN set -ex; \
         docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
         docker-php-ext-configure ldap --with-libdir="lib/$debMultiarch"; \
         docker-php-ext-install -j "$(nproc)" \
-                exif \
-                gd \
-                imap \
-                ldap \
-                mbstring \
-                pdo \
-                pdo_mysql \
-                pdo_pgsql \
-                pgsql \
-                sodium \
-                tidy \
-                zip \
+        exif \
+        gd \
+        imap \
+        ldap \
+        mbstring \
+        pdo \
+        pdo_mysql \
+        pdo_pgsql \
+        pgsql \
+        sodium \
+        tidy \
+        zip \
         ; \
         \
-# Reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+        # Reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
         apt-mark auto '.*' > /dev/null; \
         apt-mark manual $savedAptMark; \
         ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
-                | awk '/=>/ { print $3 }' \
-                | sort -u \
-                | xargs -r dpkg-query -S \
-                | cut -d: -f1 \
-                | sort -u \
-                | xargs -rt apt-mark manual; \
+        | awk '/=>/ { print $3 }' \
+        | sort -u \
+        | xargs -r dpkg-query -S \
+        | cut -d: -f1 \
+        | sort -u \
+        | xargs -rt apt-mark manual; \
         ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
-                | awk '$3 ~ /^\/lib/ { print "/usr"$3 }' \
-                | sort -u \
-                | xargs -r dpkg-query -S \
-                | cut -d: -f1 \
-                | sort -u \
-                | xargs -rt apt-mark manual; \
+        | awk '$3 ~ /^\/lib/ { print "/usr"$3 }' \
+        | sort -u \
+        | xargs -r dpkg-query -S \
+        | cut -d: -f1 \
+        | sort -u \
+        | xargs -rt apt-mark manual; \
         \
         apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
         rm -rf /var/lib/apt/lists/*

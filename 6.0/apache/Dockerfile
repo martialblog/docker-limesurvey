@@ -1,4 +1,4 @@
-FROM docker.io/php:8.3-apache
+FROM docker.io/php:8.3-apache-bookworm
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies

@@ -16,7 +16,7 @@ jobs:
           - 5.0/fpm/Dockerfile
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
-      - uses: hadolint/hadolint-action@v3.1.0
+      - uses: hadolint/hadolint-action@v3.2.0
         with:
           dockerfile: ${{ matrix.dockerfile }}
           ignore: "DL4006,DL3008,DL3018"

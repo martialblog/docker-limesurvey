@@ -1,4 +1,4 @@
-FROM docker.io/php:8.3-fpm
+FROM docker.io/php:8.3-fpm-bookworm
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies
@@ -75,8 +75,8 @@ RUN set -ex; \
         apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
         rm -rf /var/lib/apt/lists/*
 
-ARG version="6.15.1+250626"
-ARG sha256_checksum="6d08448229b8a83a30ec8a9b79baf824e656edafd16da228c167624307f913ab"
+ARG version="6.15.11+250909"
+ARG sha256_checksum="02f2f3125c20a5ebee1e6ec8beebf2e722cdf933d6c7e9ef8578484073b5fa94"
 ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/refs/tags/${version}.tar.gz"
 ARG USER=www-data
 ENV LIMESURVEY_VERSION=$version

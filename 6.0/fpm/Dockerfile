@@ -1,4 +1,4 @@
-FROM docker.io/php:8.3-fpm-bookworm
+FROM docker.io/php:8.4-fpm-bookworm
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies

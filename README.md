@@ -21,6 +21,13 @@ Dockerfile to build a [LimeSurvey](https://limesurvey.org) Image for the Docker 
 - [`5-fpm`, `5.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm/Dockerfile)
 - [`5-fpm-alpine`, `5.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm-alpine/Dockerfile)
 
+## Azure-friendly single Dockerfile
+
+This branch adds an opinionated Dockerfile located in [`azure/Dockerfile`](azure/Dockerfile)
+that bakes LimeSurvey 6.0 together with the Microsoft SQL Server ODBC driver and
+a connection-string driven entrypoint. See [`azure/README.md`](azure/README.md)
+for details and Azure deployment hints.
+
 # Using the Apache Image
 
 The `apache` image comes with an Apache Webserver and PHP installed.

@@ -55,7 +55,7 @@ jobs:
           sed -i "s/ARG sha256_checksum=\"[^\"]*\"/ARG sha256_checksum=\"${{ needs.download-archive.outputs.checksum }}\"/" 6.0/*/Dockerfile
 
       - name: Create a pull request
-        uses: peter-evans/create-pull-request@67ccf781d68cd99b580ae25a5c18a1cc84ffff1f # v7
+        uses: peter-evans/create-pull-request@84ae59a2cdc2258d6fa0732dd66352dddae2a412 # v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Upgrading to Version ${{ needs.get-latest-tag.outputs.tag }}"

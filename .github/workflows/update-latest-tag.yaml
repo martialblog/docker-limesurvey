@@ -13,7 +13,7 @@ jobs:
       tag: ${{ steps.get-latest-tag.outputs.tag }}
     steps:
       - name: Check out the LimeSurvey repository to get the latest tag
-        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         with:
           repository: LimeSurvey/LimeSurvey
           ref: master
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [get-latest-tag, download-archive]
     steps:
-      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
       # Replace in 6.0/*/Dockerfile
       # ARG version="<version>"

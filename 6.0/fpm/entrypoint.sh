@@ -96,6 +96,14 @@ else
         echo 'Info: Setting PublicURL'
     fi
 
+    REQUEST_CONFIG=""
+    if [ -n "$BASE_URL" ]; then
+        REQUEST_CONFIG="
+    'request' => array(
+      'baseUrl' => '$BASE_URL',
+     ),"
+    fi
+
     cat <<EOF > application/config/config.php
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 return array(
@@ -118,9 +126,7 @@ return array(
       'rules' => array(),
       'showScriptName' => $SHOW_SCRIPT_NAME,
     ),
-    'request' => array(
-      'baseUrl' => '$BASE_URL',
-     ),
+$REQUEST_CONFIG
   ),
   'config'=>array(
     'publicurl'=>'$PUBLIC_URL',

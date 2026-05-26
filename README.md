@@ -104,34 +104,34 @@ If you are running LimeSurvey behind a Reverse Proxy you might need some additio
 
 # Environment Variables
 
-| Parameter       | Description                               |
-| ---------       | -----------                               |
-| DB_TYPE         | Database Type to use. mysql or pgsql      |
-| DB_HOST         | Database server hostname                  |
-| DB_PORT         | Database server port                      |
-| DB_SOCK         | Database unix socket instead of host/port |
-| DB_NAME         | Database name                             |
-| DB_TABLE_PREFIX | Database table prefix; set this to a single whitespace if you don't want a table prefix. |
-| DB_MYSQL_ENGINE | MySQL engine used for survey tables (values: MyISAM, InnoDB, default: MyISAM)       |
-| DB_USERNAME     | Database user                             |
-| DB_PASSWORD     | Database user's password                  |
-| ADMIN_USER      | Initial LimeSurvey Admin Username (for signing into admin panel)             |
-| ADMIN_NAME      | Initial LimeSurvey Admin Name             |
-| ADMIN_EMAIL     | Initial LimeSurvey Admin Email            |
-| ADMIN_PASSWORD  | Initial LimeSurvey Admin Password (for signing into admin panel)         |
-| PUBLIC_URL      | Public URL for public scripts             |
-| BASE_URL        | Application Base URL                      |
-| URL_FORMAT      | URL Format. path or get                   |
-| TABLE_SESSION   | Enable table sessions (true)              |
-| SHOW_SCRIPT_NAME | Script name in URL (true\|false). Default: true |
-| DEBUG           | Debug level (0, 1, 2). Default: 0         |
-| DEBUG_SQL       | SQL Debug level (0, 1, 2). Default 0      |
-| ENCRYPT_KEYPAIR  | Data encryption keypair                  |
-| ENCRYPT_PUBLIC_KEY | Data encryption public key             |
-| ENCRYPT_SECRET_KEY | Data encryption secret key             |
-| ENCRYPT_NONCE      | Data encryption nonce (used in 5.0 and higher) |
-| ENCRYPT_SECRET_BOX_KEY | Data encryption secret box key (used in 5.0 and higher) |
-| LISTEN_PORT     | Apache: Listen port. Default: 8080        |
+| Parameter              | Description                                                                                                                               |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| DB_TYPE                | Database Type to use. (mysql\|pgsql). Default: mysql                                                                                      |
+| DB_HOST                | Database server hostname. Default: mysql                                                                                                  |
+| DB_PORT                | Database server port. Default: 3306                                                                                                       |
+| DB_SOCK                | Database unix socket instead of host/port                                                                                                 |
+| DB_NAME                | Database name. Default: limesurvey                                                                                                        |
+| DB_TABLE_PREFIX        | Database table prefix; set this to a single whitespace if you don't want a table prefix. Default: lime_                                   |
+| DB_MYSQL_ENGINE        | MySQL engine used for survey tables (MyISAM\_InnoDB). Default: MyISAM                                                                     |
+| DB_USERNAME            | Database user. Default: limesurvey                                                                                                        |
+| DB_PASSWORD            | Database user's password                                                                                                                  |
+| ADMIN_USER             | Initial LimeSurvey Admin Username (for signing into admin panel). Default: admin                                                          |
+| ADMIN_NAME             | Initial LimeSurvey Admin Name. Default: admin                                                                                             |
+| ADMIN_EMAIL            | Initial LimeSurvey Admin Email. Default: foobar@example.com                                                                               |
+| ADMIN_PASSWORD         | Initial LimeSurvey Admin Password (for signing into admin panel)                                                                          |
+| PUBLIC_URL             | Public URL for public scripts                                                                                                             |
+| BASE_URL               | Application Base URL                                                                                                                      |
+| URL_FORMAT             | URL Format. (path\|get). Default: path                                                                                                    |
+| TABLE_SESSION          | Enable table sessions (true)                                                                                                              |
+| SHOW_SCRIPT_NAME       | Script name in URL (true\|false). Default: true                                                                                           |
+| DEBUG                  | Debug level (0\_1\_2). Default: 0                                                                                                         |
+| DEBUG_SQL              | SQL Debug level (0\_1\_2). Default 0                                                                                                      |
+| ENCRYPT_KEYPAIR        | Data encryption keypair                                                                                                                   |
+| ENCRYPT_PUBLIC_KEY     | Data encryption public key                                                                                                                |
+| ENCRYPT_SECRET_KEY     | Data encryption secret key                                                                                                                |
+| ENCRYPT_NONCE          | Data encryption nonce (used in 5.0 and higher)                                                                                            |
+| ENCRYPT_SECRET_BOX_KEY | Data encryption secret box key (used in 5.0 and higher)                                                                                   |
+| LISTEN_PORT            | Apache: Listen port. Default: 8080                                                                                                        |
 
 Sensitive information can also be passed `_FILE` to the following environment variables to load the values from the given file path. Example `DB_PASSWORD_FILE=/run/secrets/db_password`.
 

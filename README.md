@@ -121,6 +121,7 @@ If you are running LimeSurvey behind a Reverse Proxy you might need some additio
 | ADMIN_PASSWORD         | Initial LimeSurvey Admin Password (for signing into admin panel)                                                                          |
 | PUBLIC_URL             | Public URL for public scripts                                                                                                             |
 | BASE_URL               | Application Base URL                                                                                                                      |
+| HOST_INFO               | Enforce a certain ULR base (see [`hostInfo` key in documentation](https://www.limesurvey.org/manual/Optional_settings#Request_settings)) |
 | URL_FORMAT             | URL Format. (path\|get). Default: path                                                                                                    |
 | TABLE_SESSION          | Enable table sessions (true)                                                                                                              |
 | SHOW_SCRIPT_NAME       | Script name in URL (true\|false). Default: true                                                                                           |

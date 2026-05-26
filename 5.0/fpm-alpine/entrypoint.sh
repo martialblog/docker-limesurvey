@@ -42,6 +42,7 @@ file_env 'ADMIN_PASSWORD'
 
 BASE_URL=${BASE_URL:-}
 PUBLIC_URL=${PUBLIC_URL:-}
+HOST_INFO=${HOST_INFO:-}
 URL_FORMAT=${URL_FORMAT:-'path'}
 SHOW_SCRIPT_NAME=${SHOW_SCRIPT_NAME:-'true'}
 TABLE_SESSION=${TABLE_SESSION:-}
@@ -120,7 +121,8 @@ return array(
     ),
     'request' => array(
       'baseUrl' => '$BASE_URL',
-     ),
+      'hostInfo' => '$HOST_INFO',
+    ),
   ),
   'config'=>array(
     'publicurl'=>'$PUBLIC_URL',

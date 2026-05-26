@@ -31,7 +31,7 @@ This image is also available in a `rootless` variant with `www-data` as default 
 
 To change to Apache Webserver configuration, mount a Volume into the Container at:
 
- - `/etc/apache2/sites-available/000-default.conf`
+- `/etc/apache2/sites-available/000-default.conf`
 
 See the example configuration provided.
 
@@ -69,7 +69,7 @@ The entrypoint will create a new config.php if none is provided and run the Lime
 
 To change to LimeSurvey configuration, you can mount a Volume into the Container at:
 
- - `/my-data/config.php:/var/www/html/application/config/config.php`
+- `/my-data/config.php:/var/www/html/application/config/config.php`
 
 **Hint**: If this configuration is present before the installation, the LimeSurvey Web Installer will not run automatically.
 
@@ -77,9 +77,9 @@ To change to LimeSurvey configuration, you can mount a Volume into the Container
 
 LimeSurvey version 4.0 and newer support data encryption, this image give you these options:
 
-* Provide a security.php file directly (volume)
-* Provide encryption keys for the `security.php` file (environment variables)
-* Provide nothing and get a non-persistent `security.php` file
+- Provide a security.php file directly (volume)
+- Provide encryption keys for the `security.php` file (environment variables)
+- Provide nothing and get a non-persistent `security.php` file
 
 For further details on the settings see: https://manual.limesurvey.org/Data_encryption
 
@@ -87,9 +87,9 @@ For further details on the settings see: https://manual.limesurvey.org/Data_encr
 
 If you are running LimeSurvey behind a Reverse Proxy you might need some additional configuration in the Proxy. For example:
 
-* Apache: `ProxyPreserveHost On`
-* Nginx: `fastcgi_param HTTP_HOST my-survey.example.local;`
-* Traefik: Set the Host Header explicitly via a customRequestHeaders
+- Apache: `ProxyPreserveHost On`
+- Nginx: `fastcgi_param HTTP_HOST my-survey.example.local;`
+- Traefik: Set the Host Header explicitly via a customRequestHeaders
 
 ## Traefik example
 
@@ -220,6 +220,7 @@ When running LimeSurvey behind a reverse proxy with a subdirectory (i.e. example
 This might be fixed by setting the HTTP Host Header in the reverse proxy explicitly.
 
 See:
+
 - https://github.com/martialblog/docker-limesurvey/issues/127
 
 ## Updating or rebuilding container removes themes/plugins/...
@@ -230,7 +231,7 @@ volume for survey uploads. In such a situation, any rebuild of the container wil
 To keep them persistent, you need to ensure that all subdirectories of `upload` are stored in a volume.
 
 The easiest way is to mount the whole `/var/www/html/upload`. If you want to update an existing deployment
-from previous configuration, please keep in mind that just changing the mount path may cause data loss 
+from previous configuration, please keep in mind that just changing the mount path may cause data loss
 (e.g. already uploaded themes). Please backup your data from the container before any modifications.
 You may also consider separated volumes for each subdirectory.
 

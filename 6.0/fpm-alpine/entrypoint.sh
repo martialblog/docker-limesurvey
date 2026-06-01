@@ -42,6 +42,7 @@ file_env 'ADMIN_PASSWORD'
 
 BASE_URL=${BASE_URL:-}
 PUBLIC_URL=${PUBLIC_URL:-}
+HOST_INFO=${HOST_INFO:-}
 URL_FORMAT=${URL_FORMAT:-'path'}
 SHOW_SCRIPT_NAME=${SHOW_SCRIPT_NAME:-'true'}
 TABLE_SESSION=${TABLE_SESSION:-}
@@ -97,11 +98,12 @@ else
     fi
 
     REQUEST_CONFIG=""
-    if [ -n "$BASE_URL" ]; then
+    if [ -n "$BASE_URL" || -n "$HOST_INFO" ]; then
         REQUEST_CONFIG="
     'request' => array(
       'baseUrl' => '$BASE_URL',
-     ),"
+      'hostInfo' => '$HOST_INFO',
+    ),"
     fi
 
     cat <<EOF > application/config/config.php

@@ -106,13 +106,13 @@ If you are running LimeSurvey behind a Reverse Proxy you might need some additio
 
 | Parameter              | Description                                                                                                                               |
 | ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| DB_TYPE                | Database Type to use. (mysql|pgsql). Default: mysql                                                                                       |
+| DB_TYPE                | Database Type to use. (mysql\|pgsql). Default: mysql                                                                                      |
 | DB_HOST                | Database server hostname. Default: mysql                                                                                                  |
 | DB_PORT                | Database server port. Default: 3306                                                                                                       |
 | DB_SOCK                | Database unix socket instead of host/port                                                                                                 |
 | DB_NAME                | Database name. Default: limesurvey                                                                                                        |
 | DB_TABLE_PREFIX        | Database table prefix; set this to a single whitespace if you don't want a table prefix. Default: lime_                                   |
-| DB_MYSQL_ENGINE        | MySQL engine used for survey tables (MyISAM|InnoDB). Default: MyISAM                                                                      |
+| DB_MYSQL_ENGINE        | MySQL engine used for survey tables (MyISAM\|InnoDB). Default: MyISAM                                                                     |
 | DB_USERNAME            | Database user. Default: limesurvey                                                                                                        |
 | DB_PASSWORD            | Database user's password                                                                                                                  |
 | ADMIN_USER             | Initial LimeSurvey Admin Username (for signing into admin panel). Default: admin                                                          |
@@ -124,9 +124,9 @@ If you are running LimeSurvey behind a Reverse Proxy you might need some additio
 | HOST_INFO              | Enforce a certain URL base (see [`hostInfo` key in documentation](https://www.limesurvey.org/manual/Optional_settings#Request_settings))  |
 | URL_FORMAT             | URL Format. (path\|get). Default: path                                                                                                    |
 | TABLE_SESSION          | Enable table sessions (true)                                                                                                              |
-| SHOW_SCRIPT_NAME       | Script name in URL (true|false). Default: true                                                                                            |
-| DEBUG                  | Debug level (0|1|2). Default: 0                                                                                                           |
-| DEBUG_SQL              | SQL Debug level (0|1|2). Default 0                                                                                                        |
+| SHOW_SCRIPT_NAME       | Script name in URL (true\|false). Default: true                                                                                           |
+| DEBUG                  | Debug level (0\|1\|2). Default: 0                                                                                                         |
+| DEBUG_SQL              | SQL Debug level (0\|1\|2). Default 0                                                                                                      |
 | ENCRYPT_KEYPAIR        | Data encryption keypair                                                                                                                   |
 | ENCRYPT_PUBLIC_KEY     | Data encryption public key                                                                                                                |
 | ENCRYPT_SECRET_KEY     | Data encryption secret key                                                                                                                |

@@ -105,7 +105,7 @@ else
     fi
 
     REQUEST_CONFIG=""
-    if [ -n "$BASE_URL" || -n "$HOST_INFO" ]; then
+    if [ -n "$BASE_URL" ] || [ -n "$HOST_INFO" ]; then
         REQUEST_CONFIG="
     'request' => array(
       'baseUrl' => '$BASE_URL',

@@ -59,7 +59,7 @@ To preserve the uploaded files assign the upload folder into a volume. See *dock
 
 Path: `/var/www/html/upload`
 
-**Hint**: The mounted directory must be owned by the webserver user (e.g. www-data)
+**Hint**: The mounted directory must be owned by the webserver user (e.g. www-data). The host folder must already have the base content from LimeSurvey on https://community.limesurvey.org/downloads/.
 
 # LimeSurvey configuration
 

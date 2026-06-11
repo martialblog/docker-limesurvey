@@ -115,6 +115,7 @@ If you are running LimeSurvey behind a Reverse Proxy you might need some additio
 | DB_MYSQL_ENGINE        | MySQL engine used for survey tables (MyISAM\|InnoDB). Default: MyISAM                                                                     |
 | DB_USERNAME            | Database user. Default: limesurvey                                                                                                        |
 | DB_PASSWORD            | Database user's password                                                                                                                  |
+| DB_CHARSET             | Database charset. Default: utf8mb4 if database type is mysql ; utf8 if database type is pgsql                                             |
 | ADMIN_USER             | Initial LimeSurvey Admin Username (for signing into admin panel). Default: admin                                                          |
 | ADMIN_NAME             | Initial LimeSurvey Admin Name. Default: admin                                                                                             |
 | ADMIN_EMAIL            | Initial LimeSurvey Admin Email. Default: foobar@example.com                                                                               |

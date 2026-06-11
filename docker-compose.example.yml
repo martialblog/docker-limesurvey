@@ -16,8 +16,9 @@ services:
       - ADMIN_EMAIL=admin@example.com
       - PUBLIC_URL=foobar.com
     volumes:
-      # All subdirectories of the upload may contain
-      # data intended to be persistent (e.g. themes)
+      # TODO Update storage location as desired. All subdirectories of the `upload` may contain
+      # data intended to be persistent (e.g. themes). `upload` host directory must already have the
+      # base content from LimeSurvey on https://community.limesurvey.org/downloads/
       - limesurvey:/var/www/html/upload
     ports:
       - 8080:8080

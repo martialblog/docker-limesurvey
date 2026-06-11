@@ -4,8 +4,10 @@ services:
       context: 6.0/apache/
       dockerfile: Dockerfile
     volumes:
-      # TODO Update storage location as desired
-      - ./lime-data/surveys:/var/www/html/upload/surveys
+      # TODO Update storage location as desired. All subdirectories of the `upload` may contain
+      # data intended to be persistent (e.g. themes). `upload` host directory must already have the
+      # base content from LimeSurvey on https://community.limesurvey.org/downloads/
+      - ./lime-data/upload:/var/www/html/upload
     networks:
       - limesurvey-db
     depends_on:

@@ -2,7 +2,7 @@ name: Publish LTS Container Images
 on:
   push:
     tags:
-      - '5.*'
+      - '6.*'
 
 jobs:
   lint_dockerfiles:
@@ -11,9 +11,9 @@ jobs:
     strategy:
       matrix:
         dockerfile:
-          - 5.0/apache/Dockerfile
-          - 5.0/fpm-alpine/Dockerfile
-          - 5.0/fpm/Dockerfile
+          - 6.0/apache/Dockerfile
+          - 6.0/fpm-alpine/Dockerfile
+          - 6.0/fpm/Dockerfile
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - uses: hadolint/hadolint-action@v3.3.0

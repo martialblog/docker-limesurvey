@@ -36,3 +36,4 @@ sed -r -i -e "s/[A-Fa-f0-9]{64}/$SHA256_CHECKSUM/" "$MAJOR_VERSION/apache/Docker
 # After that, check and commit
 echo "git add 5.0 ; git commit -m 'Upgrading to LTS Version ${NEW_VERSION}' && git tag ${NEW_TAG}"
 echo "git add 6.0 ; git commit -m 'Upgrading to Version ${NEW_VERSION}' && git tag ${NEW_TAG}"
+echo "git add 7.0 ; git commit -m 'Upgrading to Version ${NEW_VERSION}' && git tag ${NEW_TAG}"

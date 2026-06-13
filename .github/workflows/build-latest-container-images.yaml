@@ -61,7 +61,7 @@ jobs:
       - name: 'Build and push latest Apache container images'
         uses: docker/build-push-action@v6
         with:
-          context: 6.0/apache
+          context: 7.0/apache
           push: true
           tags: ${{ steps.metadata-apache.outputs.tags }}
           labels: ${{ steps.metadata-apache.outputs.labels }}
@@ -82,7 +82,7 @@ jobs:
       - name: 'Build and push latest fpm container images'
         uses: docker/build-push-action@v6
         with:
-          context: 6.0/fpm
+          context: 7.0/fpm
           push: true
           tags: ${{ steps.metadata-fpm.outputs.tags }}
           labels: ${{ steps.metadata-fpm.outputs.labels }}
@@ -103,7 +103,7 @@ jobs:
       - name: 'Build and push latest fpm-alpine container images'
         uses: docker/build-push-action@v6
         with:
-          context: 6.0/fpm-alpine
+          context: 7.0/fpm-alpine
           push: true
           tags: ${{ steps.metadata-fpm-alpine.outputs.tags }}
           labels: ${{ steps.metadata-fpm-alpine.outputs.labels }}

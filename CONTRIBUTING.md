@@ -21,19 +21,19 @@ To update the version, simply update ARG variables for version and corresponding
 # Version from GitHub Tags
 # sha256 of tar.gz from GitHub Releases
 
-$ grep ARG 5.0/apache/Dockerfile
-ARG version='5.3.13+200824'
-ARG sha256_checksum='4e9c6f20e'
+$ grep ARG 7.0/apache/Dockerfile
+ARG version='7.0.0+260526'
+ARG sha256_checksum='31574d9eb76afe237208e838b2cb2a66b440d673d084afcab0f52cb2772fc090'
 ```
 
 It is best to use the upgrade shell script:
 
 ```bash
-./upgrade.sh 5.3.13+200824
+./upgrade.sh 7.0.0+260526
 # Check if sha256 is correct
 
-git add 5.0/ && git commit -m 'Upgrading to Version 5.3.13+200824'
-git tag 5.3.13-200824
+git add 7.0/ && git commit -m 'Upgrading to Version 7.0.0+260526'
+git tag 7.0.0-260526
 ```
 
 ## Testing
@@ -45,19 +45,19 @@ For further information:  https://github.com/GoogleContainerTools/container-stru
 ```bash
 make apache-latest
 
-container-structure-test test --image docker.io/martialblog/limesurvey:5-apache --config tests/apache-tests.yaml
+container-structure-test test --image docker.io/martialblog/limesurvey:7-apache --config tests/apache-tests.yaml
 ```
 
 ```bash
 make fpm-latest
 
-container-structure-test test --image  docker.io/martialblog/limesurvey:5-fpm-alpine --config tests/fpm-alpine-tests.yaml
+container-structure-test test --image  docker.io/martialblog/limesurvey:7-fpm --config tests/fpm-tests.yaml
 ```
 
 ```bash
 make fpm-alpine-latest
 
-container-structure-test test --image  docker.io/martialblog/limesurvey:5-fpm --config tests/fpm-tests.yaml
+container-structure-test test --image  docker.io/martialblog/limesurvey:7-fpm-alpine --config tests/fpm-alpine-tests.yaml
 ```
 
 ### ARM Platform

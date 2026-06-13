@@ -14,10 +14,13 @@ Dockerfile to build a [LimeSurvey](https://limesurvey.org) Image for the Docker 
 
 ## Supported tags and respective Dockerfile links
 
-- [`6-apache`, `6.<BUILD-NUMBER>-apache`, `latest` ](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/apache/Dockerfile)
+- [`7-apache`, `7.<BUILD-NUMBER>-apache`, `latest` ](https://github.com/martialblog/docker-limesurvey/blob/master/7.0/apache/Dockerfile)
+- [`7-fpm`, `7.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/7.0/fpm/Dockerfile)
+- [`7-fpm-alpine`, `7.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/7.0/fpm-alpine/Dockerfile)
+- [`6-apache`, `6.<BUILD-NUMBER>-apache`](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/apache/Dockerfile)
 - [`6-fpm`, `6.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/fpm/Dockerfile)
 - [`6-fpm-alpine`, `6.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/fpm-alpine/Dockerfile)
-- [`5-apache`, `5.<BUILD-NUMBER>-apache`, `latest` ](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/apache/Dockerfile)
+- [`5-apache`, `5.<BUILD-NUMBER>-apache`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/apache/Dockerfile)
 - [`5-fpm`, `5.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm/Dockerfile)
 - [`5-fpm-alpine`, `5.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm-alpine/Dockerfile)
 
@@ -173,7 +176,7 @@ https://github.com/martialblog/helm-charts
 
 # Upgrade Guide
 
-These guides are only referring to the Docker Image, for details on the application users should consult the [official LimeSurvey documentation](https://manual.limesurvey.org/Upgrading_from_a_previous_version) for details.
+These guides are only referring to the Docker Image, for details on the application users should consult the [official LimeSurvey documentation](https://manual.limesurvey.org/Upgrading_from_a_previous_version) and the [LimeSurvey roadmap](https://www.limesurvey.org/manual/LimeSurvey_roadmap) for details.
 
 ## Upgrading the FPM Images
 
@@ -187,11 +190,17 @@ local     docker-limesurvey_lime
 $ docker volume rm docker-limesurvey_lime
 ```
 
+## Upgrading to 7.0 from 6.x
+
+The LimeSurvey 7 Images will use PHP 8.3 as Base Images.
+
 ## Upgrading to 6.0 from 5.x
 
 The LimeSurvey 6 Images will use PHP 8.1 as Base Images.
 
-LimeSurvey 5 will become the new LTS. LimeSurvey 3 is deprecated and will no longer be supported.
+LimeSurvey 6 is currently in **Extended Support** (security fixes only).
+
+LimeSurvey 5 has reached its **End of Life (Legacy)** status. Users are strongly encouraged to upgrade to 6.x or 7.x.
 
 ## Upgrading to 5.0 from 4.x
 

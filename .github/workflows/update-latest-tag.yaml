@@ -46,13 +46,13 @@ jobs:
     steps:
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
 
-      # Replace in 6.0/*/Dockerfile
+      # Replace in 7.0/*/Dockerfile
       # ARG version="<version>"
       # ARG sha256_checksum="<sha256_checksum>"
       - name: Update the Dockerfiles
         run: |
-          sed -i "s/ARG version=\"[^\"]*\"/ARG version=\"${{ needs.get-latest-tag.outputs.tag }}\"/" 6.0/*/Dockerfile
-          sed -i "s/ARG sha256_checksum=\"[^\"]*\"/ARG sha256_checksum=\"${{ needs.download-archive.outputs.checksum }}\"/" 6.0/*/Dockerfile
+          sed -i "s/ARG version=\"[^\"]*\"/ARG version=\"${{ needs.get-latest-tag.outputs.tag }}\"/" 7.0/*/Dockerfile
+          sed -i "s/ARG sha256_checksum=\"[^\"]*\"/ARG sha256_checksum=\"${{ needs.download-archive.outputs.checksum }}\"/" 7.0/*/Dockerfile
 
       - name: Create a pull request
         uses: peter-evans/create-pull-request@84ae59a2cdc2258d6fa0732dd66352dddae2a412 # v7

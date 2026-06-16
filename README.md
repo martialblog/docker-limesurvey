@@ -20,9 +20,6 @@ Dockerfile to build a [LimeSurvey](https://limesurvey.org) Image for the Docker 
 - [`6-apache`, `6.<BUILD-NUMBER>-apache`](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/apache/Dockerfile)
 - [`6-fpm`, `6.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/fpm/Dockerfile)
 - [`6-fpm-alpine`, `6.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/6.0/fpm-alpine/Dockerfile)
-- [`5-apache`, `5.<BUILD-NUMBER>-apache`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/apache/Dockerfile)
-- [`5-fpm`, `5.<BUILD-NUMBER>-fpm`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm/Dockerfile)
-- [`5-fpm-alpine`, `5.<BUILD-NUMBER>-fpm-alpine`](https://github.com/martialblog/docker-limesurvey/blob/master/5.0/fpm-alpine/Dockerfile)
 
 # Using the Apache Image
 

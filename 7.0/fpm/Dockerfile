@@ -1,4 +1,4 @@
-FROM docker.io/php:8.3-fpm-bookworm
+FROM docker.io/php:8.5-fpm-trixie
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies
@@ -26,7 +26,6 @@ RUN set -ex; \
                 libjpeg-dev \
                 libonig-dev \
                 zlib1g-dev \
-                libc-client-dev \
                 libkrb5-dev \
                 libpng-dev \
                 libpq-dev \
@@ -42,7 +41,6 @@ RUN set -ex; \
         docker-php-ext-install -j "$(nproc)" \
                 exif \
                 gd \
-                imap \
                 ldap \
                 mbstring \
                 pdo \

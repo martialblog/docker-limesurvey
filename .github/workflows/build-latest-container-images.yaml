@@ -15,8 +15,8 @@ jobs:
           - 6.0/fpm-alpine/Dockerfile
           - 6.0/fpm/Dockerfile
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-      - uses: hadolint/hadolint-action@v3.3.0
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: hadolint/hadolint-action@2332a7b74a6de0dda2e2221d575162eba76ba5e5 # v3.3.0
         with:
           dockerfile: ${{ matrix.dockerfile }}
           ignore: "DL4006,DL3008,DL3018"
@@ -31,24 +31,24 @@ jobs:
       contents: read
     steps:
       - name: 'Check out the repo'
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: 'Set up QEMU'
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@06116385d9baf250c9f4dcb4858b16962ea869c3 # v4.1.0
         with:
           platforms: 'arm64,arm'
       - name: 'Set up Docker Buildx'
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@d7f5e7f509e45cec5c76c4d5afdd7de93d0b3df5 # v4.1.0
         with:
           buildkitd-flags: --debug
       - name: 'Log in to DockerHub'
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v3
+        uses: docker/login-action@650006c6eb7dba73a995cc03b0b2d7f5ca915bee # v4.2.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: 'Apache variant metadata'
         id: metadata-apache
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         with:
           images: |
             docker.io/martialblog/limesurvey
@@ -59,9 +59,9 @@ jobs:
             latest=true
             suffix=-apache
       - name: 'Build and push latest Apache container images'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
         with:
-          context: 6.0/apache
+          context: 7.0/apache
           push: true
           tags: ${{ steps.metadata-apache.outputs.tags }}
           labels: ${{ steps.metadata-apache.outputs.labels }}
@@ -69,7 +69,7 @@ jobs:
 
       - name: 'FPM variant metadata'
         id: metadata-fpm
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         with:
           images: |
             docker.io/martialblog/limesurvey
@@ -80,9 +80,9 @@ jobs:
             latest=false
             suffix=-fpm
       - name: 'Build and push latest fpm container images'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
         with:
-          context: 6.0/fpm
+          context: 7.0/fpm
           push: true
           tags: ${{ steps.metadata-fpm.outputs.tags }}
           labels: ${{ steps.metadata-fpm.outputs.labels }}
@@ -90,7 +90,7 @@ jobs:
 
       - name: 'FPM Alpine variant metadata'
         id: metadata-fpm-alpine
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@80c7e94dd9b9319bd5eb7a0e0fe9291e23a2a2e9 # v6.1.0
         with:
           images: |
             docker.io/martialblog/limesurvey
@@ -101,9 +101,9 @@ jobs:
             latest=false
             suffix=-fpm-alpine
       - name: 'Build and push latest fpm-alpine container images'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf # v7.2.0
         with:
-          context: 6.0/fpm-alpine
+          context: 7.0/fpm-alpine
           push: true
           tags: ${{ steps.metadata-fpm-alpine.outputs.tags }}
           labels: ${{ steps.metadata-fpm-alpine.outputs.labels }}

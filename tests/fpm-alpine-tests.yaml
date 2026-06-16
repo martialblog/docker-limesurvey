@@ -24,9 +24,6 @@ fileExistenceTests:
   - name:  "Dependencies - PHP - gd"
     path: '/usr/local/etc/php/conf.d/docker-php-ext-gd.ini'
     shouldExist: true
-  - name:  "Dependencies - PHP - imap"
-    path: '/usr/local/etc/php/conf.d/docker-php-ext-imap.ini'
-    shouldExist: true
   - name:  "Dependencies - PHP - ldap"
     path: '/usr/local/etc/php/conf.d/docker-php-ext-ldap.ini'
     shouldExist: true
@@ -54,4 +51,4 @@ commandTests:
   - name:  "Dependencies - PHP Modules"
     command: "php"
     args: ["-m"]
-    expectedOutput: ["ldap", "zip", "pdo_mysql", "pdo_sqlite", "gd", "mbstring", "PDO", "imap"]
+    expectedOutput: ["ldap", "zip", "pdo_mysql", "pdo_sqlite", "gd", "mbstring", "PDO"]

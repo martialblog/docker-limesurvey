@@ -1,4 +1,4 @@
-FROM docker.io/php:8.0-fpm-alpine
+FROM docker.io/php:8.5-fpm-alpine
 LABEL maintainer="markus@martialblog.de"
 
 # Install OS dependencies
@@ -21,16 +21,13 @@ RUN set -ex; \
         libsodium-dev \
         openldap-dev \
         oniguruma-dev \
-        imap-dev \
         postgresql-dev \
     ; \
     \
     docker-php-ext-configure gd --with-freetype --with-jpeg; \
-    docker-php-ext-configure imap --with-imap-ssl; \
     docker-php-ext-install -j "$(nproc)" \
         exif \
         gd \
-        imap \
         ldap \
         mbstring \
         pdo \
@@ -51,8 +48,8 @@ RUN set -ex; \
     apk add --no-cache --no-network --virtual .limesurvey-phpext-rundeps $runDeps; \
     apk del --no-cache --no-network .build-deps
 
-ARG version="5.6.68+240625"
-ARG sha256_checksum="80a27ec67f9a6de5d883d6d6ba59000b79e79549912ea03a88d4da20eed6aa55"
+ARG version="7.0.0+260526"
+ARG sha256_checksum="31574d9eb76afe237208e838b2cb2a66b440d673d084afcab0f52cb2772fc090"
 ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/refs/tags/${version}.tar.gz"
 ARG USER=www-data
 ENV LIMESURVEY_VERSION=$version

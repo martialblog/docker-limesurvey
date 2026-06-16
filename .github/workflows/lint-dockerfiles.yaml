@@ -9,16 +9,16 @@ jobs:
     strategy:
       matrix:
         dockerfile:
-          - 5.0/apache/Dockerfile
-          - 5.0/fpm-alpine/Dockerfile
-          - 5.0/fpm/Dockerfile
           - 6.0/apache/Dockerfile
           - 6.0/fpm-alpine/Dockerfile
           - 6.0/fpm/Dockerfile
+          - 7.0/apache/Dockerfile
+          - 7.0/fpm-alpine/Dockerfile
+          - 7.0/fpm/Dockerfile
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
-      - uses: hadolint/hadolint-action@v3.3.0
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: hadolint/hadolint-action@2332a7b74a6de0dda2e2221d575162eba76ba5e5 # v3.3.0
         with:
           dockerfile: ${{ matrix.dockerfile }}
           ignore: "DL4006,DL3008,DL3018"

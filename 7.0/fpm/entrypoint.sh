@@ -50,8 +50,6 @@ TABLE_SESSION=${TABLE_SESSION:-}
 DEBUG=${DEBUG:-0}
 DEBUG_SQL=${DEBUG_SQL:-0}
 
-LISTEN_PORT=${LISTEN_PORT:-"8080"}
-
 if [ -z "$DB_PASSWORD" ]; then
     echo >&2 'Error: Missing DB_PASSWORD or DB_PASSWORD_FILE'
     exit 1
@@ -60,11 +58,6 @@ fi
 if [ -z "$ADMIN_PASSWORD" ]; then
     echo >&2 'Error: Missing ADMIN_PASSWORD or ADMIN_PASSWORD_FILE'
     exit 1
-fi
-
-if [ "$LISTEN_PORT" != "80" ]; then
-    echo "Info: Customizing Apache Listen port to $LISTEN_PORT"
-    sed -i "s/Listen 80\$/Listen $LISTEN_PORT/" /etc/apache2/ports.conf /etc/apache2/sites-available/000-default.conf
 fi
 
 # Check if database is available
@@ -104,6 +97,15 @@ else
         echo 'Info: Setting PublicURL'
     fi
 
+    REQUEST_CONFIG=""
+    if [ -n "$BASE_URL" ] || [ -n "$HOST_INFO" ]; then
+        REQUEST_CONFIG="
+    'request' => array(
+      'baseUrl' => '$BASE_URL',
+      'hostInfo' => '$HOST_INFO',
+    ),"
+    fi
+
     cat <<EOF > application/config/config.php
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 return array(
@@ -126,10 +128,7 @@ return array(
       'rules' => array(),
       'showScriptName' => $SHOW_SCRIPT_NAME,
     ),
-    'request' => array(
-      'baseUrl' => '$BASE_URL',
-      'hostInfo' => '$HOST_INFO',
-    ),
+$REQUEST_CONFIG
   ),
   'config'=>array(
     'publicurl'=>'$PUBLIC_URL',

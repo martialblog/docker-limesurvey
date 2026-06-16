@@ -21,12 +21,10 @@ RUN set -ex; \
         libsodium-dev \
         openldap-dev \
         oniguruma-dev \
-        imap-dev \
         postgresql-dev \
     ; \
     \
     docker-php-ext-configure gd --with-freetype --with-jpeg; \
-    docker-php-ext-configure imap --with-imap-ssl; \
     docker-php-ext-install -j "$(nproc)" \
         exif \
         gd \

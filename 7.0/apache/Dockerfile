@@ -13,7 +13,7 @@ RUN set -ex; \
         apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
         rm -rf /var/lib/apt/lists/*
 
-# Install PHP Plugins and Configure PHP imap plugin
+# Install PHP Plugins
 # hadolint ignore=SC2086
 RUN set -ex; \
         \
@@ -26,7 +26,6 @@ RUN set -ex; \
                 libjpeg-dev \
                 libonig-dev \
                 zlib1g-dev \
-                libkrb5-dev \
                 libpng-dev \
                 libpq-dev \
                 libzip-dev \
@@ -36,7 +35,6 @@ RUN set -ex; \
         \
         debMultiarch="$(dpkg-architecture --query DEB_BUILD_MULTIARCH)"; \
         docker-php-ext-configure gd --with-freetype --with-jpeg; \
-        docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
         docker-php-ext-configure ldap --with-libdir="lib/$debMultiarch"; \
         docker-php-ext-install -j "$(nproc)" \
                 exif \

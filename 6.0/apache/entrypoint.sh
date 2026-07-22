@@ -153,7 +153,7 @@ fi
 if [ -n "$TABLE_SESSION" ]; then
     echo 'Info: Setting Table Session'
     # Remove the comments in the config
-    sed -i "s/\/\///g" application/config/config.php
+    sed -i "s/ \/\///g" application/config/config.php
 fi
 
 # Check if security config already provisioned

@@ -51,8 +51,8 @@ RUN set -ex; \
     apk add --no-cache --no-network --virtual .limesurvey-phpext-rundeps $runDeps; \
     apk del --no-cache --no-network .build-deps
 
-ARG version="6.17.8+260616"
-ARG sha256_checksum="74858252964b3ef9e9720bd6177430f8e708ded5ffe0676feabfe6eeacabc76c"
+ARG version="6.17.11+260706"
+ARG sha256_checksum="b4d80f3c1e83c639f3db2b75bd3805877205c6e62f7c190d538fb04cf07261b0"
 ARG archive_url="https://github.com/LimeSurvey/LimeSurvey/archive/refs/tags/${version}.tar.gz"
 ARG USER=www-data
 ENV LIMESURVEY_VERSION=$version

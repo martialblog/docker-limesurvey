@@ -65,7 +65,7 @@ RUN set -ex; \
         /var/www/html/docs \
         /var/www/html/tests \
         /var/www/html/*.md && \
-        chown -R "${USER}:root" /var/www/ ; \
+        chown -R "${USER}:root" /var/www/ && \
         chmod -R g=u /var/www
 
 EXPOSE 9000

@@ -22,6 +22,7 @@ RUN set -ex; \
         openldap-dev \
         oniguruma-dev \
         imap-dev \
+        musl-dev \
         postgresql-dev \
     ; \
     \
